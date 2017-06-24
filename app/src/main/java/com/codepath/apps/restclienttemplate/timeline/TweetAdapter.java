@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.restclienttemplate.timeline;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from( context );
 
-        View tweetView = inflater.inflate(R.layout.item_tweet, parent, false);
+        View tweetView = inflater.inflate( R.layout.item_tweet, parent, false);
         ViewHolder holder = new ViewHolder( tweetView );
 
         return holder;

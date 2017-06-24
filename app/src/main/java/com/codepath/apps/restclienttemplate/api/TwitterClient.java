@@ -1,7 +1,8 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.restclienttemplate.api;
 
 import android.content.Context;
 
+import com.codepath.apps.restclienttemplate.R;
 import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;
@@ -45,7 +46,7 @@ public class TwitterClient extends OAuthBaseClient {
 				REST_URL,
 				REST_CONSUMER_KEY,
 				REST_CONSUMER_SECRET,
-				String.format(REST_CALLBACK_URL_TEMPLATE, context.getString(R.string.intent_host),
+				String.format(REST_CALLBACK_URL_TEMPLATE, context.getString( R.string.intent_host),
 						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
 	}
 	// CHANGE THIS

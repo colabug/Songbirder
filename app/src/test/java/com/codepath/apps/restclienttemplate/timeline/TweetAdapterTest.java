@@ -1,6 +1,7 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.restclienttemplate.timeline;
 
 
+import com.codepath.apps.restclienttemplate.BuildConfig;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.support.DataHelper;
 
