@@ -48,13 +48,13 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         return tweets.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    static class ViewHolder extends RecyclerView.ViewHolder
     {
-        public ImageView ivProfileImage;
-        public TextView tvUserName;
-        public TextView tvTweet;
+        ImageView ivProfileImage;
+        TextView tvUserName;
+        TextView tvTweet;
 
-        public ViewHolder( View itemView )
+        ViewHolder( View itemView )
         {
             super( itemView );
 

@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.support.annotation.VisibleForTesting;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +17,10 @@ public class User
     public String screenName;
     public String profileImageUrl;
 
+    public User()
+    {
+    }
+
     public static User fromJson( JSONObject jsonObject ) throws JSONException
     {
         User user = new User();
@@ -25,6 +31,12 @@ public class User
         user.profileImageUrl = jsonObject.getString( PROFILE_IMAGE_URL_KEY );
 
         return user;
+    }
+
+    @VisibleForTesting
+    public User( String username )
+    {
+        this.name = username;
     }
 
     public String getName()

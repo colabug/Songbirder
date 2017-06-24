@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.support.annotation.VisibleForTesting;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +17,10 @@ public class Tweet
     public String createdAt;
     public User user;
 
+    public Tweet()
+    {
+    }
+
     public static Tweet fromJson( JSONObject jsonObject ) throws JSONException
     {
         Tweet tweet = new Tweet();
@@ -25,6 +31,13 @@ public class Tweet
         tweet.tweetText = jsonObject.getString( BODY_KEY );
 
         return tweet;
+    }
+
+    @VisibleForTesting
+    public Tweet( User user, String tweetText )
+    {
+        this.user = user;
+        this.tweetText = tweetText;
     }
 
     public String getName()
