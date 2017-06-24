@@ -12,7 +12,7 @@ import com.raizlabs.android.dbflow.config.FlowManager;
  * including the image cache in memory and on disk. This also adds a singleton
  * for accessing the relevant rest client.
  *
- *     RestClient client = RestApplication.getRestClient();
+ *     RestClient client = RestApplication.getTwitterClient();
  *     // use client to send requests to API
  *
  */
@@ -29,7 +29,7 @@ public class SongbirderApplication extends Application {
 		SongbirderApplication.context = this;
 	}
 
-	public static TwitterClient getRestClient() {
+	public static TwitterClient getTwitterClient() {
 		return (TwitterClient) TwitterClient.getInstance( TwitterClient.class, SongbirderApplication.context);
 	}
 }

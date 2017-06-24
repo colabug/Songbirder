@@ -21,16 +21,24 @@ import com.loopj.android.http.RequestParams;
  * 
  */
 public class TwitterClient extends OAuthBaseClient {
-	public static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
-	public static final String REST_URL = "https://api.twitter.com/1.1"; 
-	public static final String REST_CONSUMER_KEY = "R43hRq4NN8MOehGhg2sQSMiJJ";
-	public static final String REST_CONSUMER_SECRET = "gyFIe3BLKpVBbinptzp6ttutWvj8b1b2N9cVEwg9InyXnso5vW";
+	private static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
+	private static final String REST_URL = "https://api.twitter.com/1.1";
+	private static final String REST_CONSUMER_KEY = "R43hRq4NN8MOehGhg2sQSMiJJ";
+	private static final String REST_CONSUMER_SECRET = "gyFIe3BLKpVBbinptzp6ttutWvj8b1b2N9cVEwg9InyXnso5vW";
 
 	// Landing page to indicate the OAuth flow worked in case Chrome for Android 25+ blocks navigation back to the app.
-	public static final String FALLBACK_URL = "https://codepath.github.io/android-rest-client-template/success.html";
+	private static final String FALLBACK_URL = "https://codepath.github.io/android-rest-client-template/success.html";
 
 	// See https://developer.chrome.com/multidevice/android/intents
-	public static final String REST_CALLBACK_URL_TEMPLATE = "intent://%s#Intent;action=android.intent.action.VIEW;scheme=%s;package=%s;S.browser_fallback_url=%s;end";
+	private static final String REST_CALLBACK_URL_TEMPLATE = "intent://%s#Intent;action=android.intent.action.VIEW;scheme=%s;package=%s;S.browser_fallback_url=%s;end";
+
+	// Timeline call and parameters
+	private static final String TIMELINE_ENDPOINT = "statuses/home_timeline.json";
+	private static final String PARAM_COUNT = "count";
+	private static final int NUMBER_OF_TWEETS = 25;
+	private static final String PARAM_SINCE = "since";
+	private static final int SINCE_VALUE = 1;
+
 
 	public TwitterClient( Context context) {
 		super(context, REST_API_INSTANCE,
@@ -42,11 +50,12 @@ public class TwitterClient extends OAuthBaseClient {
 	}
 	// CHANGE THIS
 	// DEFINE METHODS for different API endpoints here
-	public void getInterestingnessList(AsyncHttpResponseHandler handler) {
-		String apiUrl = getApiUrl("?nojsoncallback=1&method=flickr.interestingness.getList");
+	public void getHomeTimeline(AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl( TIMELINE_ENDPOINT );
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
-		params.put("format", "json");
+		params.put( PARAM_COUNT, NUMBER_OF_TWEETS );
+		params.put( PARAM_SINCE, SINCE_VALUE );
 		client.get(apiUrl, params, handler);
 	}
 
