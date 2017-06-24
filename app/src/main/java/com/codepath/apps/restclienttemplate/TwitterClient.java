@@ -22,7 +22,7 @@ import com.loopj.android.http.RequestParams;
  */
 public class TwitterClient extends OAuthBaseClient {
 	public static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
-	public static final String REST_URL = "https://api.twitter.com/1.1";
+	public static final String REST_URL = "https://api.twitter.com/1.1"; 
 	public static final String REST_CONSUMER_KEY = "R43hRq4NN8MOehGhg2sQSMiJJ";
 	public static final String REST_CONSUMER_SECRET = "gyFIe3BLKpVBbinptzp6ttutWvj8b1b2N9cVEwg9InyXnso5vW";
 
