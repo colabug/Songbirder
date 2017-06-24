@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">SongBirder</string>
+
+    <!--Login screen-->
     <string name="login_label">Log in</string>
+
+    <!--Sucessful login-->
     <string name="intent_scheme">oauth</string>
     <string name="intent_host">cprest</string>
 
+    <!--Tweet-->
+    <string name="default_tweet_text">Text of the tweet</string>
+    <string name="default_user_name">User name</string>
 </resources>
