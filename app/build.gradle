@@ -29,15 +29,18 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
-def dbflow_version = "4.0.3"
+ext {
+    robolectricVersion = "3.3.2"
+    dbflowVersion = "4.0.3"
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 
     // DBFlow for simple persistence with an ORM
-    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:$dbflowVersion"
+    compile "com.github.Raizlabs.DBFlow:dbflow-core:$dbflowVersion"
+    compile "com.github.Raizlabs.DBFlow:dbflow:$dbflowVersion"
 
     // Authorization
     compile 'com.codepath.libraries:android-oauth-handler:1.2.4'
@@ -52,4 +55,8 @@ dependencies {
 
     // Android Async Http for sending async network requests
     compile 'com.loopj.android:android-async-http:1.4.9'
+
+    // Testing
+    testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:$robolectricVersion"
 }
