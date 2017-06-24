@@ -10,7 +10,7 @@ public class Tweet
     public static final String CREATED_AT_KEY = "createdAt";
     public static final String USER_KEY = "user";
 
-    public String body;
+    public String tweetText;
     public long uid;
     public String createdAt;
     public User user;
@@ -19,12 +19,21 @@ public class Tweet
     {
         Tweet tweet = new Tweet();
 
-        tweet.body = jsonObject.getString( BODY_KEY );
-        tweet.uid = jsonObject.getLong( ID_KEY );
         tweet.createdAt = jsonObject.getString( CREATED_AT_KEY );
+        tweet.uid = jsonObject.getLong( ID_KEY );
         tweet.user = User.fromJson( jsonObject.getJSONObject( USER_KEY ) );
+        tweet.tweetText = jsonObject.getString( BODY_KEY );
 
         return tweet;
     }
 
+    public String getName()
+    {
+        return user.getName();
+    }
+
+    public String getTweetText()
+    {
+        return tweetText;
+    }
 }
