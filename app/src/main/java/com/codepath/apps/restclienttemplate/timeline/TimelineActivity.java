@@ -33,7 +33,7 @@ public class TimelineActivity extends AppCompatActivity
         populateTimeline();
     }
 
-    private void populateTimeline()
+    protected void populateTimeline()
     {
         client.getHomeTimeline( getTimelineHandler() );
     }
