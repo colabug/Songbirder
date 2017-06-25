@@ -23,6 +23,7 @@
 
     <style name="TweetText" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/twitter_text_size</item>
     </style>
 
     <style name="BoldText" parent="TweetText">

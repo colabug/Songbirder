@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--TODO: Redo this as a constraint layout?-->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -30,15 +31,15 @@
             android:text="@string/default_name"
             style="@style/BoldText"/>
 
-        <!--TODO: Ellipsize this one instead? That's how Twitter does it-->
         <TextView
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
+            android:maxWidth="@dimen/tweet_username_max_width"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/tweet_small_padding"
             android:textColor="@color/dark_grey"
             android:text="@string/default_user_name"
-            style="@style/LightText"/>
+            style="@style/EllipsizedLightText"/>
 
         <TextView
             android:id="@+id/tvRelativeTimestamp"
