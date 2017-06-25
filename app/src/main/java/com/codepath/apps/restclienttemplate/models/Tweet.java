@@ -49,4 +49,9 @@ public class Tweet
     {
         return tweetText;
     }
+
+    public String getProfileImageUrl()
+    {
+        return user.getProfileImageUrl();
+    }
 }
