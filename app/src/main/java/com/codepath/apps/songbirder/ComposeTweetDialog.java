@@ -1,6 +1,7 @@
 package com.codepath.apps.songbirder;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -46,10 +47,19 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     }
 
     @Override
+    public void onCreate( @Nullable Bundle savedInstanceState )
+    {
+        super.onCreate( savedInstanceState );
+
+        // Fill screen, no actionbar or title
+        setStyle( DialogFragment.STYLE_NO_TITLE, android.R.style.Theme );
+    }
+
+    @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
     {
         View layout = inflater.inflate( R.layout.dialog_compose_tweet, container );
-        ButterKnife.bind(this, layout);
+        ButterKnife.bind( this, layout );
 
         showKeyboard();
         etEnterTweet.setOnEditorActionListener( this );
