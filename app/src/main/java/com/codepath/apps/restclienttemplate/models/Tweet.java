@@ -54,4 +54,9 @@ public class Tweet
     {
         return user.getProfileImageUrl();
     }
+
+    public String getDisplayUsername()
+    {
+        return "@" + user.getUserName();
+    }
 }

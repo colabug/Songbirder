@@ -18,6 +18,7 @@ import static com.codepath.apps.restclienttemplate.support.ContextHelper.generic
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -59,11 +60,21 @@ public class TweetAdapterTest
     }
 
     @Test
+    public void shouldHaveName() throws Exception
+    {
+        assertViewIsVisible( holder.tvName );
+        assertThat( holder.tvName.getText().toString(),
+                    equalTo( list.get( FIRST_INDEX ).getName() ) );
+    }
+
+    @Test
     public void shouldHaveUserName() throws Exception
     {
+        String username = list.get( FIRST_INDEX ).getDisplayUsername();
         assertViewIsVisible( holder.tvUserName );
+        assertTrue(username.startsWith( "@" ));
         assertThat( holder.tvUserName.getText().toString(),
-                    equalTo( list.get( FIRST_INDEX ).getName() ) );
+                    equalTo( username ) );
     }
 
     @Test

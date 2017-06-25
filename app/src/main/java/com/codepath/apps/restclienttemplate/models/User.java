@@ -12,8 +12,8 @@ public class User
     public static final String SCREEN_NAME_KEY = "screen_name";
     public static final String PROFILE_IMAGE_URL_KEY = "profile_image_url";
 
-    public String name;
     public long uid;
+    public String name;
     public String screenName;
     public String profileImageUrl;
 
@@ -34,9 +34,10 @@ public class User
     }
 
     @VisibleForTesting
-    public User( String username )
+    public User( String name, String userName )
     {
-        this.name = username;
+        this.name = name;
+        this.screenName = userName;
     }
 
     public String getName()
@@ -47,5 +48,10 @@ public class User
     public String getProfileImageUrl()
     {
         return profileImageUrl;
+    }
+
+    public String getUserName()
+    {
+        return screenName;
     }
 }

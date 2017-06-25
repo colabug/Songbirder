@@ -9,13 +9,14 @@ import java.util.ArrayList;
 public class DataHelper
 {
     private static final String TWEET_TEXT = "Hello, this is a tweet.";
-    private static final String TWEET_USERNAME = "Corey Latislaw";
+    private static final String TWEET_NAME = "Corey Latislaw";
+    private static final String TWEET_USERNAME = "Corey_Latislaw";
 
     public static ArrayList<Tweet> populateList()
     {
         ArrayList<Tweet> list = new ArrayList<>();
 
-        User user = new User( TWEET_USERNAME );
+        User user = new User( TWEET_NAME, TWEET_USERNAME );
         Tweet tweet = new Tweet( user, TWEET_TEXT );
         list.add( tweet );
         list.add( tweet );
