@@ -1,6 +1,5 @@
-package com.codepath.apps.restclienttemplate.models;
+package com.codepath.apps.songbirder.db;
 
-import com.codepath.apps.restclienttemplate.db.MyDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -62,7 +61,7 @@ public class SampleModel extends BaseModel {
 	
 	// Record Finders
 	public static SampleModel byId(long id) {
-		return new Select().from(SampleModel.class).where(SampleModel_Table.id.eq(id)).querySingle();
+		return new Select().from(SampleModel.class).where( SampleModel_Table.id.eq( id)).querySingle();
 	}
 
 	public static List<SampleModel> recentItems() {

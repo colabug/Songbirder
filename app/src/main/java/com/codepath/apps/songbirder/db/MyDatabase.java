@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.db;
+package com.codepath.apps.songbirder.db;
 
 import com.raizlabs.android.dbflow.annotation.Database;
 

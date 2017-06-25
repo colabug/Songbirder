@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.timeline;
+package com.codepath.apps.songbirder.timeline;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
-import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.SongbirderApplication;
-import com.codepath.apps.restclienttemplate.api.TwitterClient;
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.songbirder.R;
+import com.codepath.apps.songbirder.SongbirderApplication;
+import com.codepath.apps.songbirder.api.TwitterClient;
+import com.codepath.apps.songbirder.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;

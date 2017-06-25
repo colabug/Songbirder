@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.util;
+package com.codepath.apps.songbirder.util;
 
 import android.support.annotation.NonNull;
 import android.text.format.DateUtils;

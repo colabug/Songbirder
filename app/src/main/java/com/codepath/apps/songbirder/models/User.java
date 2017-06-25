@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.models;
+package com.codepath.apps.songbirder.models;
 
 import android.support.annotation.VisibleForTesting;
 

@@ -1,6 +1,6 @@
-package com.codepath.apps.restclienttemplate.timeline;
+package com.codepath.apps.songbirder.timeline;
 
-import com.codepath.apps.restclienttemplate.BuildConfig;
+import com.codepath.apps.songbirder.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;

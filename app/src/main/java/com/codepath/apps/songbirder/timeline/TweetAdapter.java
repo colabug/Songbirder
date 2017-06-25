@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.timeline;
+package com.codepath.apps.songbirder.timeline;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.songbirder.R;
+import com.codepath.apps.songbirder.models.Tweet;
 
 import java.util.List;
 

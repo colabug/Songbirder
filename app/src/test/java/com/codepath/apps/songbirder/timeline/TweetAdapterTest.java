@@ -1,9 +1,10 @@
-package com.codepath.apps.restclienttemplate.timeline;
+package com.codepath.apps.songbirder.timeline;
 
 
-import com.codepath.apps.restclienttemplate.BuildConfig;
-import com.codepath.apps.restclienttemplate.models.Tweet;
-import com.codepath.apps.restclienttemplate.support.DataHelper;
+import com.codepath.apps.songbirder.BuildConfig;
+import com.codepath.apps.songbirder.models.Tweet;
+import com.codepath.apps.songbirder.support.DataHelper;
+import com.codepath.apps.songbirder.timeline.TweetAdapter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +14,9 @@ import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 
-import static com.codepath.apps.restclienttemplate.support.Assert.assertViewIsVisible;
-import static com.codepath.apps.restclienttemplate.support.ContextHelper.genericViewGroup;
+import static com.codepath.apps.songbirder.support.Assert.assertViewIsVisible;
+import static com.codepath.apps.songbirder.support.ContextHelper.genericViewGroup;
+import static com.codepath.apps.songbirder.support.ContextHelper.genericViewGroup;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertNotNull;

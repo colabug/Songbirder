@@ -1,12 +1,12 @@
-package com.codepath.apps.restclienttemplate.login;
+package com.codepath.apps.songbirder.login;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.api.TwitterClient;
-import com.codepath.apps.restclienttemplate.timeline.TimelineActivity;
+import com.codepath.apps.songbirder.R;
+import com.codepath.apps.songbirder.api.TwitterClient;
+import com.codepath.apps.songbirder.timeline.TimelineActivity;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient>

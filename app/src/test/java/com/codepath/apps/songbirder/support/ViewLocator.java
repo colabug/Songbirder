@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.support;
+package com.codepath.apps.songbirder.support;
 
 import android.app.Activity;
 import android.widget.Button;

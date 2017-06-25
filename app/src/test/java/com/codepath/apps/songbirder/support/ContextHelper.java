@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.support;
+package com.codepath.apps.songbirder.support;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;

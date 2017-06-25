@@ -1,8 +1,8 @@
-package com.codepath.apps.restclienttemplate.api;
+package com.codepath.apps.songbirder.api;
 
 import android.content.Context;
 
-import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.songbirder.R;
 import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;

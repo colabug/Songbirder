@@ -1,7 +1,7 @@
-package com.codepath.apps.restclienttemplate.support;
+package com.codepath.apps.songbirder.support;
 
-import com.codepath.apps.restclienttemplate.models.Tweet;
-import com.codepath.apps.restclienttemplate.models.User;
+import com.codepath.apps.songbirder.models.Tweet;
+import com.codepath.apps.songbirder.models.User;
 
 import java.util.ArrayList;
 

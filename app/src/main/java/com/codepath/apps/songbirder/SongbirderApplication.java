@@ -1,9 +1,9 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.songbirder;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.codepath.apps.restclienttemplate.api.TwitterClient;
+import com.codepath.apps.songbirder.api.TwitterClient;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowLog;
 import com.raizlabs.android.dbflow.config.FlowManager;

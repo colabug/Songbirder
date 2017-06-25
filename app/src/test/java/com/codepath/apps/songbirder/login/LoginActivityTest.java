@@ -1,13 +1,13 @@
-package com.codepath.apps.restclienttemplate.login;
+package com.codepath.apps.songbirder.login;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 
-import com.codepath.apps.restclienttemplate.BuildConfig;
-import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.support.ResourceLocator;
-import com.codepath.apps.restclienttemplate.timeline.TimelineActivity;
+import com.codepath.apps.songbirder.BuildConfig;
+import com.codepath.apps.songbirder.R;
+import com.codepath.apps.songbirder.support.ResourceLocator;
+import com.codepath.apps.songbirder.timeline.TimelineActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +17,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowIntent;
 
-import static com.codepath.apps.restclienttemplate.support.Assert.assertViewIsVisible;
-import static com.codepath.apps.restclienttemplate.support.ViewLocator.getButton;
+import static com.codepath.apps.songbirder.support.Assert.assertViewIsVisible;
+import static com.codepath.apps.songbirder.support.ViewLocator.getButton;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;

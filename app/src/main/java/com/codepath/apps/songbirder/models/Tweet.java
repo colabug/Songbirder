@@ -1,8 +1,8 @@
-package com.codepath.apps.restclienttemplate.models;
+package com.codepath.apps.songbirder.models;
 
 import android.support.annotation.VisibleForTesting;
 
-import com.codepath.apps.restclienttemplate.util.DateUtil;
+import com.codepath.apps.songbirder.util.DateUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
