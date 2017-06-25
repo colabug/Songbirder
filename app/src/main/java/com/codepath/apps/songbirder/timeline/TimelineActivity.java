@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +40,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
 
     private TweetAdapter adapter;
     ArrayList<Tweet> tweets;
+    private TwitterClient client;
 
     public static Intent newIntent( Context context )
     {
@@ -54,6 +54,8 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
         setContentView( R.layout.activity_timeline );
 
         ButterKnife.bind( this );
+
+        client = SongbirderApplication.getTwitterClient();
 
         setSupportActionBar( toolbar );
 
@@ -81,7 +83,6 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
 
     protected void populateTimeline()
     {
-        TwitterClient client = SongbirderApplication.getTwitterClient();
         client.getHomeTimeline( getTimelineHandler() );
     }
 
@@ -140,19 +141,70 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
             {
                 logError( responseString, throwable );
             }
-
-            private void logError( String message, Throwable throwable )
-            {
-                Log.d( TAG, "Failed to fetch data: " + message );
-                throwable.printStackTrace();
-            }
         };
     }
 
     @Override
     public void onTweetEntered( String tweetText )
     {
-        Snackbar.make( rvTweets, tweetText, Snackbar.LENGTH_LONG )
-                                        .setAction( "Action", null ).show();
+        client.postNewTweet( tweetText, getStatusPostingHandler() );
+    }
+
+    @NonNull
+    private JsonHttpResponseHandler getStatusPostingHandler()
+    {
+        return new JsonHttpResponseHandler()
+        {
+            @Override
+            public void onSuccess( int statusCode, Header[] headers, JSONObject response )
+            {
+                Log.d( TAG, "Successfully posted tweet!\n" + response );
+            }
+
+            @Override
+            public void onSuccess( int statusCode, Header[] headers, JSONArray response )
+            {
+                Log.d( TAG, "Successfully posted tweet!\n" + response );
+            }
+
+            @Override
+            public void onSuccess( int statusCode, Header[] headers, String responseString )
+            {
+                Log.d( TAG, "Successfully posted tweet!" + responseString );
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   Throwable throwable,
+                                   JSONObject errorResponse )
+            {
+                logError( errorResponse.toString(), throwable );
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   Throwable throwable,
+                                   JSONArray errorResponse )
+            {
+                logError( errorResponse.toString(), throwable );
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   String responseString,
+                                   Throwable throwable )
+            {
+                logError( responseString, throwable );
+            }
+        };
+    }
+
+    private void logError( String message, Throwable throwable )
+    {
+        Log.d( TAG, "API failure: " + message );
+        throwable.printStackTrace();
     }
 }

@@ -7,6 +7,7 @@ import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -21,8 +22,10 @@ import com.loopj.android.http.RequestParams;
  * NOTE: You may want to rename this object based on the service i.e TwitterClient or FlickrClient
  * 
  */
-public class TwitterClient extends OAuthBaseClient {
-	private static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
+public class TwitterClient extends OAuthBaseClient
+{
+	// Basic authentication and URL requirements
+    private static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
 	private static final String REST_URL = "https://api.twitter.com/1.1";
 	private static final String REST_CONSUMER_KEY = "R43hRq4NN8MOehGhg2sQSMiJJ";
 	private static final String REST_CONSUMER_SECRET = "gyFIe3BLKpVBbinptzp6ttutWvj8b1b2N9cVEwg9InyXnso5vW";
@@ -36,36 +39,46 @@ public class TwitterClient extends OAuthBaseClient {
 	// Timeline call and parameters
 	private static final String TIMELINE_ENDPOINT = "statuses/home_timeline.json";
 	private static final String PARAM_COUNT = "count";
-	private static final int NUMBER_OF_TWEETS = 25;
+	private static final int VALUE_NUMBER_OF_TWEETS = 25;
 	private static final String PARAM_SINCE = "since";
-	private static final int SINCE_VALUE = 1;
+	private static final int VALUE_SINCE = 1;
 
+	// Status call and parameters
+	private static final String ENDPOINT_STATUS = "statuses/update.json";
+	private static final String PARAM_STATUS = "status";
 
-	public TwitterClient( Context context) {
-		super(context, REST_API_INSTANCE,
-				REST_URL,
-				REST_CONSUMER_KEY,
-				REST_CONSUMER_SECRET,
-				String.format(REST_CALLBACK_URL_TEMPLATE, context.getString( R.string.intent_host),
-						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
-	}
-	// CHANGE THIS
-	// DEFINE METHODS for different API endpoints here
-	public void getHomeTimeline(AsyncHttpResponseHandler handler) {
-		String apiUrl = getApiUrl( TIMELINE_ENDPOINT );
-		// Can specify query string params directly or through RequestParams.
-		RequestParams params = new RequestParams();
-		params.put( PARAM_COUNT, NUMBER_OF_TWEETS );
-		params.put( PARAM_SINCE, SINCE_VALUE );
-		client.get(apiUrl, params, handler);
-	}
+    public TwitterClient( Context context )
+    {
+        super( context,
+               REST_API_INSTANCE,
+               REST_URL,
+               REST_CONSUMER_KEY,
+               REST_CONSUMER_SECRET,
+               String.format( REST_CALLBACK_URL_TEMPLATE,
+                              context.getString( R.string.intent_host ),
+                              context.getString( R.string.intent_scheme ),
+                              context.getPackageName(),
+                              FALLBACK_URL ) );
+    }
 
-	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
-	 * 	  i.e getApiUrl("statuses/home_timeline.json");
-	 * 2. Define the parameters to pass to the request (query or body)
-	 *    i.e RequestParams params = new RequestParams("foo", "bar");
-	 * 3. Define the request method and make a call to the client
-	 *    i.e client.get(apiUrl, params, handler);
-	 *    i.e client.post(apiUrl, params, handler);
-	 */
+    public void getHomeTimeline( AsyncHttpResponseHandler handler )
+    {
+        String url = getApiUrl( TIMELINE_ENDPOINT );
+
+        RequestParams params = new RequestParams();
+        params.put( PARAM_COUNT, VALUE_NUMBER_OF_TWEETS );
+        params.put( PARAM_SINCE, VALUE_SINCE );
+
+        client.get( url, params, handler );
+    }
+
+    public void postNewTweet( String status, JsonHttpResponseHandler handler )
+    {
+        String url = getApiUrl( ENDPOINT_STATUS );
+
+        RequestParams params = new RequestParams();
+        params.put( PARAM_STATUS, status );
+
+        client.post( url, params, handler );
+    }
 }
