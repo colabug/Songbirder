@@ -2,12 +2,14 @@ package com.codepath.apps.songbirder.login;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
 
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.api.TwitterClient;
 import com.codepath.apps.songbirder.timeline.TimelineActivity;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient>
 {
@@ -16,6 +18,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient>
     {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_login );
+        ButterKnife.bind( this );
     }
 
     // Inflate the menu; this adds items to the action bar if it is present.
@@ -41,10 +44,9 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient>
         e.printStackTrace();
     }
 
-    // Click handler method for the button used to start OAuth flow
-    // Uses the client to initiate OAuth authorization
-    // This should be tied to a button used to login
-    public void loginToRest( View view )
+    // Start OAuth flow with the client
+    @OnClick(R.id.btnLogin)
+    public void loginToRest()
     {
         getClient().connect();
     }

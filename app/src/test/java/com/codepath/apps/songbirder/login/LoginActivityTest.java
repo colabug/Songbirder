@@ -38,7 +38,7 @@ public class LoginActivityTest
     public void setUp() throws Exception
     {
         activity = buildActivity( LoginActivityStub.class ).create().get();
-        loginButton = getButton( activity, R.id.login_button );
+        loginButton = getButton( activity, R.id.btnLogin );
     }
 
     @Test
