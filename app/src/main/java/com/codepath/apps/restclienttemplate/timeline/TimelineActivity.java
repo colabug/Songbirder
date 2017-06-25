@@ -2,12 +2,16 @@ package com.codepath.apps.restclienttemplate.timeline;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.SongbirderApplication;
@@ -27,11 +31,13 @@ public class TimelineActivity extends AppCompatActivity
 {
     private static final String TAG = TimelineActivity.class.getSimpleName();
 
-    private TwitterClient client;
-
     private TweetAdapter adapter;
     ArrayList<Tweet> tweets;
-    RecyclerView rvTweets;
+
+    public static Intent newIntent( Context context )
+    {
+        return new Intent( context, TimelineActivity.class );
+    }
 
     @Override
     protected void onCreate( Bundle savedInstanceState )
@@ -39,24 +45,46 @@ public class TimelineActivity extends AppCompatActivity
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_timeline );
 
-        rvTweets = (RecyclerView) findViewById( R.id.rvTweets );
-        tweets = new ArrayList<>();
-        adapter = new TweetAdapter( tweets );
-
+        configureToolbar();
+        configureFab();
         configureRecyclerView();
-
-        client = SongbirderApplication.getTwitterClient();
         populateTimeline();
+    }
+
+    private void configureFab()
+    {
+        FloatingActionButton fab = (FloatingActionButton) findViewById( R.id.fab );
+        fab.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View view )
+            {
+                Snackbar.make( view, "Composing a tweet", Snackbar.LENGTH_LONG )
+                        .setAction( "Action", null ).show();
+            }
+        } );
+    }
+
+    private void configureToolbar()
+    {
+        Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
+        setSupportActionBar( toolbar );
     }
 
     private void configureRecyclerView()
     {
+        RecyclerView rvTweets = (RecyclerView) findViewById( R.id.rvTweets );
         rvTweets.setLayoutManager( new LinearLayoutManager( this ) );
+
+        tweets = new ArrayList<>();
+
+        adapter = new TweetAdapter( tweets );
         rvTweets.setAdapter( adapter );
     }
 
     protected void populateTimeline()
     {
+        TwitterClient client = SongbirderApplication.getTwitterClient();
         client.getHomeTimeline( getTimelineHandler() );
     }
 
@@ -119,10 +147,5 @@ public class TimelineActivity extends AppCompatActivity
                 throwable.printStackTrace();
             }
         };
-    }
-
-    public static Intent newIntent( Context context )
-    {
-        return new Intent( context, TimelineActivity.class );
     }
 }

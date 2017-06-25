@@ -7,5 +7,6 @@
     <dimen name="twitter_profile_image_size">50dp</dimen>
     <dimen name="tweet_padding">12dp</dimen>>
     <dimen name="tweet_small_padding">2dp</dimen>>
-    <dimen name="tweet_divider">1dp</dimen>>
+    <dimen name="tweet_divider">1dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>>
 </resources>
