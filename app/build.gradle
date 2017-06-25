@@ -39,6 +39,7 @@ ext {
     appcompatVersion = "25.3.1"
     constraintLayoutVersion = "1.0.2"
     glideVersion = "3.8.0"
+    butterknifeVersion = "8.6.0"
 }
 
 dependencies {
@@ -67,4 +68,8 @@ dependencies {
     // Testing
     testCompile "junit:junit:$junitVersion"
     testCompile "org.robolectric:robolectric:$robolectricVersion"
+
+    // View injection
+    compile "com.jakewharton:butterknife:$butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
 }
