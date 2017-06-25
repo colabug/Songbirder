@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
 import com.codepath.apps.songbirder.ComposeTweetBottomSheet;
 import com.codepath.apps.songbirder.R;
@@ -26,11 +25,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity
 {
     private static final String TAG = TimelineActivity.class.getSimpleName();
+
+    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.rvTweets) RecyclerView rvTweets;
 
     private TweetAdapter adapter;
     ArrayList<Tweet> tweets;
@@ -46,36 +52,24 @@ public class TimelineActivity extends AppCompatActivity
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_timeline );
 
-        configureToolbar();
-        configureFab();
+        ButterKnife.bind( this );
+
+        setSupportActionBar( toolbar );
+
         configureRecyclerView();
         populateTimeline();
     }
 
-    private void configureFab()
+    @OnClick(R.id.fab) void showComposeDialog()
     {
-        FloatingActionButton fab = (FloatingActionButton) findViewById( R.id.fab );
-        fab.setOnClickListener( new View.OnClickListener()
-        {
-            @Override
-            public void onClick( View view )
-            {
-                ComposeTweetBottomSheet myDialog = new ComposeTweetBottomSheet();
-                FragmentManager fm = getSupportFragmentManager();
-                myDialog.show(fm, "test");
-            }
-        } );
+        ComposeTweetBottomSheet myDialog = new ComposeTweetBottomSheet();
+        FragmentManager fm = getSupportFragmentManager();
+        myDialog.show( fm, TAG );
     }
 
-    private void configureToolbar()
-    {
-        Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
-        setSupportActionBar( toolbar );
-    }
 
     private void configureRecyclerView()
     {
-        RecyclerView rvTweets = (RecyclerView) findViewById( R.id.rvTweets );
         rvTweets.setLayoutManager( new LinearLayoutManager( this ) );
 
         tweets = new ArrayList<>();
