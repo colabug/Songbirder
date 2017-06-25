@@ -78,6 +78,12 @@ public class TweetAdapterTest
     }
 
     @Test
+    public void shouldHaveTimestamp() throws Exception
+    {
+        assertViewIsVisible( holder.tvRelativeTimestamp );
+    }
+
+    @Test
     public void shouldHaveTweetText() throws Exception
     {
         assertViewIsVisible( holder.tvTweet );

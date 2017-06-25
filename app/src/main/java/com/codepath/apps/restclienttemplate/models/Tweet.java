@@ -2,6 +2,8 @@ package com.codepath.apps.restclienttemplate.models;
 
 import android.support.annotation.VisibleForTesting;
 
+import com.codepath.apps.restclienttemplate.util.DateUtil;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,10 +36,11 @@ public class Tweet
     }
 
     @VisibleForTesting
-    public Tweet( User user, String tweetText )
+    public Tweet( User user, String tweetText, String timestamp )
     {
         this.user = user;
         this.tweetText = tweetText;
+        this.createdAt = timestamp;
     }
 
     public String getName()
@@ -58,5 +61,10 @@ public class Tweet
     public String getDisplayUsername()
     {
         return "@" + user.getUserName();
+    }
+
+    public String getRelativeTimestamp()
+    {
+        return DateUtil.getRelativeTimestamp( createdAt );
     }
 }

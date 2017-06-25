@@ -6,4 +6,5 @@
     <!--Tweet timeline view-->
     <dimen name="twitter_profile_image_size">50dp</dimen>
     <dimen name="tweet_padding">6dp</dimen>>
+    <dimen name="tweet_timestamp_padding">2dp</dimen>>
 </resources>
