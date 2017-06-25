@@ -21,7 +21,7 @@
         android:id="@+id/etEnterTweet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/compose_prompt"
+        android:hint="@string/compose_prompt"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
