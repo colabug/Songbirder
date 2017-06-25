@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-import com.codepath.apps.songbirder.ComposeTweetBottomSheet;
+import com.codepath.apps.songbirder.ComposeTweetDialog;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.SongbirderApplication;
 import com.codepath.apps.songbirder.api.TwitterClient;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
-public class TimelineActivity extends AppCompatActivity
+public class TimelineActivity extends AppCompatActivity implements ComposeTweetDialog.ComposeTweetDialogListener
 {
     private static final String TAG = TimelineActivity.class.getSimpleName();
 
@@ -62,11 +63,11 @@ public class TimelineActivity extends AppCompatActivity
 
     @OnClick(R.id.fab) void showComposeDialog()
     {
-        ComposeTweetBottomSheet myDialog = new ComposeTweetBottomSheet();
+        // TODO: Get the user's profile image URL, send in here
+        ComposeTweetDialog composeTweetDialog = ComposeTweetDialog.newInstance("");
         FragmentManager fm = getSupportFragmentManager();
-        myDialog.show( fm, TAG );
+        composeTweetDialog.show( fm, TAG );
     }
-
 
     private void configureRecyclerView()
     {
@@ -146,5 +147,12 @@ public class TimelineActivity extends AppCompatActivity
                 throwable.printStackTrace();
             }
         };
+    }
+
+    @Override
+    public void onTweetEntryFinished( String tweetText )
+    {
+        Snackbar.make( rvTweets, tweetText, Snackbar.LENGTH_LONG )
+                                        .setAction( "Action", null ).show();
     }
 }
