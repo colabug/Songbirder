@@ -150,7 +150,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     }
 
     @Override
-    public void onTweetEntryFinished( String tweetText )
+    public void onTweetEntered( String tweetText )
     {
         Snackbar.make( rvTweets, tweetText, Snackbar.LENGTH_LONG )
                                         .setAction( "Action", null ).show();

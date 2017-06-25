@@ -29,7 +29,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
 
     public interface ComposeTweetDialogListener
     {
-        void onTweetEntryFinished( String tweetText );
+        void onTweetEntered( String tweetText );
     }
 
     public ComposeTweetDialog()
@@ -70,7 +70,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     {
         if( EditorInfo.IME_ACTION_DONE == actionId )
         {
-            listener.onTweetEntryFinished( etEnterTweet.getText().toString() );
+            listener.onTweetEntered( etEnterTweet.getText().toString() );
             dismiss();
             return true;
         }
@@ -82,7 +82,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     void submitTweet()
     {
         // Call the client or return the string to the activity
-        listener.onTweetEntryFinished( etEnterTweet.getText().toString() );
+        listener.onTweetEntered( etEnterTweet.getText().toString() );
         dismiss();
     }
 
