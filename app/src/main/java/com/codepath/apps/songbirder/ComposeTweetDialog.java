@@ -61,18 +61,18 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
         View layout = inflater.inflate( R.layout.dialog_compose_tweet, container );
         ButterKnife.bind( this, layout );
 
-        showKeyboard();
-        etEnterTweet.setOnEditorActionListener( this );
+        configureKeyboard();
 
         listener = (ComposeTweetDialogListener) getActivity();
 
         return layout;
     }
 
-    private void showKeyboard()
+    private void configureKeyboard()
     {
         etEnterTweet.requestFocus();
         getDialog().getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE );
+        etEnterTweet.setOnEditorActionListener( this );
     }
 
     @Override
