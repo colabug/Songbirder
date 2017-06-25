@@ -15,4 +15,6 @@
     <string name="default_relative_timestamp">0s</string>
     <string name="default_tweet_text">Text of the tweet</string>
     <string name="cd_profile_image">cd_tweet_profile_picture</string>
+    <string name="compose_prompt">What\'s happening?</string>
+    <string name="compose_tweet_button">Tweet</string>
 </resources>

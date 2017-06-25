@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.codepath.apps.songbirder.ComposeTweetBottomSheet;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.SongbirderApplication;
 import com.codepath.apps.songbirder.api.TwitterClient;
@@ -59,8 +60,9 @@ public class TimelineActivity extends AppCompatActivity
             @Override
             public void onClick( View view )
             {
-                Snackbar.make( view, "Composing a tweet", Snackbar.LENGTH_LONG )
-                        .setAction( "Action", null ).show();
+                ComposeTweetBottomSheet myDialog = new ComposeTweetBottomSheet();
+                FragmentManager fm = getSupportFragmentManager();
+                myDialog.show(fm, "test");
             }
         } );
     }
