@@ -119,8 +119,7 @@ public class TimelineActivity extends AppCompatActivity
                                    Throwable throwable,
                                    JSONObject errorResponse )
             {
-                Log.d( TAG, "Failed to fetch data: " + errorResponse );
-                throwable.printStackTrace();
+                logError( errorResponse.toString(), throwable );
             }
 
             @Override
@@ -129,8 +128,7 @@ public class TimelineActivity extends AppCompatActivity
                                    Throwable throwable,
                                    JSONArray errorResponse )
             {
-                Log.d( TAG, "Failed to fetch data: " + errorResponse );
-                throwable.printStackTrace();
+                logError( errorResponse.toString(), throwable );
             }
 
             @Override
@@ -139,7 +137,12 @@ public class TimelineActivity extends AppCompatActivity
                                    String responseString,
                                    Throwable throwable )
             {
-                Log.d( TAG, "Failed to fetch data: " + responseString );
+                logError( responseString, throwable );
+            }
+
+            private void logError( String message, Throwable throwable )
+            {
+                Log.d( TAG, "Failed to fetch data: " + message );
                 throwable.printStackTrace();
             }
         };
