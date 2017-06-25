@@ -159,6 +159,18 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
             public void onSuccess( int statusCode, Header[] headers, JSONObject response )
             {
                 Log.d( TAG, "Successfully posted tweet!\n" + response );
+
+                try
+                {
+                    // Add tweet to the top of the list.
+                    tweets.add( 0, Tweet.fromJson( response ) );
+                    adapter.notifyItemInserted(0);
+                    rvTweets.scrollToPosition(0);
+                }
+                catch( JSONException e )
+                {
+                    e.printStackTrace();
+                }
             }
 
             @Override
