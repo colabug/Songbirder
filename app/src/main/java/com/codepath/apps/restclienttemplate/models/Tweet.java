@@ -9,7 +9,7 @@ public class Tweet
 {
     public static final String BODY_KEY = "text";
     public static final String ID_KEY = "id";
-    public static final String CREATED_AT_KEY = "createdAt";
+    public static final String CREATED_AT_KEY = "created_at";
     public static final String USER_KEY = "user";
 
     public String tweetText;

@@ -9,8 +9,8 @@ public class User
 {
     public static final String NAME_KEY = "name";
     public static final String ID_KEY = "id";
-    public static final String SCREEN_NAME_KEY = "screenName";
-    public static final String PROFILE_IMAGE_URL_KEY = "profileImageUrl";
+    public static final String SCREEN_NAME_KEY = "screen_name";
+    public static final String PROFILE_IMAGE_URL_KEY = "profile_image_url";
 
     public String name;
     public long uid;

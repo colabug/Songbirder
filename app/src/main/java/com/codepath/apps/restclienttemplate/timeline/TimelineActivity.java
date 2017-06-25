@@ -5,15 +5,21 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.SongbirderApplication;
 import com.codepath.apps.restclienttemplate.api.TwitterClient;
+import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -23,14 +29,30 @@ public class TimelineActivity extends AppCompatActivity
 
     private TwitterClient client;
 
+    private TweetAdapter adapter;
+    ArrayList<Tweet> tweets;
+    RecyclerView rvTweets;
+
     @Override
     protected void onCreate( Bundle savedInstanceState )
     {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_timeline );
 
+        rvTweets = (RecyclerView) findViewById( R.id.rvTweets );
+        tweets = new ArrayList<>();
+        adapter = new TweetAdapter( tweets );
+
+        configureRecyclerView();
+
         client = SongbirderApplication.getTwitterClient();
         populateTimeline();
+    }
+
+    private void configureRecyclerView()
+    {
+        rvTweets.setLayoutManager( new LinearLayoutManager( this ) );
+        rvTweets.setAdapter( adapter );
     }
 
     protected void populateTimeline()
@@ -53,6 +75,18 @@ public class TimelineActivity extends AppCompatActivity
             public void onSuccess( int statusCode, Header[] headers, JSONArray response )
             {
                 Log.d( TAG, "Successfully fetched data:\n" + response.toString() );
+                for( int index = 0; index < response.length(); index++ )
+                {
+                    try
+                    {
+                        tweets.add( Tweet.fromJson( response.getJSONObject( index ) ) );
+                        adapter.notifyItemInserted( tweets.size() - 1 );
+                    }
+                    catch( JSONException exception )
+                    {
+                        exception.printStackTrace();
+                    }
+                }
             }
 
             @Override
@@ -81,7 +115,7 @@ public class TimelineActivity extends AppCompatActivity
                                    String responseString,
                                    Throwable throwable )
             {
-                Log.d( TAG, "Failed to fetch data: " + responseString);
+                Log.d( TAG, "Failed to fetch data: " + responseString );
                 throwable.printStackTrace();
             }
         };
