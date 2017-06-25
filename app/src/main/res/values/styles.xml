@@ -21,14 +21,15 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="TweetText" parent="TextAppearance.AppCompat.Small">
+    <style name="TweetText" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="BoldText" parent="TweetText">
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="LightText" parent="TextAppearance.AppCompat.Small">
+    <style name="LightText" parent="TweetText">
         <item name="android:textColor">@color/dark_grey</item>
     </style>
 
@@ -37,5 +38,4 @@
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
     </style>
-
 </resources>
