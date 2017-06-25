@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -60,11 +60,11 @@ public class TimelineActivity extends AppCompatActivity
         populateTimeline();
     }
 
-    @OnClick(R.id.fab) void showComposeDialog()
+    @OnClick(R.id.fab)
+    void showComposeDialog()
     {
-        ComposeTweetBottomSheet myDialog = new ComposeTweetBottomSheet();
-        FragmentManager fm = getSupportFragmentManager();
-        myDialog.show( fm, TAG );
+        BottomSheetDialogFragment bottomSheet = new ComposeTweetBottomSheet();
+        bottomSheet.show( getSupportFragmentManager(), bottomSheet.getTag() );
     }
 
 
