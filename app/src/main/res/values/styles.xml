@@ -10,7 +10,27 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
+
+    <style name="TweetText" parent="TextAppearance.AppCompat.Small">
+    </style>
+
+    <style name="BoldText" parent="TweetText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LightText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
+    <style name="EllipsizedLightText" parent="LightText">
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
 </resources>
