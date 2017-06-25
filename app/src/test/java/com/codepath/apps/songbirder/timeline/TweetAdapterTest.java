@@ -4,7 +4,6 @@ package com.codepath.apps.songbirder.timeline;
 import com.codepath.apps.songbirder.BuildConfig;
 import com.codepath.apps.songbirder.models.Tweet;
 import com.codepath.apps.songbirder.support.DataHelper;
-import com.codepath.apps.songbirder.timeline.TweetAdapter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +14,6 @@ import org.robolectric.annotation.Config;
 import java.util.ArrayList;
 
 import static com.codepath.apps.songbirder.support.Assert.assertViewIsVisible;
-import static com.codepath.apps.songbirder.support.ContextHelper.genericViewGroup;
 import static com.codepath.apps.songbirder.support.ContextHelper.genericViewGroup;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -88,8 +86,8 @@ public class TweetAdapterTest
     @Test
     public void shouldHaveTweetText() throws Exception
     {
-        assertViewIsVisible( holder.tvTweet );
-        assertThat( holder.tvTweet.getText().toString(),
+        assertViewIsVisible( holder.tvTweetText );
+        assertThat( holder.tvTweetText.getText().toString(),
                     equalTo( list.get( FIRST_INDEX ).getTweetText() ) );
 
     }

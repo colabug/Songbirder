@@ -14,6 +14,9 @@ import com.codepath.apps.songbirder.models.Tweet;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 {
     private final List<Tweet> tweets;
@@ -42,7 +45,7 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         holder.tvName.setText( tweet.getName() );
         holder.tvUserName.setText( tweet.getDisplayUsername() );
         holder.tvRelativeTimestamp.setText( tweet.getRelativeTimestamp() );
-        holder.tvTweet.setText( tweet.getTweetText() );
+        holder.tvTweetText.setText( tweet.getTweetText() );
         Glide.with( context )
              .load( tweet.getProfileImageUrl() )
              .into( holder.ivProfileImage );
@@ -56,21 +59,16 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
     static class ViewHolder extends RecyclerView.ViewHolder
     {
-        ImageView ivProfileImage;
-        TextView tvName;
-        TextView tvUserName;
-        TextView tvRelativeTimestamp;
-        TextView tvTweet;
+        @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+        @BindView(R.id.tvName) TextView tvName;
+        @BindView(R.id.tvUserName) TextView tvUserName;
+        @BindView(R.id.tvRelativeTimestamp) TextView tvRelativeTimestamp;
+        @BindView(R.id.tvTweetText) TextView tvTweetText;
 
         ViewHolder( View itemView )
         {
             super( itemView );
-
-            ivProfileImage = (ImageView) itemView.findViewById( R.id.ivProfileImage );
-            tvName = (TextView) itemView.findViewById( R.id.tvName );
-            tvUserName = (TextView) itemView.findViewById( R.id.tvUserName );
-            tvRelativeTimestamp = (TextView) itemView.findViewById( R.id.tvRelativeTimestamp );
-            tvTweet = (TextView) itemView.findViewById( R.id.tvTweetText );
+            ButterKnife.bind( this, itemView );
         }
     }
 }
