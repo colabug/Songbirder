@@ -48,7 +48,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
     {
-        View layout = inflater.inflate( R.layout.fragment_bottom_sheet, container );
+        View layout = inflater.inflate( R.layout.dialog_compose_tweet, container );
         ButterKnife.bind(this, layout);
 
         showKeyboard();
