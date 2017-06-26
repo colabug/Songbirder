@@ -1,11 +1,13 @@
 package com.codepath.apps.songbirder.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.VisibleForTesting;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User
+public class User implements Parcelable
 {
     public static final String NAME_KEY = "name";
     public static final String ID_KEY = "id";
@@ -19,6 +21,14 @@ public class User
 
     public User()
     {
+    }
+
+    private User( Parcel in )
+    {
+        uid = in.readLong();
+        name = in.readString();
+        screenName = in.readString();
+        profileImageUrl = in.readString();
     }
 
     public static User fromJson( JSONObject jsonObject ) throws JSONException
@@ -53,5 +63,35 @@ public class User
     public String getUserName()
     {
         return screenName;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>()
+    {
+        @Override
+        public User createFromParcel( Parcel in )
+        {
+            return new User( in );
+        }
+
+        @Override
+        public User[] newArray( int size )
+        {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel( Parcel out, int flags )
+    {
+        out.writeLong(uid);
+        out.writeString(name);
+        out.writeString(screenName);
+        out.writeString(profileImageUrl);
+    }
+
+    @Override
+    public int describeContents()
+    {
+        return 0;
     }
 }

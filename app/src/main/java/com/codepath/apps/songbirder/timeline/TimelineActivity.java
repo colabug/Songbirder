@@ -78,12 +78,12 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
 
         if( tweet != null )
         {
-            dialog = ComposeTweetDialog.newInstance( tweet.getId(), tweet.getProfileImageUrl() );
+            dialog = ComposeTweetDialog.newInstance( tweet );
         }
         else
         {
             // TODO: Pass in user's profile URL
-            dialog = ComposeTweetDialog.newInstance( -1, "" );
+            dialog = ComposeTweetDialog.newInstance( null );
         }
 
         dialog.show( getSupportFragmentManager(), TAG );

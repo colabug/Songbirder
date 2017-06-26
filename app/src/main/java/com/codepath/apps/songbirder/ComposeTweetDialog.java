@@ -1,5 +1,6 @@
 package com.codepath.apps.songbirder;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -16,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.apps.songbirder.models.Tweet;
+
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,8 +26,7 @@ import butterknife.OnClick;
 
 public class ComposeTweetDialog extends DialogFragment implements TextView.OnEditorActionListener
 {
-    private static final String ARG_PROFILE_URL = "profileURL";
-    private static final String ARG_TWEET_REPLY_ID = "replyId";
+    private static final String ARG_TWEET = "tweet";
 
     private static final int MAX_TWEET_LENGTH = 140;
     private static final int WARNING_CHARACTER_COUNT = 10;
@@ -38,8 +40,9 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     @BindColor( R.color.dark_orange) int darkOrange;
     @BindColor( android.R.color.black ) int black;
 
+    private Tweet tweet;
+
     private ComposeTweetDialogListener listener;
-    private long replyId;
 
     public interface ComposeTweetDialogListener
     {
@@ -50,13 +53,17 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     {
     }
 
-    public static ComposeTweetDialog newInstance( long replyId, String profileURL )
+    public static ComposeTweetDialog newInstance( Tweet tweet )
     {
         ComposeTweetDialog dialog = new ComposeTweetDialog();
-        Bundle args = new Bundle();
-        args.putString( ARG_PROFILE_URL, profileURL );
-        args.putLong( ARG_TWEET_REPLY_ID, replyId );
-        dialog.setArguments( args );
+
+        if (tweet != null)
+        {
+            Bundle args = new Bundle();
+            args.putParcelable( ARG_TWEET, tweet );
+            dialog.setArguments( args );
+        }
+
         return dialog;
     }
 
@@ -70,15 +77,25 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     }
 
     @Override
+    @SuppressLint("SetTextI18n")
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
     {
         View layout = inflater.inflate( R.layout.dialog_compose_tweet, container );
         ButterKnife.bind( this, layout );
 
-        replyId = getArguments().getLong( ARG_TWEET_REPLY_ID );
-
-        // TODO: Display with glide
-        String profileImageURL = getArguments().getString( ARG_PROFILE_URL );
+        if( getArguments() != null )
+        {
+            tweet = getArguments().getParcelable( ARG_TWEET );
+            if( tweet != null )
+            {
+                etEnterTweet.setText( tweet.getDisplayUsername() + " " );
+                // TODO: Display profile image with glide
+            }
+        }
+        else
+        {
+            tweet = new Tweet();
+        }
 
         configureKeyboard();
 
@@ -154,8 +171,10 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     {
         if( EditorInfo.IME_ACTION_DONE == actionId )
         {
-            listener.onTweetSubmit( etEnterTweet.getText().toString(), replyId );
+            listener.onTweetSubmit( etEnterTweet.getText().toString(), tweet.getId() );
+
             dismiss();
+
             return true;
         }
 
@@ -166,7 +185,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     void submitTweet()
     {
         // Call the client or return the string to the activity
-        listener.onTweetSubmit( etEnterTweet.getText().toString(), replyId );
+        listener.onTweetSubmit( etEnterTweet.getText().toString(), tweet.getId() );
         dismiss();
     }
 

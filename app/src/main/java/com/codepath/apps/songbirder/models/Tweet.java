@@ -1,5 +1,7 @@
 package com.codepath.apps.songbirder.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.VisibleForTesting;
 
 import com.codepath.apps.songbirder.util.DateUtil;
@@ -7,7 +9,7 @@ import com.codepath.apps.songbirder.util.DateUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Tweet
+public class Tweet implements Parcelable
 {
     public static final String BODY_KEY = "text";
     public static final String ID_KEY = "id";
@@ -21,6 +23,14 @@ public class Tweet
 
     public Tweet()
     {
+    }
+
+    private Tweet( Parcel in )
+    {
+        uid = in.readLong();
+        createdAt = in.readString();
+        tweetText = in.readString();
+        user = in.readParcelable( User.class.getClassLoader() );
     }
 
     public static Tweet fromJson( JSONObject jsonObject ) throws JSONException
@@ -71,5 +81,35 @@ public class Tweet
     public String getRelativeTimestamp()
     {
         return DateUtil.getRelativeTimestamp( createdAt );
+    }
+
+    public static final Creator<Tweet> CREATOR = new Creator<Tweet>()
+    {
+        @Override
+        public Tweet createFromParcel( Parcel in )
+        {
+            return new Tweet( in );
+        }
+
+        @Override
+        public Tweet[] newArray( int size )
+        {
+            return new Tweet[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel( Parcel out, int flags )
+    {
+        out.writeLong(uid);
+        out.writeString(createdAt);
+        out.writeString(tweetText);
+        out.writeParcelable( user, flags );
+    }
+
+    @Override
+    public int describeContents()
+    {
+        return 0;
     }
 }
