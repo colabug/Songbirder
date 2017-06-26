@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.codepath.apps.songbirder.ComposeTweetDialog;
 import com.codepath.apps.songbirder.R;
@@ -37,6 +39,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.rvTweets) RecyclerView rvTweets;
+    @BindView(R.id.pbProgressBar) ProgressBar pbProgressBar;
 
     private TweetAdapter adapter;
     ArrayList<Tweet> tweets;
@@ -83,7 +86,13 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
 
     protected void populateTimeline()
     {
+        showProgressBar();
         client.getHomeTimeline( getTimelineHandler() );
+    }
+
+    private void showProgressBar()
+    {
+        pbProgressBar.setVisibility( View.VISIBLE );
     }
 
     @NonNull
@@ -91,12 +100,6 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     {
         return new JsonHttpResponseHandler()
         {
-            @Override
-            public void onSuccess( int statusCode, Header[] headers, JSONObject response )
-            {
-                Log.d( TAG, "Successfully fetched data:\n" + response.toString() );
-            }
-
             @Override
             public void onSuccess( int statusCode, Header[] headers, JSONArray response )
             {
@@ -112,6 +115,8 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                     {
                         exception.printStackTrace();
                     }
+
+                    hideProgressBar();
                 }
             }
 
@@ -122,6 +127,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    JSONObject errorResponse )
             {
                 logError( errorResponse.toString(), throwable );
+                hideProgressBar();
             }
 
             @Override
@@ -131,6 +137,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    JSONArray errorResponse )
             {
                 logError( errorResponse.toString(), throwable );
+                hideProgressBar();
             }
 
             @Override
@@ -140,14 +147,21 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable )
             {
                 logError( responseString, throwable );
+                hideProgressBar();
             }
         };
+    }
+
+    private void hideProgressBar()
+    {
+        pbProgressBar.setVisibility( View.GONE );
     }
 
     @Override
     public void onTweetEntered( String tweetText )
     {
         client.postNewTweet( tweetText, getStatusPostingHandler() );
+        showProgressBar();
     }
 
     @NonNull
@@ -171,18 +185,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                 {
                     e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onSuccess( int statusCode, Header[] headers, JSONArray response )
-            {
-                Log.d( TAG, "Successfully posted tweet!\n" + response );
-            }
-
-            @Override
-            public void onSuccess( int statusCode, Header[] headers, String responseString )
-            {
-                Log.d( TAG, "Successfully posted tweet!" + responseString );
+                hideProgressBar();
             }
 
             @Override
@@ -192,6 +195,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    JSONObject errorResponse )
             {
                 logError( errorResponse.toString(), throwable );
+                hideProgressBar();
             }
 
             @Override
@@ -201,6 +205,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    JSONArray errorResponse )
             {
                 logError( errorResponse.toString(), throwable );
+                hideProgressBar();
             }
 
             @Override
@@ -210,6 +215,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable )
             {
                 logError( responseString, throwable );
+                hideProgressBar();
             }
         };
     }
