@@ -51,7 +51,7 @@ public class ComposeTweetDialogTest
 
         tweetEntry = getEditText( dialog, R.id.etEnterTweet );
         tweetButton = getButton( dialog, R.id.btnTweet );
-        closeButton = getImageView( dialog, R.id.ivCancelTweet );
+        closeButton = getImageView( dialog, R.id.ivClose );
         profileImage = getImageView( dialog, R.id.ivProfileImage );
     }
 

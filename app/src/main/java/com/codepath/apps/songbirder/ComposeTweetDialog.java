@@ -3,6 +3,8 @@ package com.codepath.apps.songbirder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,17 +16,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+// TODO: Make view adjust when keyboard is up
+// TODO: Style better
 public class ComposeTweetDialog extends DialogFragment implements TextView.OnEditorActionListener
 {
-    public static final String PROFILE_URL_ARG = "profileURL";
+    private static final String PROFILE_URL_ARG = "profileURL";
+
+    private static final int MAX_TWEET_LENGTH = 140;
+    private static final int WARNING_CHARACTER_COUNT = 10;
 
     @BindView(R.id.etEnterTweet) EditText etEnterTweet;
-    @BindView(R.id.ivCancelTweet) ImageView ivCancelTweet;
+    @BindView(R.id.ivClose) ImageView btnClose;
+    @BindView(R.id.tvCounter) TextView tvCounter;
     @BindView(R.id.btnTweet) Button btnTweet;
+
+    @BindColor( R.color.red ) int red;
+    @BindColor( R.color.dark_orange) int darkOrange;
+    @BindColor( android.R.color.black ) int black;
 
     private ComposeTweetDialogListener listener;
 
@@ -70,9 +83,64 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
 
     private void configureKeyboard()
     {
+        showKeyboard();
+        etEnterTweet.addTextChangedListener( getTextChangedListener() );
+        etEnterTweet.setOnEditorActionListener( this );
+    }
+
+    private void showKeyboard()
+    {
         etEnterTweet.requestFocus();
         getDialog().getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE );
-        etEnterTweet.setOnEditorActionListener( this );
+    }
+
+    private TextWatcher getTextChangedListener()
+    {
+        return new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged( CharSequence s, int start, int count, int after )
+            {
+
+            }
+
+            @Override
+            public void onTextChanged( CharSequence s, int start, int before, int count )
+            {
+                updateCounter();
+            }
+
+            @Override
+            public void afterTextChanged( Editable s )
+            {
+
+            }
+        };
+    }
+
+    private void updateCounter()
+    {
+        int currentLength = etEnterTweet.getText().length();
+        int valueToDisplay = MAX_TWEET_LENGTH - currentLength;
+
+        tvCounter.setTextColor( getTextColor( valueToDisplay ) );
+        tvCounter.setText( String.valueOf( valueToDisplay ) );
+    }
+
+    private int getTextColor( int valueToDisplay )
+    {
+        if( valueToDisplay < 0 )
+        {
+            return red;
+        }
+        else if( valueToDisplay <= WARNING_CHARACTER_COUNT )
+        {
+            return darkOrange;
+        }
+        else
+        {
+            return black;
+        }
     }
 
     @Override
@@ -96,7 +164,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
         dismiss();
     }
 
-    @OnClick(R.id.ivCancelTweet)
+    @OnClick(R.id.ivClose)
     void cancel()
     {
         dismiss();
