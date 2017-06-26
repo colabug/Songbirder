@@ -2,6 +2,7 @@
 <!--TODO: Redo this as a constraint layout?-->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -37,11 +38,11 @@
             android:maxWidth="@dimen/tweet_username_max_width"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/tweet_small_padding"
-            android:textColor="@color/dark_grey"
             android:text="@string/default_user_name"
+            android:textColor="@color/dark_grey"
             style="@style/EllipsizedLightText"/>
 
-        <!--TODO: Add the dot here bewteen these views-->
+        <!--TODO: Add the dot here between these views-->
 
         <TextView
             android:id="@+id/tvRelativeTimestamp"
@@ -63,6 +64,36 @@
         android:layout_toEndOf="@+id/ivProfileImage"
         android:text="@string/default_tweet_text"
         style="@style/TweetText"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/ivProfileImage"
+        android:layout_below="@+id/tvTweetText"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/ivReply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_reply"/>
+
+        <ImageView
+            android:id="@+id/ivRetweet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_retweet"/>
+
+        <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/tweet_padding"
+            app:srcCompat="@drawable/ic_favorite"/>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
