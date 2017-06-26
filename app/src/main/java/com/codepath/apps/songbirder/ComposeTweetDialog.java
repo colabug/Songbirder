@@ -21,8 +21,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-// TODO: Make view adjust when keyboard is up
-// TODO: Style better
 public class ComposeTweetDialog extends DialogFragment implements TextView.OnEditorActionListener
 {
     private static final String PROFILE_URL_ARG = "profileURL";

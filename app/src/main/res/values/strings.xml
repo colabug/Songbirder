@@ -19,4 +19,5 @@
     <!--Compose-->
     <string name="compose_prompt">What\'s happening?</string>
     <string name="compose_tweet_button">Tweet</string>
+    <string name="default_compose_counter_value">140</string>
 </resources>
