@@ -9,7 +9,7 @@ public class ActivityWithListener extends FragmentActivity implements ComposeTwe
     public String tweetText;
 
     @Override
-    public void onTweetEntered( String tweetText )
+    public void onTweetSubmit( String tweetText, long replyId )
     {
         this.tweetText = tweetText;
     }

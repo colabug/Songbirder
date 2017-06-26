@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +31,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
-public class TimelineActivity extends AppCompatActivity implements ComposeTweetDialog.ComposeTweetDialogListener
+public class TimelineActivity extends AppCompatActivity implements ComposeTweetDialog.ComposeTweetDialogListener,
+                                                                   TweetAdapter.ReplyToTweetListener
 {
     private static final String TAG = TimelineActivity.class.getSimpleName();
 
@@ -69,9 +69,24 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     @OnClick(R.id.fab) void showComposeDialog()
     {
         // TODO: Get the user's profile image URL, send in here
-        ComposeTweetDialog composeTweetDialog = ComposeTweetDialog.newInstance("");
-        FragmentManager fm = getSupportFragmentManager();
-        composeTweetDialog.show( fm, TAG );
+        showCompositionDialog( null );
+    }
+
+    private void showCompositionDialog( Tweet tweet )
+    {
+        ComposeTweetDialog dialog;
+
+        if( tweet != null )
+        {
+            dialog = ComposeTweetDialog.newInstance( tweet.getId(), tweet.getProfileImageUrl() );
+        }
+        else
+        {
+            // TODO: Pass in user's profile URL
+            dialog = ComposeTweetDialog.newInstance( -1, "" );
+        }
+
+        dialog.show( getSupportFragmentManager(), TAG );
     }
 
     private void configureRecyclerView()
@@ -158,10 +173,17 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     }
 
     @Override
-    public void onTweetEntered( String tweetText )
+    public void onReply( Tweet tweet )
     {
-        client.postNewTweet( tweetText, getStatusPostingHandler() );
+        showCompositionDialog( tweet );
+    }
+
+    @Override
+    public void onTweetSubmit( String tweetText, long replyId )
+    {
+        client.postTweet( tweetText, replyId, getStatusPostingHandler() );
         showProgressBar();
+        // TODO: When a reply, need to send the username in the text.
     }
 
     @NonNull

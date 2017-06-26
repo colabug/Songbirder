@@ -23,7 +23,8 @@ import butterknife.OnClick;
 
 public class ComposeTweetDialog extends DialogFragment implements TextView.OnEditorActionListener
 {
-    private static final String PROFILE_URL_ARG = "profileURL";
+    private static final String ARG_PROFILE_URL = "profileURL";
+    private static final String ARG_TWEET_REPLY_ID = "replyId";
 
     private static final int MAX_TWEET_LENGTH = 140;
     private static final int WARNING_CHARACTER_COUNT = 10;
@@ -38,21 +39,23 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     @BindColor( android.R.color.black ) int black;
 
     private ComposeTweetDialogListener listener;
+    private long replyId;
 
     public interface ComposeTweetDialogListener
     {
-        void onTweetEntered( String tweetText );
+        void onTweetSubmit( String tweetText, long replyId );
     }
 
     public ComposeTweetDialog()
     {
     }
 
-    public static ComposeTweetDialog newInstance( String profileURL )
+    public static ComposeTweetDialog newInstance( long replyId, String profileURL )
     {
         ComposeTweetDialog dialog = new ComposeTweetDialog();
         Bundle args = new Bundle();
-        args.putString( PROFILE_URL_ARG, profileURL );
+        args.putString( ARG_PROFILE_URL, profileURL );
+        args.putLong( ARG_TWEET_REPLY_ID, replyId );
         dialog.setArguments( args );
         return dialog;
     }
@@ -71,6 +74,11 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     {
         View layout = inflater.inflate( R.layout.dialog_compose_tweet, container );
         ButterKnife.bind( this, layout );
+
+        replyId = getArguments().getLong( ARG_TWEET_REPLY_ID );
+
+        // TODO: Display with glide
+        String profileImageURL = getArguments().getString( ARG_PROFILE_URL );
 
         configureKeyboard();
 
@@ -146,7 +154,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     {
         if( EditorInfo.IME_ACTION_DONE == actionId )
         {
-            listener.onTweetEntered( etEnterTweet.getText().toString() );
+            listener.onTweetSubmit( etEnterTweet.getText().toString(), replyId );
             dismiss();
             return true;
         }
@@ -158,7 +166,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
     void submitTweet()
     {
         // Call the client or return the string to the activity
-        listener.onTweetEntered( etEnterTweet.getText().toString() );
+        listener.onTweetSubmit( etEnterTweet.getText().toString(), replyId );
         dismiss();
     }
 

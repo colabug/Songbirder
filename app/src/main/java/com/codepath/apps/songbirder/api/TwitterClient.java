@@ -43,9 +43,10 @@ public class TwitterClient extends OAuthBaseClient
 	private static final String PARAM_SINCE = "since";
 	private static final int VALUE_SINCE = 1;
 
-	// Status call and parameters
+	// Tweet reply and creation call and parameters
 	private static final String ENDPOINT_STATUS = "statuses/update.json";
 	private static final String PARAM_STATUS = "status";
+	private static final String PARAM_REPLY_ID = "in_reply_to_status_id";
 
     public TwitterClient( Context context )
     {
@@ -72,12 +73,17 @@ public class TwitterClient extends OAuthBaseClient
         client.get( url, params, handler );
     }
 
-    public void postNewTweet( String status, JsonHttpResponseHandler handler )
+    public void postTweet( String status, long replyId, JsonHttpResponseHandler handler )
     {
         String url = getApiUrl( ENDPOINT_STATUS );
 
         RequestParams params = new RequestParams();
         params.put( PARAM_STATUS, status );
+
+        if( replyId > -1 )
+        {
+            params.put( PARAM_REPLY_ID, replyId );
+        }
 
         client.post( url, params, handler );
     }

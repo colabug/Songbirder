@@ -14,9 +14,9 @@ public class Tweet
     public static final String CREATED_AT_KEY = "created_at";
     public static final String USER_KEY = "user";
 
-    public String tweetText;
     public long uid;
     public String createdAt;
+    public String tweetText;
     public User user;
 
     public Tweet()
@@ -41,6 +41,11 @@ public class Tweet
         this.user = user;
         this.tweetText = tweetText;
         this.createdAt = timestamp;
+    }
+
+    public long getId()
+    {
+        return uid;
     }
 
     public String getName()

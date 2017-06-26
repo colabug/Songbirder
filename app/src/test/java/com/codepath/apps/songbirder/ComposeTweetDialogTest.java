@@ -46,7 +46,7 @@ public class ComposeTweetDialogTest
     public void setUp() throws Exception
     {
         activity = Robolectric.setupActivity( ActivityWithListener.class );
-        dialog = ComposeTweetDialog.newInstance( PROFILE_URL );
+        dialog = ComposeTweetDialog.newInstance( tweet, PROFILE_URL );
         dialog.show( activity.getSupportFragmentManager(), "tag" );
 
         tweetEntry = getEditText( dialog, R.id.etEnterTweet );

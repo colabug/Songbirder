@@ -21,6 +21,12 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 {
     private final List<Tweet> tweets;
     private Context context;
+    private ReplyToTweetListener listener;
+
+    interface ReplyToTweetListener
+    {
+        void onReply( Tweet tweet );
+    }
 
     TweetAdapter( List<Tweet> tweets )
     {
@@ -33,6 +39,8 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from( context );
 
+        listener = (ReplyToTweetListener) context;
+
         View tweetView = inflater.inflate( R.layout.item_tweet, parent, false);
         return new ViewHolder( tweetView );
     }
@@ -40,7 +48,7 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     @Override
     public void onBindViewHolder( ViewHolder holder, int position )
     {
-        Tweet tweet = tweets.get( position );
+        final Tweet tweet = tweets.get( position );
 
         holder.tvName.setText( tweet.getName() );
         holder.tvUserName.setText( tweet.getDisplayUsername() );
@@ -49,6 +57,15 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         Glide.with( context )
              .load( tweet.getProfileImageUrl() )
              .into( holder.ivProfileImage );
+
+        holder.btnReply.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View v )
+            {
+                listener.onReply( tweet );
+            }
+        } );
     }
 
     @Override
@@ -64,6 +81,7 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         @BindView(R.id.tvUserName) TextView tvUserName;
         @BindView(R.id.tvRelativeTimestamp) TextView tvRelativeTimestamp;
         @BindView(R.id.tvTweetText) TextView tvTweetText;
+        @BindView(R.id.ivReply) ImageView btnReply;
 
         ViewHolder( View itemView )
         {
