@@ -141,7 +141,14 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable,
                                    JSONObject errorResponse )
             {
-                logError( errorResponse.toString(), throwable );
+                if( errorResponse != null )
+                {
+                    logError( errorResponse.toString(), throwable );
+                }
+                else
+                {
+                    logError( "", throwable );
+                }
                 hideProgressBar();
             }
 
@@ -151,7 +158,15 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable,
                                    JSONArray errorResponse )
             {
-                logError( errorResponse.toString(), throwable );
+                if( errorResponse != null )
+                {
+                    logError( errorResponse.toString(), throwable );
+                }
+                else
+                {
+                    logError( "", throwable );
+                }
+
                 hideProgressBar();
             }
 
