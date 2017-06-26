@@ -11,15 +11,15 @@ import org.json.JSONObject;
 
 public class Tweet implements Parcelable
 {
-    public static final String BODY_KEY = "text";
-    public static final String ID_KEY = "id";
-    public static final String CREATED_AT_KEY = "created_at";
-    public static final String USER_KEY = "user";
+    private static final String BODY_KEY = "text";
+    private static final String ID_KEY = "id";
+    private static final String CREATED_AT_KEY = "created_at";
+    private static final String USER_KEY = "user";
 
-    public long uid;
-    public String createdAt;
-    public String tweetText;
-    public User user;
+    private long uid;
+    private String createdAt;
+    private String tweetText;
+    private User user;
 
     public Tweet()
     {

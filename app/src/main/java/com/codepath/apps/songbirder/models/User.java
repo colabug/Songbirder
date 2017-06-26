@@ -9,17 +9,17 @@ import org.json.JSONObject;
 
 public class User implements Parcelable
 {
-    public static final String NAME_KEY = "name";
-    public static final String ID_KEY = "id";
-    public static final String SCREEN_NAME_KEY = "screen_name";
-    public static final String PROFILE_IMAGE_URL_KEY = "profile_image_url";
+    private static final String NAME_KEY = "name";
+    private static final String ID_KEY = "id";
+    private static final String SCREEN_NAME_KEY = "screen_name";
+    private static final String PROFILE_IMAGE_URL_KEY = "profile_image_url";
 
-    public long uid;
+    private long uid;
     public String name;
-    public String screenName;
-    public String profileImageUrl;
+    private String screenName;
+    private String profileImageUrl;
 
-    public User()
+    private User()
     {
     }
 
@@ -31,7 +31,7 @@ public class User implements Parcelable
         profileImageUrl = in.readString();
     }
 
-    public static User fromJson( JSONObject jsonObject ) throws JSONException
+    static User fromJson( JSONObject jsonObject ) throws JSONException
     {
         User user = new User();
 
@@ -55,12 +55,12 @@ public class User implements Parcelable
         return name;
     }
 
-    public String getProfileImageUrl()
+    String getProfileImageUrl()
     {
         return profileImageUrl;
     }
 
-    public String getUserName()
+    String getUserName()
     {
         return screenName;
     }
