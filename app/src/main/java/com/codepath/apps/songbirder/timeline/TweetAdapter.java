@@ -26,6 +26,7 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     interface ReplyToTweetListener
     {
         void onReply( Tweet tweet );
+        void onRetweet( long id );
     }
 
     TweetAdapter( List<Tweet> tweets )
@@ -66,6 +67,15 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
                 listener.onReply( tweet );
             }
         } );
+
+        holder.btnRetweet.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View v )
+            {
+                listener.onRetweet( tweet.getId() );
+            }
+        } );
     }
 
     @Override
@@ -81,7 +91,9 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         @BindView(R.id.tvUserName) TextView tvUserName;
         @BindView(R.id.tvRelativeTimestamp) TextView tvRelativeTimestamp;
         @BindView(R.id.tvTweetText) TextView tvTweetText;
+
         @BindView(R.id.ivReply) ImageView btnReply;
+        @BindView(R.id.ivRetweet) ImageView btnRetweet;
 
         ViewHolder( View itemView )
         {

@@ -179,6 +179,56 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     }
 
     @Override
+    public void onRetweet( long id )
+    {
+        client.retweet( id, getRetweetHandler() );
+    }
+
+    private JsonHttpResponseHandler getRetweetHandler()
+    {
+        return new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess( int statusCode, Header[] headers, JSONObject response )
+            {
+                Log.d( TAG, "Successfully retweeted" );
+                hideProgressBar();
+
+                // TODO: Update the view to show that the tweet has been retweeted.
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   Throwable throwable,
+                                   JSONObject errorResponse )
+            {
+                logError( errorResponse.toString(), throwable );
+                hideProgressBar();
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   Throwable throwable,
+                                   JSONArray errorResponse )
+            {
+                logError( errorResponse.toString(), throwable );
+                hideProgressBar();
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   String responseString,
+                                   Throwable throwable )
+            {
+                logError( responseString, throwable );
+                hideProgressBar();
+            }
+        };
+    }
+
+    @Override
     public void onTweetSubmit( String tweetText, long replyId )
     {
         client.postTweet( tweetText, replyId, getStatusPostingHandler() );
