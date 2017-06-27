@@ -22,6 +22,7 @@ import com.loopj.android.http.RequestParams;
  * NOTE: You may want to rename this object based on the service i.e TwitterClient or FlickrClient
  * 
  */
+// TODO: Add unretweeting
 public class TwitterClient extends OAuthBaseClient
 {
 	// Basic authentication and URL requirements
@@ -40,7 +41,7 @@ public class TwitterClient extends OAuthBaseClient
 	private static final String TIMELINE_ENDPOINT = "statuses/home_timeline.json";
 	private static final String PARAM_COUNT = "count";
 	private static final int VALUE_NUMBER_OF_TWEETS = 25;
-	private static final String PARAM_SINCE = "since";
+	private static final String PARAM_SINCE = "since_id";
 	private static final int VALUE_SINCE = 1;
 
 	// Tweet reply and creation call and parameters
