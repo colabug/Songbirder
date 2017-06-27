@@ -1,6 +1,7 @@
 package com.codepath.apps.songbirder.timeline;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +15,19 @@ import com.codepath.apps.songbirder.models.Tweet;
 
 import java.util.List;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 {
+    @BindDrawable( R.drawable.ic_reply_active ) Drawable replyActive;
+    @BindDrawable( R.drawable.ic_reply_inactive ) Drawable replyInactive;
+    @BindDrawable( R.drawable.ic_retweet_active ) Drawable retweetActive;
+    @BindDrawable( R.drawable.ic_retweet_inactive ) Drawable retweetInactive;
+    @BindDrawable( R.drawable.ic_favorite_active ) Drawable favoriteActive;
+    @BindDrawable( R.drawable.ic_favorite_inactive ) Drawable favoriteInactive;
+
     private final List<Tweet> tweets;
     private Context context;
     private ReplyToTweetListener listener;
@@ -47,7 +56,7 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder( ViewHolder holder, int position )
+    public void onBindViewHolder( final ViewHolder holder, int position )
     {
         final Tweet tweet = tweets.get( position );
 
