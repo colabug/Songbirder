@@ -51,7 +51,6 @@ public class TwitterClient extends OAuthBaseClient
 
     // Rewteet call and parameters
     private static final String ENDPOINT_RETWEET = "statuses/retweet/%d.json";
-    private static final String PARAM_RETWEET_ID = "id";
 
     public TwitterClient( Context context )
     {
