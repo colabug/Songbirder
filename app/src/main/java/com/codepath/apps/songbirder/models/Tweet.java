@@ -80,7 +80,7 @@ public class Tweet implements Parcelable
 
     public String getRelativeTimestamp()
     {
-        return DateUtil.getRelativeTimestamp( createdAt );
+        return DateUtil.getTimeDifference( createdAt );
     }
 
     public static final Creator<Tweet> CREATOR = new Creator<Tweet>()

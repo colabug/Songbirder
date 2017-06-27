@@ -35,8 +35,8 @@
         <TextView
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
-            android:maxWidth="@dimen/tweet_username_max_width"
             android:layout_height="wrap_content"
+            android:maxWidth="@dimen/tweet_username_max_width"
             android:layout_marginEnd="@dimen/tweet_small_padding"
             android:text="@string/default_user_name"
             android:textColor="@color/dark_grey"
