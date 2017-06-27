@@ -119,6 +119,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
             public void onSuccess( int statusCode, Header[] headers, JSONArray response )
             {
                 Log.d( TAG, "Successfully fetched data:\n" + response.toString() );
+
                 for( int index = 0; index < response.length(); index++ )
                 {
                     try
@@ -130,9 +131,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                     {
                         exception.printStackTrace();
                     }
-
-                    hideProgressBar();
                 }
+
+                hideProgressBar();
             }
 
             @Override
