@@ -209,7 +209,16 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                 Log.d( TAG, "Successfully retweeted" );
                 hideProgressBar();
 
-                // TODO: Update the view to show that the tweet has been retweeted.
+                try
+                {
+                    // TODO: Associate the new tweet returned with the original tweet in the
+                    // timeline instead of showing two tweets.
+                    insertTweetAtTop( response );
+                }
+                catch( JSONException e )
+                {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -264,10 +273,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
 
                 try
                 {
-                    // Add tweet to the top of the list.
-                    tweets.add( 0, Tweet.fromJson( response ) );
-                    adapter.notifyItemInserted(0);
-                    rvTweets.scrollToPosition(0);
+                    insertTweetAtTop( response );
                 }
                 catch( JSONException e )
                 {
@@ -306,6 +312,13 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                 hideProgressBar();
             }
         };
+    }
+
+    private void insertTweetAtTop( JSONObject response ) throws JSONException
+    {
+        tweets.add( 0, Tweet.fromJson( response ) );
+        adapter.notifyItemInserted( 0 );
+        rvTweets.scrollToPosition( 0 );
     }
 
     private void logError( String message, Throwable throwable )

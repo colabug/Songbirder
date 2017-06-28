@@ -21,13 +21,6 @@ import butterknife.ButterKnife;
 
 class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 {
-    @BindDrawable( R.drawable.ic_reply_active ) Drawable replyActive;
-    @BindDrawable( R.drawable.ic_reply_inactive ) Drawable replyInactive;
-    @BindDrawable( R.drawable.ic_retweet_active ) Drawable retweetActive;
-    @BindDrawable( R.drawable.ic_retweet_inactive ) Drawable retweetInactive;
-    @BindDrawable( R.drawable.ic_favorite_active ) Drawable favoriteActive;
-    @BindDrawable( R.drawable.ic_favorite_inactive ) Drawable favoriteInactive;
-
     private final List<Tweet> tweets;
     private Context context;
     private ReplyToTweetListener listener;
@@ -56,7 +49,7 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder( final ViewHolder holder, int position )
+    public void onBindViewHolder( final ViewHolder holder, final int position )
     {
         final Tweet tweet = tweets.get( position );
 
@@ -85,6 +78,15 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
                 listener.onRetweet( tweet.getId() );
             }
         } );
+
+        if( tweet.isRetweeted() )
+        {
+            holder.btnRetweet.setImageDrawable( holder.retweetActive );
+        }
+        else
+        {
+            holder.btnRetweet.setImageDrawable( holder.retweetInactive );
+        }
     }
 
     @Override
@@ -95,6 +97,13 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
     static class ViewHolder extends RecyclerView.ViewHolder
     {
+        @BindDrawable( R.drawable.ic_reply_active ) Drawable replyActive;
+        @BindDrawable( R.drawable.ic_reply_inactive ) Drawable replyInactive;
+        @BindDrawable( R.drawable.ic_retweet_active ) Drawable retweetActive;
+        @BindDrawable( R.drawable.ic_retweet_inactive ) Drawable retweetInactive;
+        @BindDrawable( R.drawable.ic_favorite_active ) Drawable favoriteActive;
+        @BindDrawable( R.drawable.ic_favorite_inactive ) Drawable favoriteInactive;
+
         @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvName) TextView tvName;
         @BindView(R.id.tvUserName) TextView tvUserName;

@@ -15,7 +15,8 @@ import com.loopj.android.http.RequestParams;
  * This is the object responsible for communicating with a REST API. 
  * Specify the constants below to change the API being communicated with.
  * See a full list of supported API classes: 
- *   https://github.com/scribejava/scribejava/tree/master/scribejava-apis/src/main/java/com/github/scribejava/apis
+ *   https://github.com/scribejava/scribejava/tree/master/scribejava-apis/src/main/java/com
+ *   /github/scribejava/apis
  * Key and Secret are provided by the developer site for the given API i.e dev.twitter.com
  * Add methods for each relevant endpoint in the API.
  * 
@@ -25,32 +26,33 @@ import com.loopj.android.http.RequestParams;
 // TODO: Add unretweeting
 public class TwitterClient extends OAuthBaseClient
 {
-	// Basic authentication and URL requirements
+    // Basic authentication and URL requirements
     private static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
-	private static final String REST_URL = "https://api.twitter.com/1.1";
-	private static final String REST_CONSUMER_KEY = "R43hRq4NN8MOehGhg2sQSMiJJ";
-	private static final String REST_CONSUMER_SECRET = "gyFIe3BLKpVBbinptzp6ttutWvj8b1b2N9cVEwg9InyXnso5vW";
+    private static final String REST_URL = "https://api.twitter.com/1.1";
+    private static final String REST_CONSUMER_KEY = "R43hRq4NN8MOehGhg2sQSMiJJ";
+    private static final String REST_CONSUMER_SECRET = "gyFIe3BLKpVBbinptzp6ttutWvj8b1b2N9cVEwg9InyXnso5vW";
 
-	// Landing page to indicate the OAuth flow worked in case Chrome for Android 25+ blocks navigation back to the app.
-	private static final String FALLBACK_URL = "https://codepath.github.io/android-rest-client-template/success.html";
+    // Landing page to indicate the OAuth flow worked in case Chrome for Android 25+ blocks navigation back to the app.
+    private static final String FALLBACK_URL = "https://codepath.github.io/android-rest-client-template/success.html";
 
-	// See https://developer.chrome.com/multidevice/android/intents
-	private static final String REST_CALLBACK_URL_TEMPLATE = "intent://%s#Intent;action=android.intent.action.VIEW;scheme=%s;package=%s;S.browser_fallback_url=%s;end";
+    // See https://developer.chrome.com/multidevice/android/intents
+    private static final String REST_CALLBACK_URL_TEMPLATE = "intent://%s#Intent;action=android.intent.action.VIEW;scheme=%s;package=%s;S.browser_fallback_url=%s;end";
 
-	// Timeline call and parameters
-	private static final String TIMELINE_ENDPOINT = "statuses/home_timeline.json";
-	private static final String PARAM_COUNT = "count";
-	private static final int VALUE_NUMBER_OF_TWEETS = 25;
-	private static final String PARAM_SINCE = "since_id";
-	private static final int VALUE_SINCE = 1;
+    // Timeline call and parameters
+    private static final String TIMELINE_ENDPOINT = "statuses/home_timeline.json";
+    private static final String PARAM_COUNT = "count";
+    private static final int VALUE_NUMBER_OF_TWEETS = 25;
+    private static final String PARAM_SINCE = "since_id";
+    private static final int VALUE_SINCE = 1;
 
-	// Tweet reply and creation call and parameters
-	private static final String ENDPOINT_UPDATE_STATUS = "statuses/update.json";
-	private static final String PARAM_STATUS = "status";
-	private static final String PARAM_REPLY_ID = "in_reply_to_status_id";
+    // Tweet reply and creation call and parameters
+    private static final String ENDPOINT_UPDATE_STATUS = "statuses/update.json";
+    private static final String PARAM_STATUS = "status";
+    private static final String PARAM_REPLY_ID = "in_reply_to_status_id";
 
-    // Rewteet call and parameters
+    // Rewteet and unretweet call and parameters
     private static final String ENDPOINT_RETWEET = "statuses/retweet/%d.json";
+    private static final String ENDPOINT_UNRETWEET = "statuses/unretweet/%d.json";
 
     public TwitterClient( Context context )
     {
@@ -95,6 +97,12 @@ public class TwitterClient extends OAuthBaseClient
     public void retweet( long tweetId, JsonHttpResponseHandler handler )
     {
         String url = String.format( getApiUrl( ENDPOINT_RETWEET ), tweetId );
+        client.post( url, new RequestParams(), handler );
+    }
+
+    public void unretweet( long tweetId, JsonHttpResponseHandler handler )
+    {
+        String url = String.format( getApiUrl( ENDPOINT_UNRETWEET ), tweetId );
         client.post( url, new RequestParams(), handler );
     }
 }

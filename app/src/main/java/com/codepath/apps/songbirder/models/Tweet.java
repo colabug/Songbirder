@@ -15,11 +15,13 @@ public class Tweet implements Parcelable
     private static final String ID_KEY = "id";
     private static final String CREATED_AT_KEY = "created_at";
     private static final String USER_KEY = "user";
+    private static final String RETWEET_KEY = "retweeted_status";
 
     private long uid;
     private String createdAt;
     private String tweetText;
     private User user;
+    private RetweetStatus retweetStatus;
 
     public Tweet()
     {
@@ -31,6 +33,7 @@ public class Tweet implements Parcelable
         createdAt = in.readString();
         tweetText = in.readString();
         user = in.readParcelable( User.class.getClassLoader() );
+        retweetStatus = in.readParcelable( RetweetStatus.class.getClassLoader() );
     }
 
     public static Tweet fromJson( JSONObject jsonObject ) throws JSONException
@@ -40,6 +43,7 @@ public class Tweet implements Parcelable
         tweet.createdAt = jsonObject.getString( CREATED_AT_KEY );
         tweet.uid = jsonObject.getLong( ID_KEY );
         tweet.user = User.fromJson( jsonObject.getJSONObject( USER_KEY ) );
+        tweet.retweetStatus = RetweetStatus.fromJson( jsonObject.getJSONObject( RETWEET_KEY ) );
         tweet.tweetText = jsonObject.getString( BODY_KEY );
 
         return tweet;
@@ -111,5 +115,10 @@ public class Tweet implements Parcelable
     public int describeContents()
     {
         return 0;
+    }
+
+    public boolean isRetweeted()
+    {
+        return retweetStatus.isRetweeted();
     }
 }

@@ -56,4 +56,9 @@ public class RetweetStatus implements Parcelable
     {
         return 0;
     }
+
+    public boolean isRetweeted()
+    {
+        return retweeted;
+    }
 }
