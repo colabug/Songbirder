@@ -78,14 +78,15 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
     }
 
-    private View.OnClickListener getFavoriteListener( final Tweet tweet )
+    @NonNull
+    private View.OnClickListener getReplyListener( final Tweet tweet )
     {
         return new View.OnClickListener()
         {
             @Override
             public void onClick( View v )
             {
-                listener.onFavorite( tweet.getId() );
+                listener.onReply( tweet );
             }
         };
     }
@@ -103,15 +104,14 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         };
     }
 
-    @NonNull
-    private View.OnClickListener getReplyListener( final Tweet tweet )
+    private View.OnClickListener getFavoriteListener( final Tweet tweet )
     {
         return new View.OnClickListener()
         {
             @Override
             public void onClick( View v )
             {
-                listener.onReply( tweet );
+                listener.onFavorite( tweet.getId() );
             }
         };
     }
