@@ -20,4 +20,8 @@
     <string name="compose_prompt">What\'s happening?</string>
     <string name="compose_tweet_button">Tweet</string>
     <string name="default_compose_counter_value">140</string>
+    <string name="detail_reply_hint">Tweet your reply</string>
+    <string name="default_timestamp">1:30 AM 26 June 17</string>
+    <string name="default_retweet_text">50 Retweets</string>
+    <string name="default_likes_text">62 likes</string>
 </resources>
