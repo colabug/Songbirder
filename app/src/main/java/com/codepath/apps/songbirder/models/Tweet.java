@@ -11,15 +11,18 @@ import org.json.JSONObject;
 
 public class Tweet implements Parcelable
 {
-    private static final String BODY_KEY = "text";
-    private static final String ID_KEY = "id";
-    private static final String CREATED_AT_KEY = "created_at";
-    private static final String USER_KEY = "user";
-    private static final String RETWEET_KEY = "retweeted_status";
+    private static final String KEY_BODY = "text";
+    private static final String KEY_ID = "id";
+    private static final String KEY_CREATED_AT = "created_at";
+    private static final String KEY_USER = "user";
+    private static final String KEY_RETWEET = "retweeted_status";
+    private static final String KEY_FAVORITED = "favorited";
 
     private long uid;
     private String createdAt;
     private String tweetText;
+    private boolean favorited;
+
     private User user;
     private RetweetStatus retweetStatus;
 
@@ -40,16 +43,17 @@ public class Tweet implements Parcelable
     {
         Tweet tweet = new Tweet();
 
-        tweet.createdAt = jsonObject.getString( CREATED_AT_KEY );
-        tweet.uid = jsonObject.getLong( ID_KEY );
-        tweet.user = User.fromJson( jsonObject.getJSONObject( USER_KEY ) );
+        tweet.createdAt = jsonObject.getString( KEY_CREATED_AT );
+        tweet.favorited = jsonObject.getBoolean( KEY_FAVORITED );
+        tweet.uid = jsonObject.getLong( KEY_ID );
+        tweet.user = User.fromJson( jsonObject.getJSONObject( KEY_USER ) );
 
-        if( jsonObject.has( RETWEET_KEY ) )
+        if( jsonObject.has( KEY_RETWEET ) )
         {
-            tweet.retweetStatus = RetweetStatus.fromJson( jsonObject.getJSONObject( RETWEET_KEY ) );
+            tweet.retweetStatus = RetweetStatus.fromJson( jsonObject.getJSONObject( KEY_RETWEET ) );
         }
 
-        tweet.tweetText = jsonObject.getString( BODY_KEY );
+        tweet.tweetText = jsonObject.getString( KEY_BODY );
 
         return tweet;
     }

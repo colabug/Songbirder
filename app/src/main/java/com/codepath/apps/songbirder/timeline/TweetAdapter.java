@@ -2,6 +2,7 @@ package com.codepath.apps.songbirder.timeline;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     {
         void onReply( Tweet tweet );
         void onRetweet( long id );
+        void onFavorite( long id );
     }
 
     TweetAdapter( List<Tweet> tweets )
@@ -61,24 +63,6 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
              .load( tweet.getProfileImageUrl() )
              .into( holder.ivProfileImage );
 
-        holder.btnReply.setOnClickListener( new View.OnClickListener()
-        {
-            @Override
-            public void onClick( View v )
-            {
-                listener.onReply( tweet );
-            }
-        } );
-
-        holder.btnRetweet.setOnClickListener( new View.OnClickListener()
-        {
-            @Override
-            public void onClick( View v )
-            {
-                listener.onRetweet( tweet.getId() );
-            }
-        } );
-
         if( tweet.isRetweeted() )
         {
             holder.btnRetweet.setImageDrawable( holder.retweetActive );
@@ -87,6 +71,49 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         {
             holder.btnRetweet.setImageDrawable( holder.retweetInactive );
         }
+
+        holder.btnReply.setOnClickListener( getReplyListener( tweet ) );
+        holder.btnRetweet.setOnClickListener( getRetweetListener( tweet ) );
+        holder.btnFavorite.setOnClickListener( getFavoriteListener( tweet ) );
+
+    }
+
+    private View.OnClickListener getFavoriteListener( final Tweet tweet )
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View v )
+            {
+                listener.onFavorite( tweet.getId() );
+            }
+        };
+    }
+
+    @NonNull
+    private View.OnClickListener getRetweetListener( final Tweet tweet )
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View v )
+            {
+                listener.onRetweet( tweet.getId() );
+            }
+        };
+    }
+
+    @NonNull
+    private View.OnClickListener getReplyListener( final Tweet tweet )
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View v )
+            {
+                listener.onReply( tweet );
+            }
+        };
     }
 
     @Override
@@ -112,6 +139,7 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
         @BindView(R.id.ivReply) ImageView btnReply;
         @BindView(R.id.ivRetweet) ImageView btnRetweet;
+        @BindView(R.id.ivFavorite) ImageView btnFavorite;
 
         ViewHolder( View itemView )
         {

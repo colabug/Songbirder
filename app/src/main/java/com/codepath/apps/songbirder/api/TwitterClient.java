@@ -54,6 +54,10 @@ public class TwitterClient extends OAuthBaseClient
     private static final String ENDPOINT_RETWEET = "statuses/retweet/%d.json";
     private static final String ENDPOINT_UNRETWEET = "statuses/unretweet/%d.json";
 
+    // Favorite call and parameters
+    private static final String ENDPOINT_FAVORITE = "favorites/create.json";
+    private static final String PARAM_FAVORITE_ID = "id";
+
     public TwitterClient( Context context )
     {
         super( context,
@@ -92,6 +96,16 @@ public class TwitterClient extends OAuthBaseClient
         }
 
         client.post( url, params, handler );
+    }
+
+    public void favorite( long tweetId, JsonHttpResponseHandler handler )
+    {
+        String url = getApiUrl( ENDPOINT_FAVORITE );
+
+        RequestParams params = new RequestParams();
+        params.put( PARAM_FAVORITE_ID, tweetId );
+
+        client.post( url, new RequestParams(), handler );
     }
 
     public void retweet( long tweetId, JsonHttpResponseHandler handler )
