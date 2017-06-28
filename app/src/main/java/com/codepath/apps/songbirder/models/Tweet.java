@@ -43,7 +43,12 @@ public class Tweet implements Parcelable
         tweet.createdAt = jsonObject.getString( CREATED_AT_KEY );
         tweet.uid = jsonObject.getLong( ID_KEY );
         tweet.user = User.fromJson( jsonObject.getJSONObject( USER_KEY ) );
-        tweet.retweetStatus = RetweetStatus.fromJson( jsonObject.getJSONObject( RETWEET_KEY ) );
+
+        if( jsonObject.has( RETWEET_KEY ) )
+        {
+            tweet.retweetStatus = RetweetStatus.fromJson( jsonObject.getJSONObject( RETWEET_KEY ) );
+        }
+
         tweet.tweetText = jsonObject.getString( BODY_KEY );
 
         return tweet;
@@ -119,6 +124,6 @@ public class Tweet implements Parcelable
 
     public boolean isRetweeted()
     {
-        return retweetStatus.isRetweeted();
+        return retweetStatus != null && retweetStatus.isRetweeted();
     }
 }
