@@ -1,6 +1,7 @@
 package com.codepath.apps.songbirder.timeline;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.songbirder.R;
+import com.codepath.apps.songbirder.detail.TweetDetailActivity;
 import com.codepath.apps.songbirder.models.Tweet;
 
 import java.util.List;
@@ -55,6 +58,7 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     {
         final Tweet tweet = tweets.get( position );
 
+        holder.layout.setOnClickListener( getItemClickListener() );
         holder.tvName.setText( tweet.getName() );
         holder.tvUserName.setText( tweet.getDisplayUsername() );
         holder.tvRelativeTimestamp.setText( tweet.getRelativeTimestamp() );
@@ -76,6 +80,18 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         holder.btnRetweet.setOnClickListener( getRetweetListener( tweet ) );
         holder.btnFavorite.setOnClickListener( getFavoriteListener( tweet ) );
 
+    }
+
+    private View.OnClickListener getItemClickListener()
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View v )
+            {
+                context.startActivity( new Intent( context, TweetDetailActivity.class ) );
+            }
+        };
     }
 
     @NonNull
@@ -131,6 +147,7 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         @BindDrawable( R.drawable.ic_favorite_active ) Drawable favoriteActive;
         @BindDrawable( R.drawable.ic_favorite_inactive ) Drawable favoriteInactive;
 
+        @BindView(R.id.rltweetayout) RelativeLayout layout;
         @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvName) TextView tvName;
         @BindView(R.id.tvUserName) TextView tvUserName;
