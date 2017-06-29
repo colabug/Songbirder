@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.codepath.apps.songbirder.models.Tweet;
 
+import org.parceler.Parcels;
+
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +62,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
         if (tweet != null)
         {
             Bundle args = new Bundle();
-            args.putParcelable( ARG_TWEET, tweet );
+            args.putParcelable( ARG_TWEET, Parcels.wrap( tweet ) );
             dialog.setArguments( args );
         }
 
@@ -85,7 +87,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
 
         if( getArguments() != null )
         {
-            tweet = getArguments().getParcelable( ARG_TWEET );
+            tweet = Parcels.unwrap( getArguments().getParcelable( ARG_TWEET ) );
             if( tweet != null )
             {
                 etEnterTweet.setText( tweet.getDisplayUsername() + " " );

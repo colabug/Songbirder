@@ -1,7 +1,5 @@
 package com.codepath.apps.songbirder.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.VisibleForTesting;
 
 import com.codepath.apps.songbirder.util.DateUtil;
@@ -9,7 +7,8 @@ import com.codepath.apps.songbirder.util.DateUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Tweet implements Parcelable
+@org.parceler.Parcel
+public class Tweet
 {
     private static final String KEY_BODY = "text";
     private static final String KEY_ID = "id";
@@ -18,25 +17,16 @@ public class Tweet implements Parcelable
     private static final String KEY_RETWEET = "retweeted_status";
     private static final String KEY_FAVORITED = "favorited";
 
-    private long uid;
-    private String createdAt;
-    private String tweetText;
-    private boolean favorited;
+    long uid;
+    String createdAt;
+    String tweetText;
+    boolean favorited;
 
-    private User user;
-    private RetweetStatus retweetStatus;
+    User user;
+    RetweetStatus retweetStatus;
 
     public Tweet()
     {
-    }
-
-    private Tweet( Parcel in )
-    {
-        uid = in.readLong();
-        createdAt = in.readString();
-        tweetText = in.readString();
-        user = in.readParcelable( User.class.getClassLoader() );
-        retweetStatus = in.readParcelable( RetweetStatus.class.getClassLoader() );
     }
 
     public static Tweet fromJson( JSONObject jsonObject ) throws JSONException
@@ -94,36 +84,6 @@ public class Tweet implements Parcelable
     public String getRelativeTimestamp()
     {
         return DateUtil.getTimeDifference( createdAt );
-    }
-
-    public static final Creator<Tweet> CREATOR = new Creator<Tweet>()
-    {
-        @Override
-        public Tweet createFromParcel( Parcel in )
-        {
-            return new Tweet( in );
-        }
-
-        @Override
-        public Tweet[] newArray( int size )
-        {
-            return new Tweet[size];
-        }
-    };
-
-    @Override
-    public void writeToParcel( Parcel out, int flags )
-    {
-        out.writeLong(uid);
-        out.writeString(createdAt);
-        out.writeString(tweetText);
-        out.writeParcelable( user, flags );
-    }
-
-    @Override
-    public int describeContents()
-    {
-        return 0;
     }
 
     public boolean isRetweeted()

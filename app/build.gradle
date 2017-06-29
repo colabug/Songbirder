@@ -40,6 +40,7 @@ ext {
     constraintLayoutVersion = "1.0.2"
     glideVersion = "3.8.0"
     butterknifeVersion = "8.6.0"
+    parcelerVersion = "1.1.6"
 }
 
 dependencies {
@@ -72,4 +73,8 @@ dependencies {
     // View injection
     compile "com.jakewharton:butterknife:$butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+
+    // Parceling
+    compile "org.parceler:parceler-api:$parcelerVersion"
+    annotationProcessor "org.parceler:parceler:$parcelerVersion"
 }

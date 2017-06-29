@@ -1,34 +1,25 @@
 package com.codepath.apps.songbirder.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.VisibleForTesting;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User implements Parcelable
+@org.parceler.Parcel
+public class User
 {
     private static final String NAME_KEY = "name";
     private static final String ID_KEY = "id";
     private static final String SCREEN_NAME_KEY = "screen_name";
     private static final String PROFILE_IMAGE_URL_KEY = "profile_image_url";
 
-    private long uid;
-    public String name;
-    private String screenName;
-    private String profileImageUrl;
+    long uid;
+    String name;
+    String screenName;
+    String profileImageUrl;
 
     private User()
     {
-    }
-
-    private User( Parcel in )
-    {
-        uid = in.readLong();
-        name = in.readString();
-        screenName = in.readString();
-        profileImageUrl = in.readString();
     }
 
     static User fromJson( JSONObject jsonObject ) throws JSONException
@@ -63,35 +54,5 @@ public class User implements Parcelable
     String getUserName()
     {
         return screenName;
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>()
-    {
-        @Override
-        public User createFromParcel( Parcel in )
-        {
-            return new User( in );
-        }
-
-        @Override
-        public User[] newArray( int size )
-        {
-            return new User[size];
-        }
-    };
-
-    @Override
-    public void writeToParcel( Parcel out, int flags )
-    {
-        out.writeLong(uid);
-        out.writeString(name);
-        out.writeString(screenName);
-        out.writeString(profileImageUrl);
-    }
-
-    @Override
-    public int describeContents()
-    {
-        return 0;
     }
 }
