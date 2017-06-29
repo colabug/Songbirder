@@ -39,4 +39,9 @@
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
     </style>
+
+    <style name="DetailTweetText" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/twitter_detail_size</item>
+    </style>
 </resources>

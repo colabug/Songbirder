@@ -17,14 +17,17 @@ import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.detail.TweetDetailActivity;
 import com.codepath.apps.songbirder.models.Tweet;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
+public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 {
+    public static final String ARG_DETAIL_TWEET = "tweet for detail";
     private final List<Tweet> tweets;
     private Context context;
     private ReplyToTweetListener listener;
@@ -58,11 +61,13 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     {
         final Tweet tweet = tweets.get( position );
 
-        holder.layout.setOnClickListener( getItemClickListener() );
+        holder.layout.setOnClickListener( getItemClickListener( tweet ) );
+
         holder.tvName.setText( tweet.getName() );
         holder.tvUserName.setText( tweet.getDisplayUsername() );
         holder.tvRelativeTimestamp.setText( tweet.getRelativeTimestamp() );
         holder.tvTweetText.setText( tweet.getTweetText() );
+
         Glide.with( context )
              .load( tweet.getProfileImageUrl() )
              .into( holder.ivProfileImage );
@@ -82,14 +87,16 @@ class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
     }
 
-    private View.OnClickListener getItemClickListener()
+    private View.OnClickListener getItemClickListener( final Tweet tweet )
     {
         return new View.OnClickListener()
         {
             @Override
             public void onClick( View v )
             {
-                context.startActivity( new Intent( context, TweetDetailActivity.class ) );
+                Intent intent = new Intent( context, TweetDetailActivity.class );
+                intent.putExtra( ARG_DETAIL_TWEET, Parcels.wrap( tweet ) );
+                context.startActivity( intent );
             }
         };
     }

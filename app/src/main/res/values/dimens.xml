@@ -15,4 +15,9 @@
 
     <!--Compose view-->
     <dimen name="tweet_button_width">88dp</dimen>
+
+    <!--Detail view-->
+    <dimen name="twitter_detail_size">20sp</dimen>
+    <dimen name="twitter_detail_verified_size">15dp</dimen>
+    <dimen name="detail_divider_padding">50dp</dimen>>
 </resources>

@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/ivProfileImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_width="@dimen/twitter_profile_image_size"
+        android:layout_height="@dimen/twitter_profile_image_size"
+        android:layout_marginLeft="@dimen/tweet_padding"
+        android:layout_marginStart="@dimen/tweet_padding"
+        android:layout_marginTop="@dimen/tweet_padding"
+        android:layout_toEndOf="@+id/tvUserName"
         android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/ic_favorite_active"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close"/>
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/tweet_padding"
+        android:layout_marginStart="@dimen/tweet_padding"
+        android:layout_marginTop="@dimen/tweet_padding"
         android:layout_toEndOf="@+id/ivProfileImage"
+        app:layout_constraintLeft_toRightOf="@+id/ivProfileImage"
+        app:layout_constraintTop_toTopOf="parent"
         android:text="@string/default_name"/>
 
     <TextView
@@ -28,62 +38,118 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvName"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:layout_marginBottom="@dimen/tweet_padding"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:layout_constraintLeft_toLeftOf="@+id/tvName"
+        app:layout_constraintBottom_toTopOf="@+id/tvTweetText"
         android:text="@string/default_user_name"/>
 
     <ImageView
         android:id="@+id/ivVerified"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_close"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginStart="@dimen/tweet_small_padding"
+        android:layout_marginRight="@dimen/tweet_padding"
+        android:layout_marginEnd="@dimen/tweet_padding"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/tvUserName"/>
+        app:layout_constraintLeft_toRightOf="@+id/tvName"
+        app:layout_constraintTop_toTopOf="@+id/tvName"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:srcCompat="@drawable/ic_favorite_active"/>
 
     <TextView
         android:id="@+id/tvTweetText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tweet_padding"
+        android:layout_marginLeft="@dimen/tweet_padding"
+        android:layout_marginRight="@dimen/tweet_padding"
+        android:layout_marginStart="@dimen/tweet_padding"
+        android:layout_marginEnd="@dimen/tweet_padding"
+        android:layout_below="@+id/etTweetReply"
+        app:layout_constraintTop_toBottomOf="@+id/ivProfileImage"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/ivProfileImage"
+        android:text="@string/default_tweet_text"
+        style="@style/DetailTweetText"/>
+
+    <TextView
+        android:id="@+id/tvTimestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tweet_padding"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/etTweetReply"
-        android:text="@string/default_tweet_text"/>
+        app:layout_constraintLeft_toLeftOf="@+id/tvTweetText"
+        app:layout_constraintTop_toBottomOf="@+id/tvTweetText"
+        android:text="@string/default_timestamp"/>
+
+    <View
+        android:id="@+id/vDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/detail_divider_padding"
+        android:layout_marginBottom="@dimen/detail_divider_padding"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimestamp"
+        app:layout_constraintBottom_toTopOf="@+id/llTweetEngagement"
+        android:background="@color/light_grey"/>
+
+    <LinearLayout
+        android:id="@+id/llTweetEngagement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/tweet_padding"
+        android:layout_marginRight="@dimen/tweet_padding"
+        app:layout_constraintLeft_toLeftOf="@+id/tvTimestamp"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimestamp">
+
+        <TextView
+            android:id="@+id/tvRetweets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_retweet_text"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/tweet_padding"
+            app:layout_constraintLeft_toRightOf="@+id/tvRetweets"
+            android:textStyle="bold"
+            android:text="@string/default_likes_text"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/vDivider2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tweet_divider"
+        android:layout_below="@+id/llTweetEngagement"
+        android:layout_marginTop="@dimen/tweet_small_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llTweetEngagement"
+        android:background="@color/light_grey"/>
 
     <EditText
         android:id="@+id/etTweetReply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/detail_reply_hint"
-        android:layout_alignParentBottom="true"/>
-
-    <ImageView
-        android:id="@+id/ivMedia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvUserName"
-        android:layout_marginTop="11dp"
-        app:srcCompat="@drawable/ic_reply_active"
-        android:layout_alignParentEnd="true"/>
-
-    <TextView
-        android:id="@+id/tvTimestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/ivMedia"
-        android:text="@string/default_timestamp"/>
-
-    <TextView
-        android:id="@+id/tvRetweets"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvTimestamp"
-        android:text="@string/default_retweet_text"/>
-
-    <TextView
-        android:id="@+id/tvLikes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTimestamp"
-        android:layout_toEndOf="@+id/tvName"
-        android:text="@string/default_likes_text"/>
-</RelativeLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/tweet_padding"
+        android:layout_marginLeft="@dimen/tweet_padding"
+        android:layout_marginTop="@dimen/tweet_padding"
+        android:layout_marginStart="@dimen/tweet_padding"
+        android:layout_marginEnd="@dimen/tweet_padding"
+        android:layout_marginBottom="@dimen/tweet_padding"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</android.support.constraint.ConstraintLayout>

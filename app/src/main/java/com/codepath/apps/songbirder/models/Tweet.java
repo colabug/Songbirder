@@ -86,6 +86,11 @@ public class Tweet
         return DateUtil.getTimeDifference( createdAt );
     }
 
+    public String getTimeStamp()
+    {
+        return DateUtil.getTimeStamp( createdAt );
+    }
+
     public boolean isRetweeted()
     {
         return retweetStatus != null && retweetStatus.isRetweeted();
