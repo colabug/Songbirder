@@ -125,7 +125,7 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/vDivider2"
+        android:id="@+id/vEngagementDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tweet_divider"
         android:layout_below="@+id/llTweetEngagement"
