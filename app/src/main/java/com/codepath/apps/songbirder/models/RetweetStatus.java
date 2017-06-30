@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+// TODO: Move to parceler
 public class RetweetStatus implements Parcelable
 {
     private static final String RETWEET_KEY = "retweeted";

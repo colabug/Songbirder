@@ -22,12 +22,14 @@ public class Tweet
     long uid;
     String createdAt;
     String tweetText;
-    boolean favorited;
-    int likeCount;
-    int retweetCount;
 
     User user;
+
+    boolean liked;
+    int likeCount;
+
     RetweetStatus retweetStatus;
+    int retweetCount;
 
     public Tweet()
     {
@@ -39,7 +41,7 @@ public class Tweet
 
         tweet.uid = jsonObject.getLong( KEY_ID );
         tweet.createdAt = jsonObject.getString( KEY_CREATED_AT );
-        tweet.favorited = jsonObject.getBoolean( KEY_FAVORITED );
+        tweet.liked = jsonObject.getBoolean( KEY_FAVORITED );
         tweet.likeCount = jsonObject.getInt( KEY_FAVORITE_COUNT );
         tweet.retweetCount = jsonObject.getInt( KEY_RETWEET_COUNT );
         tweet.user = User.fromJson( jsonObject.getJSONObject( KEY_USER ) );
@@ -100,6 +102,11 @@ public class Tweet
     public boolean isRetweeted()
     {
         return retweetStatus != null && retweetStatus.isRetweeted();
+    }
+
+    public boolean isLiked()
+    {
+        return liked;
     }
 
     public int getLikeCount()

@@ -36,7 +36,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     {
         void onReply( Tweet tweet );
 
-        void onFavorite( long id );
+        void onLike( long id );
+        void onUnlike( Tweet tweet );
 
         void onRetweet( long id );
         void onUnretweet( Tweet tweet );
@@ -84,10 +85,18 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
             holder.btnRetweet.setImageDrawable( holder.retweetInactive );
         }
 
+        if( tweet.isLiked() )
+        {
+            holder.btnLike.setImageDrawable( holder.likeActive );
+        }
+        else
+        {
+            holder.btnLike.setImageDrawable( holder.likeInactive );
+        }
+
         holder.btnReply.setOnClickListener( getReplyListener( tweet ) );
         holder.btnRetweet.setOnClickListener( getRetweetListener( tweet ) );
-        holder.btnFavorite.setOnClickListener( getFavoriteListener( tweet ) );
-
+        holder.btnLike.setOnClickListener( getLikeListener( tweet ) );
     }
 
     private View.OnClickListener getItemClickListener( final Tweet tweet )
@@ -137,14 +146,21 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         };
     }
 
-    private View.OnClickListener getFavoriteListener( final Tweet tweet )
+    private View.OnClickListener getLikeListener( final Tweet tweet )
     {
         return new View.OnClickListener()
         {
             @Override
             public void onClick( View v )
             {
-                listener.onFavorite( tweet.getId() );
+                if( tweet.isLiked() )
+                {
+                    listener.onUnlike( tweet );
+                }
+                else
+                {
+                    listener.onLike( tweet.getId() );
+                }
             }
         };
     }
@@ -161,8 +177,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         @BindDrawable( R.drawable.ic_reply_inactive ) Drawable replyInactive;
         @BindDrawable( R.drawable.ic_retweet_active ) Drawable retweetActive;
         @BindDrawable( R.drawable.ic_retweet_inactive ) Drawable retweetInactive;
-        @BindDrawable( R.drawable.ic_favorite_active ) Drawable favoriteActive;
-        @BindDrawable( R.drawable.ic_favorite_inactive ) Drawable favoriteInactive;
+        @BindDrawable( R.drawable.ic_like_active) Drawable likeActive;
+        @BindDrawable( R.drawable.ic_like_inactive) Drawable likeInactive;
 
         @BindView(R.id.rltweetayout) RelativeLayout layout;
         @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
@@ -173,7 +189,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
         @BindView(R.id.ivReply) ImageView btnReply;
         @BindView(R.id.ivRetweet) ImageView btnRetweet;
-        @BindView(R.id.ivFavorite) ImageView btnFavorite;
+        @BindView(R.id.ivLike) ImageView btnLike;
 
         ViewHolder( View itemView )
         {

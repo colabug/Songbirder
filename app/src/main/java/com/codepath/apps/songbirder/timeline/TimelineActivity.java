@@ -259,12 +259,18 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     }
 
     @Override
-    public void onFavorite( long id )
+    public void onLike( long id )
     {
-        client.favorite( id, getFavoriteHandler() );
+        client.like( id, getLikeHandler() );
     }
 
-    private JsonHttpResponseHandler getFavoriteHandler()
+    @Override
+    public void onUnlike( Tweet tweet )
+    {
+        client.unlike( tweet.getId(), getLikeHandler() );
+    }
+
+    private JsonHttpResponseHandler getLikeHandler()
     {
         return new JsonHttpResponseHandler() {
             @Override

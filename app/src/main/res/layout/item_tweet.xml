@@ -88,12 +88,12 @@
             app:srcCompat="@drawable/ic_retweet_inactive"/>
 
         <ImageView
-            android:id="@+id/ivFavorite"
+            android:id="@+id/ivLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginBottom="@dimen/tweet_padding"
-            app:srcCompat="@drawable/ic_favorite_inactive"/>
+            app:srcCompat="@drawable/ic_like_inactive"/>
     </LinearLayout>
 
     <View

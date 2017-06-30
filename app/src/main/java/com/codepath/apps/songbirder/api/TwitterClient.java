@@ -6,7 +6,6 @@ import com.codepath.apps.songbirder.R;
 import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -23,7 +22,6 @@ import com.loopj.android.http.RequestParams;
  * NOTE: You may want to rename this object based on the service i.e TwitterClient or FlickrClient
  * 
  */
-// TODO: Add unretweeting
 public class TwitterClient extends OAuthBaseClient
 {
     // Basic authentication and URL requirements
@@ -54,9 +52,10 @@ public class TwitterClient extends OAuthBaseClient
     private static final String ENDPOINT_RETWEET = "statuses/retweet/%d.json";
     private static final String ENDPOINT_UNRETWEET = "statuses/unretweet/%d.json";
 
-    // Favorite call and parameters
-    private static final String ENDPOINT_FAVORITE = "favorites/create.json";
-    private static final String PARAM_FAVORITE_ID = "id";
+    // Like call and parameters
+    private static final String ENDPOINT_LIKE = "favorites/create.json";
+    private static final String ENDPOINT_UNLIKE = "favorites/destroy.json";
+    private static final String PARAM_LIKE_ID = "id";
 
     public TwitterClient( Context context )
     {
@@ -72,7 +71,7 @@ public class TwitterClient extends OAuthBaseClient
                               FALLBACK_URL ) );
     }
 
-    public void getHomeTimeline( AsyncHttpResponseHandler handler )
+    public void getHomeTimeline( JsonHttpResponseHandler handler )
     {
         String url = getApiUrl( TIMELINE_ENDPOINT );
 
@@ -98,25 +97,37 @@ public class TwitterClient extends OAuthBaseClient
         client.post( url, params, handler );
     }
 
-    public void favorite( long tweetId, JsonHttpResponseHandler handler )
+    // TODO: For some reason it is encoding my long id as a String and the call fails
+    public void like( long id, JsonHttpResponseHandler handler )
     {
-        String url = getApiUrl( ENDPOINT_FAVORITE );
+        String url = getApiUrl( ENDPOINT_LIKE );
 
         RequestParams params = new RequestParams();
-        params.put( PARAM_FAVORITE_ID, tweetId );
+        params.put( PARAM_LIKE_ID, id );
 
         client.post( url, new RequestParams(), handler );
     }
 
-    public void retweet( long tweetId, JsonHttpResponseHandler handler )
+    // TODO: May or may not have the same issue as liking
+    public void unlike( long id, JsonHttpResponseHandler handler )
     {
-        String url = String.format( getApiUrl( ENDPOINT_RETWEET ), tweetId );
+        String url = getApiUrl( ENDPOINT_UNLIKE );
+
+        RequestParams params = new RequestParams();
+        params.put( PARAM_LIKE_ID, id );
+
         client.post( url, new RequestParams(), handler );
     }
 
-    public void unretweet( long tweetId, JsonHttpResponseHandler handler )
+    public void retweet( long id, JsonHttpResponseHandler handler )
     {
-        String url = String.format( getApiUrl( ENDPOINT_UNRETWEET ), tweetId );
+        String url = String.format( getApiUrl( ENDPOINT_RETWEET ), id );
+        client.post( url, new RequestParams(), handler );
+    }
+
+    public void unretweet( long id, JsonHttpResponseHandler handler )
+    {
+        String url = String.format( getApiUrl( ENDPOINT_UNRETWEET ), id );
         client.post( url, new RequestParams(), handler );
     }
 }
