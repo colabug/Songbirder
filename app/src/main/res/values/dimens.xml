@@ -8,17 +8,17 @@
     <!--Tweet view-->
     <dimen name="tweet_padding">12dp</dimen>>
     <dimen name="tweet_small_padding">2dp</dimen>>
-    <dimen name="twitter_text_size">16sp</dimen>
-    <dimen name="twitter_profile_image_size">50dp</dimen>
+    <dimen name="tweet_text_size">16sp</dimen>
+    <dimen name="tweet_profile_image_size">50dp</dimen>
     <dimen name="tweet_username_max_width">100dp</dimen>>
     <dimen name="tweet_divider">1dp</dimen>
 
     <!--Compose view-->
-    <dimen name="tweet_button_width">88dp</dimen>
+    <dimen name="compose_tweet_button_width">88dp</dimen>
 
     <!--Detail view-->
-    <dimen name="twitter_detail_size">20sp</dimen>
-    <dimen name="twitter_detail_verified_size">15dp</dimen>
+    <dimen name="detail_text_size">20sp</dimen>
+    <dimen name="detail_verified_icon_size">15dp</dimen>
     <dimen name="detail_divider_padding">50dp</dimen>
 
     <!--Errors-->

@@ -40,7 +40,7 @@
 
     <Button
         android:id="@+id/btnTweet"
-        android:layout_width="@dimen/tweet_button_width"
+        android:layout_width="@dimen/compose_tweet_button_width"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/general_margin"
         app:layout_constraintRight_toRightOf="parent"

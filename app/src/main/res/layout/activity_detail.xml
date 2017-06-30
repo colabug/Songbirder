@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/ivProfileImage"
-        android:layout_width="@dimen/twitter_profile_image_size"
-        android:layout_height="@dimen/twitter_profile_image_size"
+        android:layout_width="@dimen/tweet_profile_image_size"
+        android:layout_height="@dimen/tweet_profile_image_size"
         android:layout_marginLeft="@dimen/tweet_padding"
         android:layout_marginStart="@dimen/tweet_padding"
         android:layout_marginTop="@dimen/tweet_padding"
