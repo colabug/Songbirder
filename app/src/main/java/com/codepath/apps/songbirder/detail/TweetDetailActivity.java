@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 
 import static com.codepath.apps.songbirder.timeline.TweetAdapter.ARG_DETAIL_TWEET;
 
+// TODO: Add media and buttons
 public class TweetDetailActivity extends AppCompatActivity
 {
     @BindView(R.id.tvName) TextView tvName;
