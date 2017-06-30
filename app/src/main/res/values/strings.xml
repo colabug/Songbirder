@@ -34,4 +34,7 @@
     <string name="default_timestamp">1:30 AM 26 June 17</string>
     <string name="default_retweet_text">50 Retweets</string>
     <string name="default_likes_text">62 likes</string>
+
+    <!--Errors-->
+    <string name="error_no_tweets">Unable to fetch tweets.</string>
 </resources>

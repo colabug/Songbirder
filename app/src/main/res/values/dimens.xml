@@ -19,5 +19,8 @@
     <!--Detail view-->
     <dimen name="twitter_detail_size">20sp</dimen>
     <dimen name="twitter_detail_verified_size">15dp</dimen>
-    <dimen name="detail_divider_padding">50dp</dimen>>
+    <dimen name="detail_divider_padding">50dp</dimen>
+
+    <!--Errors-->
+    <dimen name="error_image_size">200dp</dimen>>
 </resources>

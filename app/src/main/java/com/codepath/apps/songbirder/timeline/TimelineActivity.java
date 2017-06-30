@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.codepath.apps.songbirder.ComposeTweetDialog;
@@ -31,7 +32,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
-// TODO: Add error state when can't fetch data
 public class TimelineActivity extends AppCompatActivity implements ComposeTweetDialog.ComposeTweetDialogListener,
                                                                    TweetAdapter.ReplyToTweetListener
 {
@@ -41,6 +41,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.rvTweets) RecyclerView rvTweets;
     @BindView(R.id.pbProgressBar) ProgressBar pbProgressBar;
+    @BindView(R.id.llErrorView) LinearLayout llErrorView;
 
     private TweetAdapter adapter;
     ArrayList<Tweet> tweets;
@@ -135,6 +136,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                 }
 
                 hideProgressBar();
+                showErrorOrList();
             }
 
             @Override
@@ -151,7 +153,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                 {
                     logError( "", throwable );
                 }
+
                 hideProgressBar();
+                showErrorOrList();
             }
 
             @Override
@@ -170,6 +174,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                 }
 
                 hideProgressBar();
+                showErrorOrList();
             }
 
             @Override
@@ -179,9 +184,25 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable )
             {
                 logError( responseString, throwable );
+
                 hideProgressBar();
+                showErrorOrList();
             }
         };
+    }
+
+    private void showErrorOrList()
+    {
+        if( tweets.size() <= 0 )
+        {
+            rvTweets.setVisibility( View.GONE );
+            llErrorView.setVisibility( View.VISIBLE );
+        }
+        else
+        {
+            rvTweets.setVisibility( View.VISIBLE );
+            llErrorView.setVisibility( View.GONE );
+        }
     }
 
     private void hideProgressBar()
@@ -221,7 +242,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
             @Override
             public void onSuccess( int statusCode, Header[] headers, JSONArray response )
             {
-                super.onSuccess( statusCode, headers, response );
+                showErrorOrList();
             }
 
             @Override
@@ -230,7 +251,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable,
                                    JSONObject errorResponse )
             {
-                super.onFailure( statusCode, headers, throwable, errorResponse );
+                showErrorOrList();
             }
 
             @Override
@@ -239,7 +260,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable,
                                    JSONArray errorResponse )
             {
-                super.onFailure( statusCode, headers, throwable, errorResponse );
+                showErrorOrList();
             }
 
             @Override
@@ -248,13 +269,13 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    String responseString,
                                    Throwable throwable )
             {
-                super.onFailure( statusCode, headers, responseString, throwable );
+                showErrorOrList();
             }
 
             @Override
             public void onSuccess( int statusCode, Header[] headers, String responseString )
             {
-                super.onSuccess( statusCode, headers, responseString );
+                showErrorOrList();
             }
         };
     }
@@ -277,13 +298,13 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
             @Override
             public void onSuccess( int statusCode, Header[] headers, JSONObject response )
             {
-                super.onSuccess( statusCode, headers, response );
+                showErrorOrList();
             }
 
             @Override
             public void onSuccess( int statusCode, Header[] headers, JSONArray response )
             {
-                super.onSuccess( statusCode, headers, response );
+                showErrorOrList();
             }
 
             @Override
@@ -292,7 +313,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable,
                                    JSONObject errorResponse )
             {
-                super.onFailure( statusCode, headers, throwable, errorResponse );
+                showErrorOrList();
             }
 
             @Override
@@ -301,7 +322,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable,
                                    JSONArray errorResponse )
             {
-                super.onFailure( statusCode, headers, throwable, errorResponse );
+                showErrorOrList();
             }
 
             @Override
@@ -310,7 +331,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    String responseString,
                                    Throwable throwable )
             {
-                super.onFailure( statusCode, headers, responseString, throwable );
+                showErrorOrList();
             }
         };
     }
@@ -343,7 +364,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    JSONObject errorResponse )
             {
                 logError( errorResponse.toString(), throwable );
+
                 hideProgressBar();
+                showErrorOrList();
             }
 
             @Override
@@ -353,7 +376,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    JSONArray errorResponse )
             {
                 logError( errorResponse.toString(), throwable );
+
                 hideProgressBar();
+                showErrorOrList();
             }
 
             @Override
@@ -363,7 +388,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable )
             {
                 logError( responseString, throwable );
+
                 hideProgressBar();
+                showErrorOrList();
             }
         };
     }
@@ -394,7 +421,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                 {
                     e.printStackTrace();
                 }
+
                 hideProgressBar();
+                showErrorOrList();
             }
 
             @Override
@@ -404,7 +433,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    JSONObject errorResponse )
             {
                 logError( errorResponse.toString(), throwable );
+
                 hideProgressBar();
+                showErrorOrList();
             }
 
             @Override
@@ -414,7 +445,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    JSONArray errorResponse )
             {
                 logError( errorResponse.toString(), throwable );
+
                 hideProgressBar();
+                showErrorOrList();
             }
 
             @Override
@@ -424,7 +457,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    Throwable throwable )
             {
                 logError( responseString, throwable );
+
                 hideProgressBar();
+                showErrorOrList();
             }
         };
     }

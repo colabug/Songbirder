@@ -26,6 +26,10 @@
         <item name="android:textSize">@dimen/twitter_text_size</item>
     </style>
 
+    <style name="ErrorText" parent="TweetText">
+        <item name="android:textColor">@color/errorText</item>
+    </style>
+
     <style name="BoldText" parent="TweetText">
         <item name="android:textStyle">bold</item>
     </style>

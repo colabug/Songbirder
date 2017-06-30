@@ -11,4 +11,6 @@
     <color name="medium_grey">#8494a3</color>
     <color name="light_grey">#dae1dd</color>
     <color name="white">#ffffff</color>
+
+    <color name="errorText">#90a4ae</color>
 </resources>
