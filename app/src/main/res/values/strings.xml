@@ -10,17 +10,16 @@
     <string name="intent_host">cprest</string>
 
     <!--Tweet-->
-    <string name="default_name">Name</string>
-    <string name="default_user_name">Username</string>
-    <string name="default_relative_timestamp">0s</string>
-    <string name="default_tweet_text">Text of the tweet</string>
+    <string name="tweet_default_name">Name</string>
+    <string name="tweet_default_user_name">Username</string>
+    <string name="tweet_default_relative_timestamp">0s</string>
+    <string name="tweet_default_tweet">Text of the tweet</string>
     <string name="cd_profile_image">cd_tweet_profile_picture</string>
 
     <!--Compose-->
     <string name="compose_prompt">What\'s happening?</string>
     <string name="compose_tweet_button">Tweet</string>
-    <string name="default_compose_counter_value">140</string>
-    <string name="detail_reply_hint">Tweet your reply</string>
+    <string name="compose_default_counter_value">140</string>
 
     <!--Detail-->
     <plurals name="detail_retweet_plural">
@@ -31,9 +30,10 @@
         <item quantity="one">%d Like</item>
         <item quantity="other">%d Likes</item>
     </plurals>
-    <string name="default_timestamp">1:30 AM 26 June 17</string>
-    <string name="default_retweet_text">50 Retweets</string>
-    <string name="default_likes_text">62 likes</string>
+    <string name="detail_default_timestamp">1:30 AM 26 June 17</string>
+    <string name="detail_default_retweet">50 Retweets</string>
+    <string name="detail_default_likes">62 likes</string>
+    <string name="detail_reply_hint">Tweet your reply</string>
 
     <!--Errors-->
     <string name="error_no_tweets">Unable to fetch tweets.</string>

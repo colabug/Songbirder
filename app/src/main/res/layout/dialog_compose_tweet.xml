@@ -56,5 +56,5 @@
         app:layout_constraintTop_toBottomOf="@+id/etEnterTweet"
         app:layout_constraintRight_toLeftOf="@id/btnTweet"
         app:layout_constraintBottom_toBottomOf="@id/btnTweet"
-        android:text="@string/default_compose_counter_value"/>
+        android:text="@string/compose_default_counter_value"/>
 </android.support.constraint.ConstraintLayout>

@@ -30,7 +30,7 @@
         android:layout_toEndOf="@+id/ivProfileImage"
         app:layout_constraintLeft_toRightOf="@+id/ivProfileImage"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/default_name"/>
+        android:text="@string/tweet_default_name"/>
 
     <TextView
         android:id="@+id/tvUserName"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvName"
         app:layout_constraintLeft_toLeftOf="@+id/tvName"
         app:layout_constraintBottom_toTopOf="@+id/tvTweetText"
-        android:text="@string/default_user_name"/>
+        android:text="@string/tweet_default_user_name"/>
 
     <ImageView
         android:id="@+id/ivVerified"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivProfileImage"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/ivProfileImage"
-        android:text="@string/default_tweet_text"
+        android:text="@string/tweet_default_tweet"
         style="@style/DetailTweetText"/>
 
     <TextView
@@ -84,7 +84,7 @@
         android:layout_alignParentStart="true"
         app:layout_constraintLeft_toLeftOf="@+id/tvTweetText"
         app:layout_constraintTop_toBottomOf="@+id/tvTweetText"
-        android:text="@string/default_timestamp"/>
+        android:text="@string/detail_default_timestamp"/>
 
     <View
         android:id="@+id/vDivider"
@@ -111,7 +111,7 @@
             android:id="@+id/tvRetweets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/default_retweet_text"
+            android:text="@string/detail_default_retweet"
             android:textStyle="bold"/>
 
         <TextView
@@ -121,7 +121,7 @@
             android:layout_marginLeft="@dimen/tweet_padding"
             app:layout_constraintLeft_toRightOf="@+id/tvRetweets"
             android:textStyle="bold"
-            android:text="@string/default_likes_text"/>
+            android:text="@string/detail_default_likes"/>
     </LinearLayout>
 
     <View
