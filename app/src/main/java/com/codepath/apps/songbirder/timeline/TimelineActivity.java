@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.rvTweets) RecyclerView rvTweets;
+    @BindView(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
     @BindView(R.id.pbProgressBar) ProgressBar pbProgressBar;
     @BindView(R.id.llErrorView) LinearLayout llErrorView;
 
@@ -65,7 +67,87 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
         setSupportActionBar( toolbar );
 
         configureRecyclerView();
+
+        swipeContainer.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                fetchTimelineAsync( 0 );
+            }
+        } );
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                                               android.R.color.holo_green_light,
+                                               android.R.color.holo_orange_light,
+                                               android.R.color.holo_red_light);
+
         populateTimeline();
+    }
+
+    public void fetchTimelineAsync( int page )
+    {
+        client.getHomeTimeline( new JsonHttpResponseHandler()
+        {
+
+            @Override
+            public void onSuccess( int statusCode, Header[] headers, JSONObject response )
+            {
+                stopRefreshing();
+            }
+
+            @Override
+            public void onSuccess( int statusCode, Header[] headers, JSONArray response )
+            {
+                refreshTweets( response );
+                stopRefreshing();
+            }
+
+            @Override
+            public void onSuccess( int statusCode, Header[] headers, String responseString )
+            {
+                stopRefreshing();
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   Throwable throwable,
+                                   JSONObject errorResponse )
+            {
+                stopRefreshing();
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   Throwable throwable,
+                                   JSONArray errorResponse )
+            {
+                stopRefreshing();
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   String responseString,
+                                   Throwable throwable )
+            {
+                stopRefreshing();
+            }
+        } );
+    }
+
+    private void refreshTweets( JSONArray json )
+    {
+        adapter.clear();
+        parseTweets( json );
+        adapter.addAll( tweets );
+    }
+
+    private void stopRefreshing()
+    {
+        swipeContainer.setRefreshing( false );
     }
 
     @OnClick(R.id.fab) void showComposeDialog()
@@ -122,19 +204,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
             {
                 Log.d( TAG, "Successfully fetched data:\n" + response.toString() );
 
-                for( int index = 0; index < response.length(); index++ )
-                {
-                    try
-                    {
-                        tweets.add( Tweet.fromJson( response.getJSONObject( index ) ) );
-                        adapter.notifyItemInserted( tweets.size() - 1 );
-                    }
-                    catch( JSONException exception )
-                    {
-                        exception.printStackTrace();
-                    }
-                }
-
+                parseTweets( response );
                 hideProgressBar();
                 showErrorOrList();
             }
@@ -189,6 +259,22 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                 showErrorOrList();
             }
         };
+    }
+
+    private void parseTweets( JSONArray response)
+    {
+        for( int index = 0; index < response.length(); index++ )
+        {
+            try
+            {
+                tweets.add( Tweet.fromJson( response.getJSONObject( index ) ) );
+                adapter.notifyItemInserted( tweets.size() - 1 );
+            }
+            catch( JSONException exception )
+            {
+                exception.printStackTrace();
+            }
+        }
     }
 
     private void showErrorOrList()

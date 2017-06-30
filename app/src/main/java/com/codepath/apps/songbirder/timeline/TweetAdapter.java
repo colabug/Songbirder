@@ -165,6 +165,18 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         };
     }
 
+    public void clear()
+    {
+        tweets.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll( List<Tweet> list )
+    {
+        tweets.addAll( list );
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount()
     {
