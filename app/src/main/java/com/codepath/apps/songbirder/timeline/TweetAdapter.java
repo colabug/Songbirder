@@ -35,8 +35,11 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     interface ReplyToTweetListener
     {
         void onReply( Tweet tweet );
-        void onRetweet( long id );
+
         void onFavorite( long id );
+
+        void onRetweet( long id );
+        void onUnretweet( Tweet tweet );
     }
 
     TweetAdapter( List<Tweet> tweets )
@@ -122,7 +125,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
             @Override
             public void onClick( View v )
             {
-                listener.onRetweet( tweet.getId() );
+                if( tweet.isRetweeted() )
+                {
+                    listener.onUnretweet( tweet );
+                }
+                else
+                {
+                    listener.onRetweet( tweet.getId() );
+                }
             }
         };
     }

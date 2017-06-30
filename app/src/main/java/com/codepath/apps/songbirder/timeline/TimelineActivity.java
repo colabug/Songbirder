@@ -201,6 +201,64 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     }
 
     @Override
+    public void onUnretweet( Tweet tweet )
+    {
+        client.unretweet( tweet.getId(), getUnretweetHandler( tweet ) );
+    }
+
+    private JsonHttpResponseHandler getUnretweetHandler( final Tweet tweet )
+    {
+        return new JsonHttpResponseHandler(  ) {
+            @Override
+            public void onSuccess( int statusCode, Header[] headers, JSONObject response )
+            {
+                super.onSuccess( statusCode, headers, response );
+                tweets.remove( tweet );
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onSuccess( int statusCode, Header[] headers, JSONArray response )
+            {
+                super.onSuccess( statusCode, headers, response );
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   Throwable throwable,
+                                   JSONObject errorResponse )
+            {
+                super.onFailure( statusCode, headers, throwable, errorResponse );
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   Throwable throwable,
+                                   JSONArray errorResponse )
+            {
+                super.onFailure( statusCode, headers, throwable, errorResponse );
+            }
+
+            @Override
+            public void onFailure( int statusCode,
+                                   Header[] headers,
+                                   String responseString,
+                                   Throwable throwable )
+            {
+                super.onFailure( statusCode, headers, responseString, throwable );
+            }
+
+            @Override
+            public void onSuccess( int statusCode, Header[] headers, String responseString )
+            {
+                super.onSuccess( statusCode, headers, responseString );
+            }
+        };
+    }
+
+    @Override
     public void onFavorite( long id )
     {
         client.favorite( id, getFavoriteHandler() );
