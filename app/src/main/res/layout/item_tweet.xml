@@ -80,20 +80,22 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_reply_inactive"/>
 
-        <ImageView
+        <TextView
             android:id="@+id/ivRetweet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_retweet_inactive"/>
+            android:drawablePadding="@dimen/tweet_small_padding"
+            android:drawableLeft="@drawable/ic_retweet_inactive"/>
 
-        <ImageView
+        <TextView
             android:id="@+id/ivLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginBottom="@dimen/tweet_padding"
-            app:srcCompat="@drawable/ic_like_inactive"/>
+            android:drawablePadding="@dimen/tweet_small_padding"
+            android:drawableLeft="@drawable/ic_like_inactive"/>
     </LinearLayout>
 
     <View

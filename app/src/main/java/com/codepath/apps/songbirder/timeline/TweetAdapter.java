@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 {
     public static final String ARG_DETAIL_TWEET = "tweet for detail";
+
     private final List<Tweet> tweets;
     private Context context;
     private ReplyToTweetListener listener;
@@ -76,22 +77,40 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
              .load( tweet.getProfileImageUrl() )
              .into( holder.ivProfileImage );
 
-        if( tweet.isRetweeted() )
+        if( tweet.getRetweetCount() > 0 )
         {
-            holder.btnRetweet.setImageDrawable( holder.retweetActive );
+            holder.btnRetweet.setText( String.valueOf( tweet.getRetweetCount() ) );
         }
         else
         {
-            holder.btnRetweet.setImageDrawable( holder.retweetInactive );
+            holder.btnRetweet.setText( "" );
+        }
+
+        if( tweet.isRetweeted() )
+        {
+            holder.btnRetweet.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_retweet_active, 0, 0, 0 );
+        }
+        else
+        {
+            holder.btnRetweet.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_retweet_inactive, 0, 0, 0 );
+        }
+
+        if( tweet.getLikeCount() > 0 )
+        {
+            holder.btnLike.setText( String.valueOf( tweet.getLikeCount() ) );
+        }
+        else
+        {
+            holder.btnLike.setText( "" );
         }
 
         if( tweet.isLiked() )
         {
-            holder.btnLike.setImageDrawable( holder.likeActive );
+            holder.btnLike.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_like_active, 0, 0, 0 );
         }
         else
         {
-            holder.btnLike.setImageDrawable( holder.likeInactive );
+            holder.btnLike.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_like_inactive, 0, 0, 0 );
         }
 
         holder.btnReply.setOnClickListener( getReplyListener( tweet ) );
@@ -187,10 +206,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     {
         @BindDrawable( R.drawable.ic_reply_active ) Drawable replyActive;
         @BindDrawable( R.drawable.ic_reply_inactive ) Drawable replyInactive;
-        @BindDrawable( R.drawable.ic_retweet_active ) Drawable retweetActive;
-        @BindDrawable( R.drawable.ic_retweet_inactive ) Drawable retweetInactive;
-        @BindDrawable( R.drawable.ic_like_active) Drawable likeActive;
-        @BindDrawable( R.drawable.ic_like_inactive) Drawable likeInactive;
 
         @BindView(R.id.rltweetayout) RelativeLayout layout;
         @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
@@ -200,8 +215,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         @BindView(R.id.tvTweetText) TextView tvTweetText;
 
         @BindView(R.id.ivReply) ImageView btnReply;
-        @BindView(R.id.ivRetweet) ImageView btnRetweet;
-        @BindView(R.id.ivLike) ImageView btnLike;
+        @BindView(R.id.ivRetweet) TextView btnRetweet;
+        @BindView(R.id.ivLike) TextView btnLike;
 
         ViewHolder( View itemView )
         {
