@@ -4,48 +4,32 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.models.Tweet;
 
 import org.parceler.Parcels;
 
-import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ComposeTweetDialog extends DialogFragment implements TextView.OnEditorActionListener
+public class ComposeTweetDialog extends DialogFragment implements ComposeTweetView.TweetButtonListener
 {
     private static final String ARG_TWEET = "tweet";
 
-    private static final int MAX_TWEET_LENGTH = 140;
-    private static final int WARNING_CHARACTER_COUNT = 10;
-
-    @BindView(R.id.etEnterTweet) EditText etEnterTweet;
     @BindView(R.id.ivClose) ImageView btnClose;
-    @BindView(R.id.tvCounter) TextView tvCounter;
-    @BindView(R.id.btnTweet) Button btnTweet;
-
-    @BindColor( R.color.red ) int red;
-    @BindColor( R.color.dark_orange) int darkOrange;
-    @BindColor( android.R.color.black ) int black;
+    @BindView(R.id.vComposeTweet) ComposeTweetView vComposeTweet;
 
     private Tweet tweet;
 
     private ComposeTweetDialogListener listener;
+
 
     public interface ComposeTweetDialogListener
     {
@@ -91,7 +75,7 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
             tweet = Parcels.unwrap( getArguments().getParcelable( ARG_TWEET ) );
             if( tweet != null )
             {
-                etEnterTweet.setText( tweet.getDisplayUsername() + " " );
+                vComposeTweet.setTweetText( tweet.getDisplayUsername() + " " );
                 // TODO: Display profile image with glide
             }
         }
@@ -100,95 +84,36 @@ public class ComposeTweetDialog extends DialogFragment implements TextView.OnEdi
             tweet = new Tweet();
         }
 
-        configureKeyboard();
+        showKeyboard();
 
         listener = (ComposeTweetDialogListener) getActivity();
+        vComposeTweet.setListener( this);
 
         return layout;
     }
 
-    private void configureKeyboard()
-    {
-        showKeyboard();
-        etEnterTweet.addTextChangedListener( getTextChangedListener() );
-        etEnterTweet.setOnEditorActionListener( this );
-    }
-
     private void showKeyboard()
     {
-        etEnterTweet.requestFocus();
+        vComposeTweet.requestFocus();
         getDialog().getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE );
     }
 
-    private TextWatcher getTextChangedListener()
+    @Override
+    public void onTweetButtonClick()
     {
-        return new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged( CharSequence s, int start, int count, int after )
-            {
-
-            }
-
-            @Override
-            public void onTextChanged( CharSequence s, int start, int before, int count )
-            {
-                updateCounter();
-            }
-
-            @Override
-            public void afterTextChanged( Editable s )
-            {
-
-            }
-        };
-    }
-
-    private void updateCounter()
-    {
-        int currentLength = etEnterTweet.getText().length();
-        int valueToDisplay = MAX_TWEET_LENGTH - currentLength;
-
-        tvCounter.setTextColor( getTextColor( valueToDisplay ) );
-        tvCounter.setText( String.valueOf( valueToDisplay ) );
-    }
-
-    private int getTextColor( int valueToDisplay )
-    {
-        if( valueToDisplay < 0 )
-        {
-            return red;
-        }
-        else if( valueToDisplay <= WARNING_CHARACTER_COUNT )
-        {
-            return darkOrange;
-        }
-        else
-        {
-            return black;
-        }
+        submitTweetAndExit();
     }
 
     @Override
-    public boolean onEditorAction( TextView v, int actionId, KeyEvent event )
+    public void onEditorDone()
     {
-        if( EditorInfo.IME_ACTION_DONE == actionId )
-        {
-            listener.onTweetSubmit( etEnterTweet.getText().toString(), tweet.getId() );
-
-            dismiss();
-
-            return true;
-        }
-
-        return false;
+        submitTweetAndExit();
     }
 
-    @OnClick(R.id.btnTweet)
-    void submitTweet()
+    private void submitTweetAndExit()
     {
-        // Call the client or return the string to the activity
-        listener.onTweetSubmit( etEnterTweet.getText().toString(), tweet.getId() );
+        listener.onTweetSubmit( vComposeTweet.getTweetText(), tweet.getId() );
+
         dismiss();
     }
 

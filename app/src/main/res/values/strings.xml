@@ -20,6 +20,7 @@
     <string name="compose_prompt">What\'s happening?</string>
     <string name="compose_tweet_button">Tweet</string>
     <string name="compose_default_counter_value">140</string>
+    <string name="cd_close_dialog">Close tweet dialog</string>
 
     <!--Detail-->
     <plurals name="detail_retweet_plural">

@@ -137,11 +137,10 @@
         app:layout_constraintTop_toBottomOf="@+id/llTweetEngagement"
         android:background="@color/light_grey"/>
 
-    <EditText
+    <com.codepath.apps.songbirder.compose.ComposeTweetView
         android:id="@+id/etTweetReply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/detail_reply_hint"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="@dimen/tweet_padding"
         android:layout_marginLeft="@dimen/tweet_padding"

@@ -15,6 +15,7 @@
 
     <!--Compose view-->
     <dimen name="compose_tweet_button_width">88dp</dimen>
+    <dimen name="compose_tweet_button_height">45dp</dimen>
 
     <!--Detail view-->
     <dimen name="detail_text_size">20sp</dimen>
