@@ -9,11 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.SongbirderApplication;
 import com.codepath.apps.songbirder.api.TwitterClient;
 import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
+import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
+import com.codepath.apps.songbirder.listeners.EngagementButtonListener;
 import com.codepath.apps.songbirder.models.Tweet;
 import com.codepath.apps.songbirder.views.TweetEngagementView;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -30,7 +31,7 @@ import static com.codepath.apps.songbirder.timeline.TweetAdapter.ARG_DETAIL_TWEE
 
 // TODO: Add media
 public class TweetDetailActivity extends AppCompatActivity
-                                 implements TweetEngagementView.TweetEngagementButtonListener,
+                                 implements EngagementButtonListener,
                                             ComposeTweetDialog.ComposeTweetDialogListener,
                                             EngageWithTweetListener
 {

@@ -14,9 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.detail.TweetDetailActivity;
+import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
+import com.codepath.apps.songbirder.listeners.EngagementButtonListener;
 import com.codepath.apps.songbirder.models.Tweet;
 import com.codepath.apps.songbirder.views.TweetEngagementView;
 
@@ -29,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
-                          implements TweetEngagementView.TweetEngagementButtonListener
+                          implements EngagementButtonListener
 {
     public static final String ARG_DETAIL_TWEET = "tweet for detail";
 

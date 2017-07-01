@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codepath.apps.songbirder.R;
+import com.codepath.apps.songbirder.listeners.EngagementButtonListener;
 import com.codepath.apps.songbirder.models.Tweet;
 
 import butterknife.BindView;
@@ -21,16 +22,7 @@ public class TweetEngagementView extends LinearLayout
 
     private Tweet tweet;
 
-    private TweetEngagementButtonListener listener;
-
-    public interface TweetEngagementButtonListener
-    {
-        void onReplyClick( Tweet tweet );
-
-        void onRetweetClick( Tweet tweet );
-
-        void onLikeClick( Tweet tweet );
-    }
+    private EngagementButtonListener listener;
 
     public TweetEngagementView( Context context )
     {
@@ -57,7 +49,7 @@ public class TweetEngagementView extends LinearLayout
         ButterKnife.bind( this );
     }
 
-    public void setListener( TweetEngagementButtonListener listener )
+    public void setListener( EngagementButtonListener listener )
     {
         this.listener = listener;
     }
