@@ -76,6 +76,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
         holder.vTweetEngagement.setTweet( tweet );
         holder.vTweetEngagement.setListener( this );
+        holder.vTweetEngagement.hideMessages();
     }
 
     private Spanned getFormattedText( Tweet tweet )

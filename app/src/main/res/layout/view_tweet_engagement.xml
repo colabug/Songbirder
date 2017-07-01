@@ -7,14 +7,13 @@
     android:layout_height="wrap_content"
     android:layout_alignStart="@+id/ivProfileImage"
     android:layout_below="@+id/tvTweetText"
-    android:weightSum="3">
+    android:weightSum="4">
 
     <ImageView
         android:id="@+id/ivReply"
         android:layout_width="@dimen/engagement_button_width"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center_vertical"
         app:srcCompat="@drawable/ic_reply_inactive"/>
 
     <TextView
@@ -36,4 +35,11 @@
         android:drawableLeft="@drawable/ic_like_inactive"
         android:drawablePadding="@dimen/engagement_icon_padding"
         android:includeFontPadding="false"/>
+
+    <ImageView
+        android:id="@+id/ivDirectMessage"
+        android:layout_width="@dimen/engagement_button_width"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_message"/>
 </LinearLayout>

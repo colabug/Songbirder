@@ -2,6 +2,7 @@ package com.codepath.apps.songbirder.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ public class TweetEngagementView extends LinearLayout
     @BindView(R.id.ivReply) ImageView btnReply;
     @BindView(R.id.ivRetweet) TextView btnRetweet;
     @BindView(R.id.ivLike) TextView btnLike;
+    @BindView(R.id.ivDirectMessage) ImageView ivDirectMessage;
 
     private Tweet tweet;
 
@@ -58,6 +60,11 @@ public class TweetEngagementView extends LinearLayout
     {
         this.tweet = tweet;
         setUpView();
+    }
+
+    public void hideMessages()
+    {
+        ivDirectMessage.setVisibility( View.GONE );
     }
 
     private void setUpView()
