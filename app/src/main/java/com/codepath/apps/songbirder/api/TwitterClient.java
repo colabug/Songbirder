@@ -27,8 +27,8 @@ public class TwitterClient extends OAuthBaseClient
     // Basic authentication and URL requirements
     private static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
     private static final String REST_URL = "https://api.twitter.com/1.1";
-    private static final String REST_CONSUMER_KEY = "R43hRq4NN8MOehGhg2sQSMiJJ";
-    private static final String REST_CONSUMER_SECRET = "gyFIe3BLKpVBbinptzp6ttutWvj8b1b2N9cVEwg9InyXnso5vW";
+    private static final String REST_CONSUMER_KEY = "Bx0i76b7nDFv6psvUN2iS6bhd";
+    private static final String REST_CONSUMER_SECRET = "pWHCa7mY8VzuEg1CrV4bapL0JVz6HUjAdUmQD2P07JVRZrEZon";
 
     // Landing page to indicate the OAuth flow worked in case Chrome for Android 25+ blocks navigation back to the app.
     private static final String FALLBACK_URL = "https://codepath.github.io/android-rest-client-template/success.html";
@@ -53,9 +53,8 @@ public class TwitterClient extends OAuthBaseClient
     private static final String ENDPOINT_UNRETWEET = "statuses/unretweet/%d.json";
 
     // Like call and parameters
-    private static final String ENDPOINT_LIKE = "favorites/create.json";
+    private static final String ENDPOINT_LIKE = "favorites/create.json?id=%d";
     private static final String ENDPOINT_UNLIKE = "favorites/destroy.json";
-    private static final String PARAM_LIKE_ID = "id";
 
     public TwitterClient( Context context )
     {
@@ -97,37 +96,27 @@ public class TwitterClient extends OAuthBaseClient
         client.post( url, params, handler );
     }
 
-    // TODO: For some reason it is encoding my long id as a String and the call fails
     public void like( long id, JsonHttpResponseHandler handler )
     {
-        String url = getApiUrl( ENDPOINT_LIKE );
-
-        RequestParams params = new RequestParams();
-        params.put( PARAM_LIKE_ID, id );
-
-        client.post( url, new RequestParams(), handler );
+        String url = String.format( getApiUrl( ENDPOINT_LIKE ), id );
+        client.post( url, null, handler );
     }
 
-    // TODO: May or may not have the same issue as liking
     public void unlike( long id, JsonHttpResponseHandler handler )
     {
-        String url = getApiUrl( ENDPOINT_UNLIKE );
-
-        RequestParams params = new RequestParams();
-        params.put( PARAM_LIKE_ID, id );
-
-        client.post( url, new RequestParams(), handler );
+        String url = String.format( getApiUrl( ENDPOINT_UNLIKE ), id );
+        client.post( url, null, handler );
     }
 
     public void retweet( long id, JsonHttpResponseHandler handler )
     {
         String url = String.format( getApiUrl( ENDPOINT_RETWEET ), id );
-        client.post( url, new RequestParams(), handler );
+        client.post( url, null, handler );
     }
 
     public void unretweet( long id, JsonHttpResponseHandler handler )
     {
         String url = String.format( getApiUrl( ENDPOINT_UNRETWEET ), id );
-        client.post( url, new RequestParams(), handler );
+        client.post( url, null, handler );
     }
 }

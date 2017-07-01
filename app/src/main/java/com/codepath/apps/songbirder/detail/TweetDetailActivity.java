@@ -42,7 +42,7 @@ public class TweetDetailActivity extends AppCompatActivity
         ButterKnife.bind( this );
 
         // Get tweet from the intent
-        tweet = Parcels.unwrap( getIntent().getParcelableExtra( ARG_DETAIL_TWEET));
+        tweet = Parcels.unwrap( getIntent().getParcelableExtra( ARG_DETAIL_TWEET ) );
         if( tweet == null )
         {
             tweet = new Tweet();
