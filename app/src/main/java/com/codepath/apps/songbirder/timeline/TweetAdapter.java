@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,9 +63,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
         holder.layout.setOnClickListener( getItemClickListener( tweet ) );
 
-        holder.tvName.setText( tweet.getName() );
-        holder.tvUserName.setText( tweet.getDisplayUsername() );
-        holder.tvRelativeTimestamp.setText( tweet.getRelativeTimestamp() );
+        holder.userAndTimeStamp.setText( getFormattedText( tweet ) );
         holder.tvTweetText.setText( tweet.getTweetText() );
 
         Glide.with( context )
@@ -72,6 +72,13 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
         holder.vTweetEngagement.setTweet( tweet );
         holder.vTweetEngagement.setListener( this );
+    }
+
+    private Spanned getFormattedText( Tweet tweet )
+    {
+        return Html.fromHtml( "<b><font color=#000000>" + tweet.getName() + "</font></b><font color=#8494a3> " +
+                              tweet.getDisplayUsername() + " · " +
+                              tweet.getRelativeTimestamp() + "</font>" );
     }
 
     private View.OnClickListener getItemClickListener( final Tweet tweet )
@@ -145,10 +152,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
         @BindView(R.id.rltweetayout) RelativeLayout layout;
 
-        @BindView(R.id.tvName) TextView tvName;
-        @BindView(R.id.tvUserName) TextView tvUserName;
+        @BindView(R.id.userAndTimeStamp) TextView userAndTimeStamp;
         @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
-        @BindView(R.id.tvRelativeTimestamp) TextView tvRelativeTimestamp;
         @BindView(R.id.tvTweetText) TextView tvTweetText;
 
         @BindView(R.id.vTweetEngagement) TweetEngagementView vTweetEngagement;

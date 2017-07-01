@@ -15,44 +15,19 @@
         android:layout_margin="@dimen/tweet_padding"
         android:contentDescription="@string/cd_profile_image"/>
 
-    <LinearLayout
-        android:id="@+id/userInformation"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/userAndTimeStamp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/tweet_padding"
-        android:layout_toEndOf="@+id/ivProfileImage">
+        android:layout_marginEnd="@dimen/tweet_small_padding"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:maxLines="1"
+        android:ellipsize="middle"
+        android:text="@string/tweet_default_user_info"/>
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/tweet_small_padding"
-            android:textStyle="bold"
-            android:text="@string/tweet_default_name"
-            style="@style/BoldText"/>
-
-        <TextView
-            android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="@dimen/tweet_username_max_width"
-            android:layout_marginEnd="@dimen/tweet_small_padding"
-            android:text="@string/tweet_default_user_name"
-            android:textColor="@color/dark_grey"
-            style="@style/EllipsizedLightText"/>
-
-        <!--TODO: Add the dot here between these views-->
-
-        <TextView
-            android:id="@+id/tvRelativeTimestamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tweet_default_relative_timestamp"
-            style="@style/EllipsizedLightText"/>
-
-        <!--TODO: Add a drop down menu here-->
-    </LinearLayout>
+    <!--TODO: Add a drop down menu-->
 
     <TextView
         android:id="@+id/tvTweetText"
@@ -60,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/tweet_padding"
         android:layout_marginEnd="@dimen/tweet_padding"
-        android:layout_below="@id/userInformation"
+        android:layout_below="@id/userAndTimeStamp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:text="@string/tweet_default_tweet"
         style="@style/TweetText"/>

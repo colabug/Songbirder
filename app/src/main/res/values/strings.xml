@@ -10,9 +10,8 @@
     <string name="intent_host">cprest</string>
 
     <!--Tweet-->
-    <string name="tweet_default_name">Name</string>
-    <string name="tweet_default_user_name">Username</string>
-    <string name="tweet_default_relative_timestamp">0s</string>
+    <string name="tweet_default_user_name">Name</string>
+    <string name="tweet_default_user_info">Name Username · 0s</string>
     <string name="tweet_default_tweet">Text of the tweet</string>
     <string name="cd_profile_image">cd_tweet_profile_picture</string>
 

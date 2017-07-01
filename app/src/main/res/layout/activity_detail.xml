@@ -30,7 +30,7 @@
         android:layout_toEndOf="@+id/ivProfileImage"
         app:layout_constraintLeft_toRightOf="@+id/ivProfileImage"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/tweet_default_name"/>
+        android:text="@string/tweet_default_user_info"/>
 
     <TextView
         android:id="@+id/tvUserName"
@@ -72,7 +72,7 @@
         android:layout_below="@+id/etTweetReply"
         app:layout_constraintTop_toBottomOf="@id/ivProfileImage"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+d/ivProfileImage"
+        app:layout_constraintLeft_toLeftOf="@id/ivProfileImage"
         android:text="@string/tweet_default_tweet"
         style="@style/DetailTweetText"/>
 
