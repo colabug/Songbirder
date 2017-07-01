@@ -1,4 +1,4 @@
-package com.codepath.apps.songbirder;
+package com.codepath.apps.songbirder.compose;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.models.Tweet;
 
 import org.parceler.Parcels;

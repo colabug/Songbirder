@@ -2,7 +2,7 @@ package com.codepath.apps.songbirder.support;
 
 import android.support.v4.app.FragmentActivity;
 
-import com.codepath.apps.songbirder.ComposeTweetDialog;
+import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
 
 public class ActivityWithListener extends FragmentActivity implements ComposeTweetDialog.ComposeTweetDialogListener
 {
