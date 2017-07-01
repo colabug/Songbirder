@@ -31,6 +31,7 @@ public class ComposeTweetDialog extends DialogFragment implements ComposeTweetVi
 
     private ComposeTweetDialogListener listener;
 
+    // TODO: Centralize with other listener
     public interface ComposeTweetDialogListener
     {
         void onTweetSubmit( String tweetText, long replyId );
@@ -87,7 +88,7 @@ public class ComposeTweetDialog extends DialogFragment implements ComposeTweetVi
         showKeyboard();
 
         listener = (ComposeTweetDialogListener) getActivity();
-        vComposeTweet.setListener( this);
+        vComposeTweet.setListener( this );
 
         return layout;
     }

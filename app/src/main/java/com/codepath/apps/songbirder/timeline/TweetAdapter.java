@@ -3,7 +3,6 @@ package com.codepath.apps.songbirder.timeline;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.songbirder.EngageWithTweetListener;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.detail.TweetDetailActivity;
 import com.codepath.apps.songbirder.models.Tweet;
+import com.codepath.apps.songbirder.views.TweetEngagementView;
 
 import org.parceler.Parcels;
 
@@ -26,23 +27,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
+                          implements TweetEngagementView.TweetEngagementButtonListener
 {
     public static final String ARG_DETAIL_TWEET = "tweet for detail";
 
     private final List<Tweet> tweets;
+
     private Context context;
-    private ReplyToTweetListener listener;
 
-    interface ReplyToTweetListener
-    {
-        void onReply( Tweet tweet );
-
-        void onLike( long id );
-        void onUnlike( Tweet tweet );
-
-        void onRetweet( long id );
-        void onUnretweet( Tweet tweet );
-    }
+    private EngageWithTweetListener listener;
 
     TweetAdapter( List<Tweet> tweets )
     {
@@ -55,7 +48,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from( context );
 
-        listener = (ReplyToTweetListener) context;
+        listener = (EngageWithTweetListener) context;
 
         View tweetView = inflater.inflate( R.layout.item_tweet, parent, false);
         return new ViewHolder( tweetView );
@@ -77,45 +70,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
              .load( tweet.getProfileImageUrl() )
              .into( holder.ivProfileImage );
 
-        if( tweet.getRetweetCount() > 0 )
-        {
-            holder.btnRetweet.setText( String.valueOf( tweet.getRetweetCount() ) );
-        }
-        else
-        {
-            holder.btnRetweet.setText( "" );
-        }
-
-        if( tweet.isRetweeted() )
-        {
-            holder.btnRetweet.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_retweet_active, 0, 0, 0 );
-        }
-        else
-        {
-            holder.btnRetweet.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_retweet_inactive, 0, 0, 0 );
-        }
-
-        if( tweet.getLikeCount() > 0 )
-        {
-            holder.btnLike.setText( String.valueOf( tweet.getLikeCount() ) );
-        }
-        else
-        {
-            holder.btnLike.setText( "" );
-        }
-
-        if( tweet.isLiked() )
-        {
-            holder.btnLike.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_like_active, 0, 0, 0 );
-        }
-        else
-        {
-            holder.btnLike.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_like_inactive, 0, 0, 0 );
-        }
-
-        holder.btnReply.setOnClickListener( getReplyListener( tweet ) );
-        holder.btnRetweet.setOnClickListener( getRetweetListener( tweet ) );
-        holder.btnLike.setOnClickListener( getLikeListener( tweet ) );
+        holder.vTweetEngagement.setTweet( tweet );
+        holder.vTweetEngagement.setListener( this );
     }
 
     private View.OnClickListener getItemClickListener( final Tweet tweet )
@@ -132,65 +88,45 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         };
     }
 
-    @NonNull
-    private View.OnClickListener getReplyListener( final Tweet tweet )
+    @Override
+    public void onReplyClick( Tweet tweet )
     {
-        return new View.OnClickListener()
-        {
-            @Override
-            public void onClick( View v )
-            {
-                listener.onReply( tweet );
-            }
-        };
+        listener.onReply( tweet );
     }
 
-    @NonNull
-    private View.OnClickListener getRetweetListener( final Tweet tweet )
+    @Override
+    public void onRetweetClick( Tweet tweet )
     {
-        return new View.OnClickListener()
+        if( tweet.isRetweeted() )
         {
-            @Override
-            public void onClick( View v )
-            {
-                if( tweet.isRetweeted() )
-                {
-                    listener.onUnretweet( tweet );
-                }
-                else
-                {
-                    listener.onRetweet( tweet.getId() );
-                }
-            }
-        };
+            listener.onUnretweet( tweet );
+        }
+        else
+        {
+            listener.onRetweet( tweet.getId() );
+        }
     }
 
-    private View.OnClickListener getLikeListener( final Tweet tweet )
+    @Override
+    public void onLikeClick( Tweet tweet )
     {
-        return new View.OnClickListener()
+        if( tweet.isLiked() )
         {
-            @Override
-            public void onClick( View v )
-            {
-                if( tweet.isLiked() )
-                {
-                    listener.onUnlike( tweet );
-                }
-                else
-                {
-                    listener.onLike( tweet.getId() );
-                }
-            }
-        };
+            listener.onUnlike( tweet );
+        }
+        else
+        {
+            listener.onLike( tweet.getId() );
+        }
     }
 
-    public void clear()
+    void clear()
     {
         tweets.clear();
         notifyDataSetChanged();
     }
 
-    public void addAll( List<Tweet> list )
+    void addAll( List<Tweet> list )
     {
         tweets.addAll( list );
         notifyDataSetChanged();
@@ -208,15 +144,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         @BindDrawable( R.drawable.ic_reply_inactive ) Drawable replyInactive;
 
         @BindView(R.id.rltweetayout) RelativeLayout layout;
-        @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+
         @BindView(R.id.tvName) TextView tvName;
         @BindView(R.id.tvUserName) TextView tvUserName;
+        @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvRelativeTimestamp) TextView tvRelativeTimestamp;
         @BindView(R.id.tvTweetText) TextView tvTweetText;
 
-        @BindView(R.id.ivReply) ImageView btnReply;
-        @BindView(R.id.ivRetweet) TextView btnRetweet;
-        @BindView(R.id.ivLike) TextView btnLike;
+        @BindView(R.id.vTweetEngagement) TweetEngagementView vTweetEngagement;
 
         ViewHolder( View itemView )
         {

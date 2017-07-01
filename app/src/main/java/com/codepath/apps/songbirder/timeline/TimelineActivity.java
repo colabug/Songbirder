@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.codepath.apps.songbirder.EngageWithTweetListener;
 import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.SongbirderApplication;
@@ -33,8 +35,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
+// TODO: Handle unliking
+// TODO: Handle liking better
 public class TimelineActivity extends AppCompatActivity implements ComposeTweetDialog.ComposeTweetDialogListener,
-                                                                   TweetAdapter.ReplyToTweetListener
+                                                                   EngageWithTweetListener
 {
     private static final String TAG = TimelineActivity.class.getSimpleName();
 
@@ -486,7 +490,6 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     {
         client.postTweet( tweetText, replyId, getStatusPostingHandler() );
         showProgressBar();
-        // TODO: When a reply, need to send the username in the text.
     }
 
     @NonNull
@@ -519,7 +522,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                                    JSONObject errorResponse )
             {
                 logError( errorResponse.toString(), throwable );
-
+                Toast.makeText( TimelineActivity.this, "That tweet already exists.", Toast.LENGTH_LONG ).show();
                 hideProgressBar();
                 showErrorOrList();
             }

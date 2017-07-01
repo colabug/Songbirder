@@ -152,7 +152,6 @@ public class ComposeTweetView extends RelativeLayout implements TextView.OnEdito
     @OnClick(R.id.btnTweet)
     void submitTweet()
     {
-        // Call the client or return the string to the activity
         listener.onTweetButtonClick();
     }
 }

@@ -2,7 +2,6 @@
 <!--TODO: Redo this as a constraint layout?-->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rltweetayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -66,38 +65,13 @@
         android:text="@string/tweet_default_tweet"
         style="@style/TweetText"/>
 
-    <LinearLayout
+    <com.codepath.apps.songbirder.views.TweetEngagementView
+        android:id="@+id/vTweetEngagement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/ivProfileImage"
-        android:layout_below="@+id/tvTweetText"
-        android:weightSum="3">
-
-        <ImageView
-            android:id="@+id/ivReply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_reply_inactive"/>
-
-        <TextView
-            android:id="@+id/ivRetweet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="@dimen/tweet_small_padding"
-            android:drawableLeft="@drawable/ic_retweet_inactive"/>
-
-        <TextView
-            android:id="@+id/ivLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginBottom="@dimen/tweet_padding"
-            android:drawablePadding="@dimen/tweet_small_padding"
-            android:drawableLeft="@drawable/ic_like_inactive"/>
-    </LinearLayout>
-
+        android:layout_below="@+id/tvTweetText"/>
+    
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/tweet_divider"
