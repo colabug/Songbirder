@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.codepath.apps.songbirder.R;
+import com.codepath.apps.songbirder.listeners.ComposeTweetButtonListener;
 import com.codepath.apps.songbirder.models.Tweet;
 import com.codepath.apps.songbirder.views.ComposeTweetView;
 
@@ -20,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ComposeTweetDialog extends DialogFragment implements ComposeTweetView.TweetButtonListener
+public class ComposeTweetDialog extends DialogFragment implements ComposeTweetButtonListener
 {
     private static final String ARG_TWEET = "tweet";
 

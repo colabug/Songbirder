@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codepath.apps.songbirder.R;
+import com.codepath.apps.songbirder.listeners.ComposeTweetButtonListener;
 
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -31,17 +32,11 @@ public class ComposeTweetView extends RelativeLayout implements TextView.OnEdito
     @BindColor( R.color.dark_orange) int darkOrange;
     @BindColor( android.R.color.black ) int black;
 
-    private TweetButtonListener listener;
+    private ComposeTweetButtonListener listener;
 
-    public void setListener( TweetButtonListener listener )
+    public void setListener( ComposeTweetButtonListener listener )
     {
         this.listener = listener;
-    }
-
-    public interface TweetButtonListener
-    {
-        void onTweetButtonClick();
-        void onEditorDone();
     }
 
     public ComposeTweetView( Context context )
