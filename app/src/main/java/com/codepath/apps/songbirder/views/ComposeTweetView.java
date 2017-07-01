@@ -2,6 +2,7 @@ package com.codepath.apps.songbirder.views;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -19,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+// TODO: Show a your tweet is posting thing for detail view
 public class ComposeTweetView extends RelativeLayout implements TextView.OnEditorActionListener
 {
     private static final int MAX_TWEET_LENGTH = 140;
@@ -33,11 +35,6 @@ public class ComposeTweetView extends RelativeLayout implements TextView.OnEdito
     @BindColor( android.R.color.black ) int black;
 
     private ComposeTweetButtonListener listener;
-
-    public void setListener( ComposeTweetButtonListener listener )
-    {
-        this.listener = listener;
-    }
 
     public ComposeTweetView( Context context )
     {
@@ -66,14 +63,21 @@ public class ComposeTweetView extends RelativeLayout implements TextView.OnEdito
         configureKeyboard();
     }
 
-    public void setTweetText( String tweetText )
+    public void setListener( ComposeTweetButtonListener listener )
     {
-        etEnterTweet.setText( tweetText );
+        this.listener = listener;
     }
 
-    public String getTweetText()
+    public void setReplyUsername( String tweetText )
     {
-        return etEnterTweet.getText().toString();
+        etEnterTweet.setText( String.format( "%s ", tweetText ) );
+        int position = etEnterTweet.length();
+        Selection.setSelection( etEnterTweet.getText(), position);
+    }
+
+    public void clear()
+    {
+        etEnterTweet.setText( "" );
     }
 
     private void configureKeyboard()
@@ -132,11 +136,11 @@ public class ComposeTweetView extends RelativeLayout implements TextView.OnEdito
     }
 
     @Override
-    public boolean onEditorAction( TextView v, int actionId, KeyEvent event )
+    public boolean onEditorAction( TextView view, int actionId, KeyEvent event )
     {
         if( EditorInfo.IME_ACTION_DONE == actionId )
         {
-            listener.onEditorDone();
+            listener.onEditorDone( etEnterTweet.getText().toString() );
 
             return true;
         }
@@ -147,6 +151,6 @@ public class ComposeTweetView extends RelativeLayout implements TextView.OnEdito
     @OnClick(R.id.btnTweet)
     void submitTweet()
     {
-        listener.onTweetButtonClick();
+        listener.onTweetButtonClick( etEnterTweet.getText().toString() );
     }
 }

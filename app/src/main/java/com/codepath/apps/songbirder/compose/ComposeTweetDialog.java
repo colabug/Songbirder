@@ -12,46 +12,43 @@ import android.widget.ImageView;
 
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.listeners.ComposeTweetButtonListener;
-import com.codepath.apps.songbirder.models.Tweet;
+import com.codepath.apps.songbirder.listeners.ComposeListener;
 import com.codepath.apps.songbirder.views.ComposeTweetView;
-
-import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+// TODO: Display profile image with glide
 public class ComposeTweetDialog extends DialogFragment implements ComposeTweetButtonListener
 {
-    private static final String ARG_TWEET = "tweet";
+    private static final String ARG_REPLY_ID = "reply to id";
+    private static final String ARG_REPLY_USERNAME = "reply to username";
 
     @BindView(R.id.ivClose) ImageView btnClose;
     @BindView(R.id.vComposeTweet) ComposeTweetView vComposeTweet;
 
-    private Tweet tweet;
+    private ComposeListener listener;
 
-    private ComposeTweetDialogListener listener;
-
-    // TODO: Centralize with other listener
-    public interface ComposeTweetDialogListener
-    {
-        void onTweetSubmit( String tweetText, long replyId );
-    }
+    private long replyId = -1;
 
     public ComposeTweetDialog()
     {
     }
 
-    public static ComposeTweetDialog newInstance( Tweet tweet )
+    public static ComposeTweetDialog newInstance()
+    {
+        return new ComposeTweetDialog();
+    }
+
+    public static ComposeTweetDialog newInstance( String username, long id )
     {
         ComposeTweetDialog dialog = new ComposeTweetDialog();
 
-        if (tweet != null)
-        {
-            Bundle args = new Bundle();
-            args.putParcelable( ARG_TWEET, Parcels.wrap( tweet ) );
-            dialog.setArguments( args );
-        }
+        Bundle args = new Bundle();
+        args.putLong( ARG_REPLY_ID, id );
+        args.putString( ARG_REPLY_USERNAME, username );
+        dialog.setArguments( args );
 
         return dialog;
     }
@@ -67,28 +64,23 @@ public class ComposeTweetDialog extends DialogFragment implements ComposeTweetBu
 
     @Override
     @SuppressLint("SetTextI18n")
-    public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
+    public View onCreateView( LayoutInflater inflater,
+                              ViewGroup container,
+                              Bundle savedInstanceState )
     {
         View layout = inflater.inflate( R.layout.dialog_compose_tweet, container );
         ButterKnife.bind( this, layout );
 
         if( getArguments() != null )
         {
-            tweet = Parcels.unwrap( getArguments().getParcelable( ARG_TWEET ) );
-            if( tweet != null )
-            {
-                vComposeTweet.setTweetText( tweet.getDisplayUsername() + " " );
-                // TODO: Display profile image with glide
-            }
-        }
-        else
-        {
-            tweet = new Tweet();
+            replyId = getArguments().getLong( ARG_REPLY_ID );
+            String username = getArguments().getString( ARG_REPLY_USERNAME );
+            vComposeTweet.setReplyUsername( username );
         }
 
         showKeyboard();
 
-        listener = (ComposeTweetDialogListener) getActivity();
+        listener = (ComposeListener) getActivity();
         vComposeTweet.setListener( this );
 
         return layout;
@@ -101,20 +93,20 @@ public class ComposeTweetDialog extends DialogFragment implements ComposeTweetBu
     }
 
     @Override
-    public void onTweetButtonClick()
+    public void onTweetButtonClick( String tweetText )
     {
-        submitTweetAndExit();
+        submitTweetAndExit( tweetText );
     }
 
     @Override
-    public void onEditorDone()
+    public void onEditorDone( String tweetText )
     {
-        submitTweetAndExit();
+        submitTweetAndExit( tweetText );
     }
 
-    private void submitTweetAndExit()
+    private void submitTweetAndExit( String tweetText )
     {
-        listener.onTweetSubmit( vComposeTweet.getTweetText(), tweet.getId() );
+        listener.tweetComposed( tweetText, replyId );
 
         dismiss();
     }

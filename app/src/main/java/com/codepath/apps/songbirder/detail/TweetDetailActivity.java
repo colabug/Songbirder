@@ -13,9 +13,12 @@ import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.SongbirderApplication;
 import com.codepath.apps.songbirder.api.TwitterClient;
 import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
+import com.codepath.apps.songbirder.listeners.ComposeListener;
+import com.codepath.apps.songbirder.listeners.ComposeTweetButtonListener;
 import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
 import com.codepath.apps.songbirder.listeners.EngagementButtonListener;
 import com.codepath.apps.songbirder.models.Tweet;
+import com.codepath.apps.songbirder.views.ComposeTweetView;
 import com.codepath.apps.songbirder.views.TweetEngagementView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -30,10 +33,14 @@ import cz.msebera.android.httpclient.Header;
 import static com.codepath.apps.songbirder.timeline.TweetAdapter.ARG_DETAIL_TWEET;
 
 // TODO: Add media
+// TODO: Show tweet replies
+// TODO: SHow your reply after submit
+// TODO: Improve view
 public class TweetDetailActivity extends AppCompatActivity
                                  implements EngagementButtonListener,
-                                            ComposeTweetDialog.ComposeTweetDialogListener,
-                                            EngageWithTweetListener
+                                            ComposeListener,
+                                            EngageWithTweetListener,
+                                            ComposeTweetButtonListener
 {
     private static final String TAG = TweetDetailActivity.class.getSimpleName();
 
@@ -47,10 +54,12 @@ public class TweetDetailActivity extends AppCompatActivity
     @BindView(R.id.tvLikes) TextView tvLikes;
     @BindView(R.id.vEngagementDivider) View vEngagementDivider;
     @BindView(R.id.vTweetEngagement) TweetEngagementView vTweetEngagement;
+    @BindView(R.id.vComposeTweet) ComposeTweetView vComposeTweet;
 
     Tweet tweet;
 
-    private EngageWithTweetListener listener;
+    private EngageWithTweetListener engagementListener;
+    private ComposeListener composeListener;
 
     private TwitterClient client;
 
@@ -62,7 +71,8 @@ public class TweetDetailActivity extends AppCompatActivity
 
         ButterKnife.bind( this );
 
-        listener = this;
+        engagementListener = this;
+        composeListener = this;
 
         client = SongbirderApplication.getTwitterClient();
 
@@ -120,6 +130,9 @@ public class TweetDetailActivity extends AppCompatActivity
 
         vTweetEngagement.setListener( this );
         vTweetEngagement.setTweet( tweet );
+
+        vComposeTweet.setListener( this );
+        vComposeTweet.setReplyUsername( tweet.getDisplayUsername() );
     }
 
     @SuppressLint("DefaultLocale")
@@ -129,9 +142,35 @@ public class TweetDetailActivity extends AppCompatActivity
     }
 
     @Override
+    public void startReply( String username, long replyId )
+    {
+        ComposeTweetDialog dialog = ComposeTweetDialog.newInstance( tweet.getDisplayUsername(), tweet.getId() );
+        dialog.show( getSupportFragmentManager(), TAG );
+    }
+
+    @Override
     public void onReplyClick( Tweet tweet )
     {
-        listener.onReply( tweet );
+        composeListener.startReply( tweet.getDisplayUsername(), tweet.getId() );
+    }
+
+    @Override
+    public void onTweetButtonClick( String tweetText )
+    {
+        composeListener.tweetComposed( tweetText, tweet.getId() );
+        vComposeTweet.clear();
+    }
+
+    @Override
+    public void onEditorDone( String tweetText )
+    {
+        client.postTweet( tweetText, tweet.getId(), getStatusPostingHandler() );
+    }
+
+    @Override
+    public void tweetComposed( String tweetText, long replyId )
+    {
+        client.postTweet( tweetText, replyId, getStatusPostingHandler() );
     }
 
     @Override
@@ -139,11 +178,11 @@ public class TweetDetailActivity extends AppCompatActivity
     {
         if( tweet.isRetweeted() )
         {
-            listener.onUnretweet( tweet );
+            engagementListener.onUnretweet( tweet );
         }
         else
         {
-            listener.onRetweet( tweet.getId() );
+            engagementListener.onRetweet( tweet.getId() );
         }
     }
 
@@ -152,26 +191,12 @@ public class TweetDetailActivity extends AppCompatActivity
     {
         if( tweet.isLiked() )
         {
-            listener.onUnlike( tweet );
+            engagementListener.onUnlike( tweet );
         }
         else
         {
-            listener.onLike( tweet.getId() );
+            engagementListener.onLike( tweet.getId() );
         }
-    }
-
-    @Override
-    public void onReply( Tweet tweet )
-    {
-        Toast.makeText(this, "Replying", Toast.LENGTH_LONG).show();
-        ComposeTweetDialog dialog = ComposeTweetDialog.newInstance( tweet );
-        dialog.show( getSupportFragmentManager(), TAG );
-    }
-
-    @Override
-    public void onTweetSubmit( String tweetText, long replyId )
-    {
-        client.postTweet( tweetText, replyId, getStatusPostingHandler() );
     }
 
     private JsonHttpResponseHandler getStatusPostingHandler()

@@ -18,6 +18,7 @@ import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.detail.TweetDetailActivity;
 import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
 import com.codepath.apps.songbirder.listeners.EngagementButtonListener;
+import com.codepath.apps.songbirder.listeners.ComposeListener;
 import com.codepath.apps.songbirder.models.Tweet;
 import com.codepath.apps.songbirder.views.TweetEngagementView;
 
@@ -38,7 +39,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
     private Context context;
 
-    private EngageWithTweetListener listener;
+    private EngageWithTweetListener engagementListener;
+    private ComposeListener composeListener;
 
     TweetAdapter( List<Tweet> tweets )
     {
@@ -51,7 +53,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from( context );
 
-        listener = (EngageWithTweetListener) context;
+        engagementListener = (EngageWithTweetListener) context;
+        composeListener = (ComposeListener) context;
 
         View tweetView = inflater.inflate( R.layout.item_tweet, parent, false);
         return new ViewHolder( tweetView );
@@ -99,7 +102,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     @Override
     public void onReplyClick( Tweet tweet )
     {
-        listener.onReply( tweet );
+        composeListener.startReply( tweet.getDisplayUsername(), tweet.getId() );
     }
 
     @Override
@@ -107,11 +110,11 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     {
         if( tweet.isRetweeted() )
         {
-            listener.onUnretweet( tweet );
+            engagementListener.onUnretweet( tweet );
         }
         else
         {
-            listener.onRetweet( tweet.getId() );
+            engagementListener.onRetweet( tweet.getId() );
         }
     }
 
@@ -120,11 +123,11 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     {
         if( tweet.isLiked() )
         {
-            listener.onUnlike( tweet );
+            engagementListener.onUnlike( tweet );
         }
         else
         {
-            listener.onLike( tweet.getId() );
+            engagementListener.onLike( tweet.getId() );
         }
     }
 

@@ -146,7 +146,7 @@
         android:layout_below="@id/tvTweetText"/>
 
     <com.codepath.apps.songbirder.views.ComposeTweetView
-        android:id="@+id/etTweetReply"
+        android:id="@+id/vComposeTweet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

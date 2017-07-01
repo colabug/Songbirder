@@ -16,11 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
-import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.SongbirderApplication;
 import com.codepath.apps.songbirder.api.TwitterClient;
+import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
+import com.codepath.apps.songbirder.listeners.ComposeListener;
+import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
 import com.codepath.apps.songbirder.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -37,8 +38,7 @@ import cz.msebera.android.httpclient.Header;
 
 // TODO: Handle unliking
 // TODO: Handle liking better
-public class TimelineActivity extends AppCompatActivity implements ComposeTweetDialog.ComposeTweetDialogListener,
-                                                                   EngageWithTweetListener
+public class TimelineActivity extends AppCompatActivity implements ComposeListener, EngageWithTweetListener
 {
     private static final String TAG = TimelineActivity.class.getSimpleName();
 
@@ -154,26 +154,10 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
         swipeContainer.setRefreshing( false );
     }
 
+    // TODO: Get the user's profile image URL, send in here
     @OnClick(R.id.fab) void showComposeDialog()
     {
-        // TODO: Get the user's profile image URL, send in here
-        showCompositionDialog( null );
-    }
-
-    private void showCompositionDialog( Tweet tweet )
-    {
-        ComposeTweetDialog dialog;
-
-        if( tweet != null )
-        {
-            dialog = ComposeTweetDialog.newInstance( tweet );
-        }
-        else
-        {
-            // TODO: Pass in user's profile URL
-            dialog = ComposeTweetDialog.newInstance( null );
-        }
-
+        ComposeTweetDialog dialog = ComposeTweetDialog.newInstance();
         dialog.show( getSupportFragmentManager(), TAG );
     }
 
@@ -301,9 +285,17 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     }
 
     @Override
-    public void onReply( Tweet tweet )
+    public void startReply( String username, long replyId )
     {
-        showCompositionDialog( tweet );
+        ComposeTweetDialog dialog = ComposeTweetDialog.newInstance( username, replyId );
+        dialog.show( getSupportFragmentManager(), TAG );
+    }
+
+    @Override
+    public void tweetComposed( String tweetText, long replyId )
+    {
+        client.postTweet( tweetText, replyId, getStatusPostingHandler() );
+        showProgressBar();
     }
 
     @Override
@@ -483,13 +475,6 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
                 showErrorOrList();
             }
         };
-    }
-
-    @Override
-    public void onTweetSubmit( String tweetText, long replyId )
-    {
-        client.postTweet( tweetText, replyId, getStatusPostingHandler() );
-        showProgressBar();
     }
 
     @NonNull
