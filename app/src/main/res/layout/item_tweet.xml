@@ -44,7 +44,8 @@
         android:id="@+id/vTweetEngagement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/ivProfileImage"
+        android:layout_marginBottom="@dimen/tweet_padding"
+        android:layout_alignStart="@+id/userAndTimeStamp"
         android:layout_below="@+id/tvTweetText"/>
     
     <View

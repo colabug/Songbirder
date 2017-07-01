@@ -8,7 +8,6 @@
     <!--Tweet view-->
     <dimen name="tweet_padding">12dp</dimen>>
     <dimen name="tweet_small_padding">2dp</dimen>>
-    <dimen name="tweet_engagement_icon_padding">4dp</dimen>>
     <dimen name="tweet_text_size">16sp</dimen>
     <dimen name="tweet_profile_image_size">50dp</dimen>
     <dimen name="tweet_username_max_width">100dp</dimen>>
@@ -23,6 +22,10 @@
     <dimen name="detail_verified_icon_size">15dp</dimen>
     <dimen name="detail_divider_padding">50dp</dimen>
 
+    <!--Engagement buttons-->
+    <dimen name="engagement_button_width">50dp</dimen>>
+    <dimen name="engagement_icon_padding">4dp</dimen>>
+
     <!--Errors-->
-    <dimen name="error_image_size">200dp</dimen>>
+    <dimen name="error_image_size">200dp</dimen>
 </resources>
