@@ -22,7 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:drawableLeft="@drawable/ic_retweet_inactive"
-        android:drawablePadding="@dimen/tweet_small_padding"/>
+        android:drawablePadding="@dimen/tweet_engagement_icon_padding"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"/>
 
     <TextView
         android:id="@+id/ivLike"
@@ -31,5 +33,7 @@
         android:layout_marginBottom="@dimen/tweet_padding"
         android:layout_weight="1"
         android:drawableLeft="@drawable/ic_like_inactive"
-        android:drawablePadding="@dimen/tweet_small_padding"/>
+        android:drawablePadding="@dimen/tweet_engagement_icon_padding"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"/>
 </LinearLayout>
