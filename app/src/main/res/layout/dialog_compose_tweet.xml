@@ -28,7 +28,7 @@
         app:srcCompat="@drawable/ic_launcher"
         android:contentDescription="@string/cd_close_dialog"/>
 
-    <com.codepath.apps.songbirder.compose.ComposeTweetView
+    <com.codepath.apps.songbirder.views.ComposeTweetView
         android:id="@+id/vComposeTweet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

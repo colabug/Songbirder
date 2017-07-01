@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.models.Tweet;
+import com.codepath.apps.songbirder.views.ComposeTweetView;
 
 import org.parceler.Parcels;
 
@@ -29,7 +30,6 @@ public class ComposeTweetDialog extends DialogFragment implements ComposeTweetVi
     private Tweet tweet;
 
     private ComposeTweetDialogListener listener;
-
 
     public interface ComposeTweetDialogListener
     {

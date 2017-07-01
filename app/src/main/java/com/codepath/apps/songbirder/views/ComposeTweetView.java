@@ -1,4 +1,4 @@
-package com.codepath.apps.songbirder.compose;
+package com.codepath.apps.songbirder.views;
 
 import android.content.Context;
 import android.text.Editable;
@@ -33,12 +33,12 @@ public class ComposeTweetView extends RelativeLayout implements TextView.OnEdito
 
     private TweetButtonListener listener;
 
-    public void setListener( ComposeTweetDialog listener )
+    public void setListener( TweetButtonListener listener )
     {
         this.listener = listener;
     }
 
-    interface TweetButtonListener
+    public interface TweetButtonListener
     {
         void onTweetButtonClick();
         void onEditorDone();
