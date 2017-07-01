@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.codepath.apps.songbirder.EngageWithTweetListener;
+import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
 import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.SongbirderApplication;

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.codepath.apps.songbirder.EngageWithTweetListener;
+import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.SongbirderApplication;
 import com.codepath.apps.songbirder.api.TwitterClient;

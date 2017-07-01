@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.codepath.apps.songbirder.EngageWithTweetListener;
+import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.detail.TweetDetailActivity;
 import com.codepath.apps.songbirder.models.Tweet;
