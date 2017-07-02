@@ -42,9 +42,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     private EngageWithTweetListener engagementListener;
     private ComposeListener composeListener;
 
-    TweetAdapter( List<Tweet> tweets )
+    TweetAdapter( List<Tweet> tweets, EngageWithTweetListener engageWithTweetListener )
     {
         this.tweets = tweets;
+        this.engagementListener = engageWithTweetListener;
     }
 
     @Override
@@ -53,7 +54,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from( context );
 
-        engagementListener = (EngageWithTweetListener) context;
         composeListener = (ComposeListener) context;
 
         View tweetView = inflater.inflate( R.layout.item_tweet, parent, false);
