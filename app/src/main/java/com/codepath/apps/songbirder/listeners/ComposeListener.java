@@ -1,7 +1,6 @@
 package com.codepath.apps.songbirder.listeners;
 
-public interface ComposeListener
+public interface ComposeListener extends BaseEngagementListener
 {
-    void startReply( String username, long replyId );
     void tweetComposed( String tweetText, long replyId );
 }

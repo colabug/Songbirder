@@ -80,10 +80,14 @@ public class ComposeTweetDialog extends DialogFragment implements ComposeTweetBu
 
         showKeyboard();
 
-        listener = (ComposeListener) getActivity();
-        vComposeTweet.setListener( this );
+        vComposeTweet.setTweetButtonListener( this );
 
         return layout;
+    }
+
+    public void setListener( ComposeListener listener )
+    {
+        this.listener = listener;
     }
 
     private void showKeyboard()

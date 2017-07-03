@@ -1,6 +1,6 @@
 package com.codepath.apps.songbirder.timeline;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,6 +42,7 @@ import cz.msebera.android.httpclient.Header;
 public class TimelineFragment extends Fragment implements ComposeListener, EngageWithTweetListener
 {
     public static final String TAG = TimelineFragment.class.getSimpleName();
+    public static final int COMPOSE_REQUEST_CODE = 20;
 
     @BindView(R.id.rvTweets) RecyclerView rvTweets;
     @BindView(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
@@ -87,9 +88,9 @@ public class TimelineFragment extends Fragment implements ComposeListener, Engag
     }
 
     @Override
-    public void onAttach( Activity activity )
+    public void onAttach( Context context )
     {
-        super.onAttach( activity );
+        super.onAttach( context );
 
         if( behavior != null )
         {
@@ -191,7 +192,7 @@ public class TimelineFragment extends Fragment implements ComposeListener, Engag
 
     private void configureRecyclerView()
     {
-        rvTweets.setLayoutManager( new LinearLayoutManager( getActivity() ) );
+        rvTweets.setLayoutManager( new LinearLayoutManager( getContext() ) );
 
         tweets = new ArrayList<>();
 
@@ -313,17 +314,27 @@ public class TimelineFragment extends Fragment implements ComposeListener, Engag
     }
 
     @Override
-    public void startReply( String username, long replyId )
-    {
-        ComposeTweetDialog dialog = ComposeTweetDialog.newInstance( username, replyId );
-        dialog.show( getActivity().getSupportFragmentManager(), TAG );
-    }
-
-    @Override
     public void tweetComposed( String tweetText, long replyId )
     {
         client.postTweet( tweetText, replyId, getStatusPostingHandler() );
         showProgressBar();
+    }
+
+    @Override
+    public void startReply( String username, long replyId )
+    {
+        ComposeTweetDialog dialog = ComposeTweetDialog.newInstance( username, replyId );
+        dialog.setListener( this );
+        dialog.setTargetFragment( this, COMPOSE_REQUEST_CODE );
+        dialog.show( getActivity().getSupportFragmentManager(), TAG );
+    }
+
+    public void showDialog()
+    {
+        ComposeTweetDialog dialog = ComposeTweetDialog.newInstance();
+        dialog.setListener( this );
+        dialog.setTargetFragment( this, COMPOSE_REQUEST_CODE );
+        dialog.show( getActivity().getSupportFragmentManager(), TAG );
     }
 
     @Override

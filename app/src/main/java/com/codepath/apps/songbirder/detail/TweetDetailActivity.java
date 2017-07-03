@@ -131,7 +131,7 @@ public class TweetDetailActivity extends AppCompatActivity
         vTweetEngagement.setListener( this );
         vTweetEngagement.setTweet( tweet );
 
-        vComposeTweet.setListener( this );
+        vComposeTweet.setTweetButtonListener( this );
         vComposeTweet.setReplyUsername( tweet.getDisplayUsername() );
     }
 
@@ -145,13 +145,14 @@ public class TweetDetailActivity extends AppCompatActivity
     public void startReply( String username, long replyId )
     {
         ComposeTweetDialog dialog = ComposeTweetDialog.newInstance( tweet.getDisplayUsername(), tweet.getId() );
+        dialog.setListener( this );
         dialog.show( getSupportFragmentManager(), TAG );
     }
 
     @Override
     public void onReplyClick( Tweet tweet )
     {
-        composeListener.startReply( tweet.getDisplayUsername(), tweet.getId() );
+        engagementListener.startReply( tweet.getDisplayUsername(), tweet.getId() );
     }
 
     @Override

@@ -16,9 +16,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.detail.TweetDetailActivity;
+import com.codepath.apps.songbirder.listeners.BaseEngagementListener;
+import com.codepath.apps.songbirder.listeners.ComposeListener;
 import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
 import com.codepath.apps.songbirder.listeners.EngagementButtonListener;
-import com.codepath.apps.songbirder.listeners.ComposeListener;
 import com.codepath.apps.songbirder.models.Tweet;
 import com.codepath.apps.songbirder.views.TweetEngagementView;
 
@@ -31,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
-                          implements EngagementButtonListener
+                          implements EngagementButtonListener, ComposeListener
 {
     public static final String ARG_DETAIL_TWEET = "tweet for detail";
 
@@ -40,12 +41,13 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     private Context context;
 
     private EngageWithTweetListener engagementListener;
-    private ComposeListener composeListener;
+    private final ComposeListener composeListener;
 
-    TweetAdapter( List<Tweet> tweets, EngageWithTweetListener engageWithTweetListener )
+    TweetAdapter( List<Tweet> tweets, BaseEngagementListener listener )
     {
         this.tweets = tweets;
-        this.engagementListener = engageWithTweetListener;
+        this.engagementListener = (EngageWithTweetListener) listener;
+        this.composeListener = (ComposeListener) listener;
     }
 
     @Override
@@ -53,8 +55,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from( context );
-
-        composeListener = (ComposeListener) context;
 
         View tweetView = inflater.inflate( R.layout.item_tweet, parent, false);
         return new ViewHolder( tweetView );
@@ -103,7 +103,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     @Override
     public void onReplyClick( Tweet tweet )
     {
-        composeListener.startReply( tweet.getDisplayUsername(), tweet.getId() );
+        engagementListener.startReply( tweet.getDisplayUsername(), tweet.getId() );
     }
 
     @Override
@@ -148,6 +148,12 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
     public int getItemCount()
     {
         return tweets.size();
+    }
+
+    @Override
+    public void tweetComposed( String tweetText, long replyId )
+    {
+        composeListener.tweetComposed( tweetText, replyId );
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder

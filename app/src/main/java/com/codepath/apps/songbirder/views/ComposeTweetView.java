@@ -63,7 +63,7 @@ public class ComposeTweetView extends RelativeLayout implements TextView.OnEdito
         configureKeyboard();
     }
 
-    public void setListener( ComposeTweetButtonListener listener )
+    public void setTweetButtonListener( ComposeTweetButtonListener listener )
     {
         this.listener = listener;
     }
