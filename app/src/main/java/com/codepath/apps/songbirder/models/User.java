@@ -19,7 +19,7 @@ public class User
     String screenName;
     String profileImageUrl;
 
-    private User()
+    protected User()
     {
     }
 
