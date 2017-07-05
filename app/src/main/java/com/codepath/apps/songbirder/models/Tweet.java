@@ -11,9 +11,9 @@ import org.parceler.Parcel;
 @Parcel
 public class Tweet
 {
-    private static final String KEY_BODY = "text";
     private static final String KEY_ID = "id";
     private static final String KEY_CREATED_AT = "created_at";
+    private static final String KEY_BODY = "text";
     private static final String KEY_USER = "user";
     private static final String KEY_RETWEET = "retweeted_status";
     private static final String KEY_FAVORITED = "favorited";
@@ -22,6 +22,7 @@ public class Tweet
 
     long uid;
     String createdAt;
+
     String tweetText;
 
     User user;
@@ -87,7 +88,7 @@ public class Tweet
 
     public String getDisplayUsername()
     {
-        return "@" + user.getUserName();
+        return user.getDisplayUserName();
     }
 
     public String getRelativeTimestamp()

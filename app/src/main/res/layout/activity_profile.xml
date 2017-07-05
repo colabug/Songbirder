@@ -95,17 +95,6 @@
         android:text="@string/profile_default_website"/>
 
     <TextView
-        android:id="@+id/tvBirthdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/general_margin"
-        android:layout_marginStart="@dimen/general_margin"
-        android:layout_marginTop="@dimen/tweet_padding"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWebsite"
-        android:text="@string/profile_default_birthday"/>
-
-    <TextView
         android:id="@+id/tvFollowers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -113,6 +102,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="@dimen/general_margin"
         android:layout_marginTop="@dimen/tweet_padding"
-        app:layout_constraintTop_toBottomOf="@+id/tvBirthdate"
+        app:layout_constraintTop_toBottomOf="@+id/tvWebsite"
         android:text="@string/profile_followers_count"/>
 </android.support.constraint.ConstraintLayout>

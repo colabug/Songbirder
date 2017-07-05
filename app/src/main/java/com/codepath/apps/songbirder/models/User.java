@@ -18,7 +18,7 @@ public class User
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_URL = "url";
     private static final String KEY_FOLLOWER_COUNT = "followers_count";
-    private static final String KEY_FRIEND_COUNT = "friends_count";
+    private static final String KEY_FOLLOWING_COUNT = "friends_count";
     private static final String KEY_VERIFIED = "verified";
 
     long uid;
@@ -27,19 +27,20 @@ public class User
     private boolean verified;
 
     String profileImageUrl;
-    String backgroundImageUrl;
+    String headerImageUrl;
 
     String location;
-    String description;
+    String bio;
     String url;
 
     int followerCount;
-    int friendCount;
+    int followingCount;
 
     protected User()
     {
     }
 
+    // TODO: When null returned, being parsed as "null"
     public static User fromJson( JSONObject jsonObject ) throws JSONException
     {
         User user = new User();
@@ -50,14 +51,14 @@ public class User
         user.verified = jsonObject.getBoolean( KEY_VERIFIED );
 
         user.profileImageUrl = jsonObject.getString( KEY_PROFILE_IMAGE_URL );
-        user.backgroundImageUrl = jsonObject.getString( KEY_BACKGROUND_IMAGE_URL );
+        user.headerImageUrl = jsonObject.optString( KEY_BACKGROUND_IMAGE_URL );
 
         user.location = jsonObject.getString( KEY_LOCATION );
-        user.description = jsonObject.getString( KEY_DESCRIPTION );
+        user.bio = jsonObject.getString( KEY_DESCRIPTION );
         user.url = jsonObject.getString( KEY_URL );
 
         user.followerCount = jsonObject.getInt( KEY_FOLLOWER_COUNT );
-        user.friendCount = jsonObject.getInt( KEY_FRIEND_COUNT );
+        user.followingCount = jsonObject.getInt( KEY_FOLLOWING_COUNT );
 
         return user;
     }
@@ -74,13 +75,43 @@ public class User
         return name;
     }
 
-    String getProfileImageUrl()
+    public String getDisplayUserName()
+    {
+        return "@" + screenName;
+    }
+
+    public String getBio()
+    {
+        return bio;
+    }
+
+    public String getProfileImageUrl()
     {
         return profileImageUrl;
     }
 
-    String getUserName()
+    public String getHeaderImageUrl()
     {
-        return screenName;
+        return headerImageUrl;
+    }
+
+    public String getLocation()
+    {
+        return location;
+    }
+
+    public String getUrl()
+    {
+        return url;
+    }
+
+    public int getFollowerCount()
+    {
+        return followerCount;
+    }
+
+    public int getFollowingCount()
+    {
+        return followingCount;
     }
 }

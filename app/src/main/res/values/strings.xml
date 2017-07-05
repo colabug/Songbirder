@@ -47,8 +47,7 @@
 
     <!--Profile-->
     <string name="profile_default_bio">Default Bio</string>
-    <string name="profile_default_website">heep://website.com</string>
+    <string name="profile_default_website">http://website.com</string>
     <string name="profile_default_location">San Francisco</string>
-    <string name="profile_default_birthday">April 17th</string>
     <string name="profile_followers_count">Following 0</string>
 </resources>
