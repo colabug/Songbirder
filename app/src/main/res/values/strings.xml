@@ -2,10 +2,8 @@
 <resources>
     <string name="app_name">SongBird</string>
 
-    <!--Login screen-->
+    <!--Login-->
     <string name="login_label">Log in</string>
-
-    <!--Successful login-->
     <string name="intent_scheme">oauth</string>
     <string name="intent_host">cprest</string>
 
@@ -38,7 +36,7 @@
     <!--Errors-->
     <string name="error_no_tweets">Unable to fetch tweets.</string>
 
-    <!--Nav drawer-->
+    <!--Navigation Drawer-->
     <string name="nav_drawer_open">Open</string>
     <string name="nav_drawer_close">Close</string>
     <string name="nav_menu_profile">Profile</string>
@@ -46,4 +44,11 @@
     <string name="nav_menu_moments">Moments</string>
     <string name="nav_menu_highlights">Highlights</string>
     <string name="nav_menu_settings">Settings</string>
+
+    <!--Profile-->
+    <string name="profile_default_bio">Default Bio</string>
+    <string name="profile_default_website">heep://website.com</string>
+    <string name="profile_default_location">San Francisco</string>
+    <string name="profile_default_birthday">April 17th</string>
+    <string name="profile_followers_count">Following 0</string>
 </resources>
