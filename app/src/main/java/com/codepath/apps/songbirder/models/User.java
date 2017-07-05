@@ -4,8 +4,9 @@ import android.support.annotation.VisibleForTesting;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
-@org.parceler.Parcel
+@Parcel
 public class User
 {
     private static final String NAME_KEY = "name";

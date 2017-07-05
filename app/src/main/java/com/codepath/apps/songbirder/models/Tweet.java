@@ -6,8 +6,9 @@ import com.codepath.apps.songbirder.util.DateUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
-@org.parceler.Parcel
+@Parcel
 public class Tweet
 {
     private static final String KEY_BODY = "text";

@@ -2,8 +2,9 @@ package com.codepath.apps.songbirder.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
-@org.parceler.Parcel
+@Parcel
 class RetweetStatus
 {
     private static final String RETWEET_KEY = "retweeted";
