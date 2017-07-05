@@ -20,7 +20,7 @@ import com.codepath.apps.songbirder.SongbirderApplication;
 import com.codepath.apps.songbirder.api.TwitterClient;
 import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
 import com.codepath.apps.songbirder.listeners.ComposeListener;
-import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
+import com.codepath.apps.songbirder.listeners.TweetEngagementListener;
 import com.codepath.apps.songbirder.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -37,7 +37,7 @@ import cz.msebera.android.httpclient.Header;
 // TODO: Handle unliking
 // TODO: Handle liking better
 public class TimelineFragment extends BaseFragment
-                              implements ComposeListener, EngageWithTweetListener
+                              implements ComposeListener, TweetEngagementListener
 {
     public static final String TAG = TimelineFragment.class.getSimpleName();
 

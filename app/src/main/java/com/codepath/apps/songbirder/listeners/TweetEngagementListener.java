@@ -2,7 +2,7 @@ package com.codepath.apps.songbirder.listeners;
 
 import com.codepath.apps.songbirder.models.Tweet;
 
-public interface EngageWithTweetListener extends BaseEngagementListener
+public interface TweetEngagementListener extends BaseEngagementListener
 {
     void startReply( String username, long replyId );
 

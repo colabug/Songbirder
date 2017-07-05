@@ -18,7 +18,7 @@ import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.detail.TweetDetailActivity;
 import com.codepath.apps.songbirder.listeners.BaseEngagementListener;
 import com.codepath.apps.songbirder.listeners.ComposeListener;
-import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
+import com.codepath.apps.songbirder.listeners.TweetEngagementListener;
 import com.codepath.apps.songbirder.listeners.EngagementButtonListener;
 import com.codepath.apps.songbirder.models.Tweet;
 import com.codepath.apps.songbirder.views.TweetEngagementView;
@@ -40,13 +40,13 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>
 
     private Context context;
 
-    private EngageWithTweetListener engagementListener;
+    private TweetEngagementListener engagementListener;
     private final ComposeListener composeListener;
 
     TweetAdapter( List<Tweet> tweets, BaseEngagementListener listener )
     {
         this.tweets = tweets;
-        this.engagementListener = (EngageWithTweetListener) listener;
+        this.engagementListener = (TweetEngagementListener) listener;
         this.composeListener = (ComposeListener) listener;
     }
 

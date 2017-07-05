@@ -15,7 +15,7 @@ import com.codepath.apps.songbirder.api.TwitterClient;
 import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
 import com.codepath.apps.songbirder.listeners.ComposeListener;
 import com.codepath.apps.songbirder.listeners.ComposeTweetButtonListener;
-import com.codepath.apps.songbirder.listeners.EngageWithTweetListener;
+import com.codepath.apps.songbirder.listeners.TweetEngagementListener;
 import com.codepath.apps.songbirder.listeners.EngagementButtonListener;
 import com.codepath.apps.songbirder.models.Tweet;
 import com.codepath.apps.songbirder.views.ComposeTweetView;
@@ -38,9 +38,9 @@ import static com.codepath.apps.songbirder.timeline.TweetAdapter.ARG_DETAIL_TWEE
 // TODO: Improve view
 public class TweetDetailActivity extends AppCompatActivity
                                  implements EngagementButtonListener,
-                                            ComposeListener,
-                                            EngageWithTweetListener,
-                                            ComposeTweetButtonListener
+                                            TweetEngagementListener,
+                                            ComposeTweetButtonListener,
+                                            ComposeListener
 {
     private static final String TAG = TweetDetailActivity.class.getSimpleName();
 
@@ -58,7 +58,7 @@ public class TweetDetailActivity extends AppCompatActivity
 
     Tweet tweet;
 
-    private EngageWithTweetListener engagementListener;
+    private TweetEngagementListener engagementListener;
     private ComposeListener composeListener;
 
     private TwitterClient client;
