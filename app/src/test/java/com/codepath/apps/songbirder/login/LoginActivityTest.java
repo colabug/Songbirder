@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.widget.Button;
 
 import com.codepath.apps.songbirder.BuildConfig;
+import com.codepath.apps.songbirder.MainActivity;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.support.ResourceLocator;
-import com.codepath.apps.songbirder.TimelineActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -78,7 +78,7 @@ public class LoginActivityTest
         Intent intent = shadowActivity.getNextStartedActivity();
         ShadowIntent shadowIntent = shadowOf( intent );
         assertThat( shadowIntent.getIntentClass().getCanonicalName(),
-                    equalTo( TimelineActivity.class.getName() ) );
+                    equalTo( MainActivity.class.getName() ) );
     }
 
     public static class LoginActivityStub extends LoginActivity

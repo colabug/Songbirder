@@ -7,7 +7,7 @@ import android.widget.ProgressBar;
 
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.api.TwitterClient;
-import com.codepath.apps.songbirder.TimelineActivity;
+import com.codepath.apps.songbirder.MainActivity;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
 import butterknife.BindView;
@@ -40,7 +40,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient>
     public void onLoginSuccess()
     {
         pbProgressBar.setVisibility( View.GONE );
-        startActivity( TimelineActivity.newIntent( this ) );
+        startActivity( MainActivity.newIntent( this ) );
     }
 
     // OAuth authentication flow failed, handle the error

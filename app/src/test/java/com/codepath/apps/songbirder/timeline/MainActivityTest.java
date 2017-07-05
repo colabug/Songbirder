@@ -1,7 +1,7 @@
 package com.codepath.apps.songbirder.timeline;
 
 import com.codepath.apps.songbirder.BuildConfig;
-import com.codepath.apps.songbirder.TimelineActivity;
+import com.codepath.apps.songbirder.MainActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,14 +14,14 @@ import static org.robolectric.Robolectric.buildActivity;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class TimelineActivityTest
+public class MainActivityTest
 {
-    private TimelineActivityStub activity;
+    private MainActivityStub activity;
 
     @Before
     public void setUp() throws Exception
     {
-        activity = buildActivity( TimelineActivityStub.class ).create().get();
+        activity = buildActivity( MainActivityStub.class ).create().get();
     }
 
     @Test
@@ -30,7 +30,7 @@ public class TimelineActivityTest
         assertNotNull( activity );
     }
 
-    public static class TimelineActivityStub extends TimelineActivity
+    public static class MainActivityStub extends MainActivity
     {
         @Override
         protected void populateTimeline()

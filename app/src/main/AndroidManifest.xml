@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.codepath.apps.songbirder.TimelineActivity"/>
+        <activity android:name="com.codepath.apps.songbirder.MainActivity"/>
         <activity android:name="com.codepath.apps.songbirder.detail.TweetDetailActivity"/>
     </application>
 </manifest>

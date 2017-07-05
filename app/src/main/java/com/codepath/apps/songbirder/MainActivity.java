@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TimelineActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
 {
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -28,7 +28,7 @@ public class TimelineActivity extends AppCompatActivity
 
     public static Intent newIntent( Context context )
     {
-        return new Intent( context, TimelineActivity.class );
+        return new Intent( context, MainActivity.class );
     }
 
     @Override
