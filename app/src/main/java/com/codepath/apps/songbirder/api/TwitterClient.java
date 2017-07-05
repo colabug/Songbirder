@@ -139,7 +139,6 @@ public class TwitterClient extends OAuthBaseClient
 
     public void getProfile( JsonHttpResponseHandler handler )
     {
-        String url = getApiUrl( ENDPOINT_PROFILE );
-        client.get( url, null, handler );
+        client.get( getApiUrl( ENDPOINT_PROFILE ), null, handler );
     }
 }
