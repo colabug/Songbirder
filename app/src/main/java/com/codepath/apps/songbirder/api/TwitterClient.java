@@ -43,6 +43,9 @@ public class TwitterClient extends OAuthBaseClient
     private static final String PARAM_SINCE = "since_id";
     private static final int VALUE_SINCE = 1;
 
+    // Profile
+    private static final String ENDPOINT_PROFILE = "account/verify_credentials.json";
+
     // Mentions timeline
     private static final String ENDPOINT_MENTIONS_TIMELINE = "statuses/mentions_timeline.json";
 
@@ -132,5 +135,11 @@ public class TwitterClient extends OAuthBaseClient
     {
         String url = String.format( getApiUrl( ENDPOINT_UNRETWEET ), id );
         client.post( url, null, handler );
+    }
+
+    public void getProfile( JsonHttpResponseHandler handler )
+    {
+        String url = getApiUrl( ENDPOINT_PROFILE );
+        client.get( url, null, handler );
     }
 }
