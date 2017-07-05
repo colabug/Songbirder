@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.codepath.apps.songbirder.profile.ProfileActivity;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity
 {
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.nav_view) NavigationView navView;
+    @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.vpTwitterPages) ViewPager vpTwitterPages;
 
     List<WeakReference<Fragment>> fragments = new ArrayList<>();
@@ -45,24 +50,24 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind( this );
 
         setSupportActionBar( toolbar );
+        setUpDrawer();
+
         configureTabs();
-
         vpTwitterPages.setAdapter( new PagerAdapter( getSupportFragmentManager() ) );
+    }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
-
-        ActionBarDrawerToggle toggle;
-        toggle = new ActionBarDrawerToggle( this, drawer, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close );
+    private void setUpDrawer()
+    {
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle( this, drawer, toolbar,
+                                                                  R.string.nav_drawer_open,
+                                                                  R.string.nav_drawer_close );
         drawer.setDrawerListener( toggle );
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById( R.id.nav_view );
-        navigationView.setNavigationItemSelectedListener( this );
+        navView.setNavigationItemSelectedListener( this );
     }
 
     private void configureTabs()
     {
-        TabLayout tabLayout = (TabLayout) findViewById( R.id.discovery_tabs );
         vpTwitterPages.addOnPageChangeListener( new TabLayout.TabLayoutOnPageChangeListener( tabLayout ) );
         tabLayout.addOnTabSelectedListener( new TabLayout.ViewPagerOnTabSelectedListener( vpTwitterPages ) );
     }
@@ -120,7 +125,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
         if( drawer.isDrawerOpen( GravityCompat.START ) )
         {
             drawer.closeDrawer( GravityCompat.START );
@@ -158,7 +162,6 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
         drawer.closeDrawer( GravityCompat.START );
 
         return true;
