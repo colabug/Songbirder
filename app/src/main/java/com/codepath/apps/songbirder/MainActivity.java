@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.codepath.apps.songbirder.profile.ProfileActivity;
 
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity
 
         if( id == R.id.nav_profile )
         {
-
+            startActivity( ProfileActivity.newIntent( this ) );
         }
         else if( id == R.id.nav_lists )
         {
@@ -165,5 +166,10 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer( GravityCompat.START );
 
         return true;
+    }
+
+    public void showProfile( View view )
+    {
+        startActivity( ProfileActivity.newIntent( this ) );
     }
 }
