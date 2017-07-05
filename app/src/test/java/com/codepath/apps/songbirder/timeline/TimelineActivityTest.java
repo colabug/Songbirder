@@ -1,6 +1,7 @@
 package com.codepath.apps.songbirder.timeline;
 
 import com.codepath.apps.songbirder.BuildConfig;
+import com.codepath.apps.songbirder.TimelineActivity;
 
 import org.junit.Before;
 import org.junit.Test;

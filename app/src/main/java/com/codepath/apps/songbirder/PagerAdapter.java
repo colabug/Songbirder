@@ -1,8 +1,10 @@
-package com.codepath.apps.songbirder.timeline;
+package com.codepath.apps.songbirder;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.codepath.apps.songbirder.timeline.TimelineFragment;
 
 public class PagerAdapter extends FragmentPagerAdapter
 {

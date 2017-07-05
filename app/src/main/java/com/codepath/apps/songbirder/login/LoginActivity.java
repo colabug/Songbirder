@@ -7,7 +7,7 @@ import android.widget.ProgressBar;
 
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.api.TwitterClient;
-import com.codepath.apps.songbirder.timeline.TimelineActivity;
+import com.codepath.apps.songbirder.TimelineActivity;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
 import butterknife.BindView;

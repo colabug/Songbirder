@@ -6,7 +6,7 @@ import android.widget.Button;
 import com.codepath.apps.songbirder.BuildConfig;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.support.ResourceLocator;
-import com.codepath.apps.songbirder.timeline.TimelineActivity;
+import com.codepath.apps.songbirder.TimelineActivity;
 
 import org.junit.Before;
 import org.junit.Test;

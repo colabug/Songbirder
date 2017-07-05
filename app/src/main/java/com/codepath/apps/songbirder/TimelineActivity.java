@@ -1,4 +1,4 @@
-package com.codepath.apps.songbirder.timeline;
+package com.codepath.apps.songbirder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import com.codepath.apps.songbirder.BaseFragment;
-import com.codepath.apps.songbirder.R;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
