@@ -37,11 +37,14 @@ public class TwitterClient extends OAuthBaseClient
     private static final String REST_CALLBACK_URL_TEMPLATE = "intent://%s#Intent;action=android.intent.action.VIEW;scheme=%s;package=%s;S.browser_fallback_url=%s;end";
 
     // Timeline call and parameters
-    private static final String TIMELINE_ENDPOINT = "statuses/home_timeline.json";
+    private static final String ENDPOINT_TIMELINE = "statuses/home_timeline.json";
     private static final String PARAM_COUNT = "count";
     private static final int VALUE_NUMBER_OF_TWEETS = 25;
     private static final String PARAM_SINCE = "since_id";
     private static final int VALUE_SINCE = 1;
+
+    // Mentions timeline
+    private static final String ENDPOINT_MENTIONS_TIMELINE = "statuses/mentions_timeline.json";
 
     // Tweet reply and creation call and parameters
     private static final String ENDPOINT_UPDATE_STATUS = "statuses/update.json";
@@ -72,7 +75,18 @@ public class TwitterClient extends OAuthBaseClient
 
     public void getHomeTimeline( JsonHttpResponseHandler handler )
     {
-        String url = getApiUrl( TIMELINE_ENDPOINT );
+        String url = getApiUrl( ENDPOINT_TIMELINE );
+
+        RequestParams params = new RequestParams();
+        params.put( PARAM_COUNT, VALUE_NUMBER_OF_TWEETS );
+        params.put( PARAM_SINCE, VALUE_SINCE );
+
+        client.get( url, params, handler );
+    }
+
+    public void getMentionsTimeline( JsonHttpResponseHandler handler )
+    {
+        String url = getApiUrl( ENDPOINT_MENTIONS_TIMELINE );
 
         RequestParams params = new RequestParams();
         params.put( PARAM_COUNT, VALUE_NUMBER_OF_TWEETS );
