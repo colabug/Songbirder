@@ -4,11 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -19,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener
 {
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -42,6 +48,16 @@ public class MainActivity extends AppCompatActivity
         configureTabs();
 
         vpTwitterPages.setAdapter( new PagerAdapter( getSupportFragmentManager() ) );
+
+        DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
+
+        ActionBarDrawerToggle toggle;
+        toggle = new ActionBarDrawerToggle( this, drawer, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close );
+        drawer.setDrawerListener( toggle );
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById( R.id.nav_view );
+        navigationView.setNavigationItemSelectedListener( this );
     }
 
     private void configureTabs()
@@ -56,7 +72,7 @@ public class MainActivity extends AppCompatActivity
     void showComposeDialog()
     {
         Fragment currentFragment = getCurrentFragment();
-        if( currentFragment != null && currentFragment instanceof BaseFragment)
+        if( currentFragment != null && currentFragment instanceof BaseFragment )
         {
             ( (BaseFragment) currentFragment ).showDialog();
         }
@@ -99,5 +115,52 @@ public class MainActivity extends AppCompatActivity
         }
 
         return null;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
+        if( drawer.isDrawerOpen( GravityCompat.START ) )
+        {
+            drawer.closeDrawer( GravityCompat.START );
+        }
+        else
+        {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected( MenuItem item )
+    {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if( id == R.id.nav_profile )
+        {
+
+        }
+        else if( id == R.id.nav_lists )
+        {
+
+        }
+        else if( id == R.id.nav_moments )
+        {
+
+        }
+        else if( id == R.id.nav_highlights )
+        {
+
+        }
+        else if( id == R.id.nav_settings )
+        {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
+        drawer.closeDrawer( GravityCompat.START );
+
+        return true;
     }
 }

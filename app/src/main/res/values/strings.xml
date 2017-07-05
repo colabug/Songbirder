@@ -37,4 +37,13 @@
 
     <!--Errors-->
     <string name="error_no_tweets">Unable to fetch tweets.</string>
+
+    <!--Nav drawer-->
+    <string name="nav_drawer_open">Open</string>
+    <string name="nav_drawer_close">Close</string>
+    <string name="nav_menu_profile">Profile</string>
+    <string name="nav_menu_lists">Lists</string>
+    <string name="nav_menu_moments">Moments</string>
+    <string name="nav_menu_highlights">Highlights</string>
+    <string name="nav_menu_settings">Settings</string>
 </resources>
