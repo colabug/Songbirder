@@ -1,11 +1,8 @@
 package com.codepath.apps.songbirder.timeline;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.codepath.apps.songbirder.BaseFragment;
 import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.SongbirderApplication;
 import com.codepath.apps.songbirder.api.TwitterClient;
@@ -39,10 +36,10 @@ import cz.msebera.android.httpclient.Header;
 
 // TODO: Handle unliking
 // TODO: Handle liking better
-public class TimelineFragment extends Fragment implements ComposeListener, EngageWithTweetListener
+public class TimelineFragment extends BaseFragment
+                              implements ComposeListener, EngageWithTweetListener
 {
     public static final String TAG = TimelineFragment.class.getSimpleName();
-    public static final int COMPOSE_REQUEST_CODE = 20;
 
     @BindView(R.id.rvTweets) RecyclerView rvTweets;
     @BindView(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
@@ -52,7 +49,6 @@ public class TimelineFragment extends Fragment implements ComposeListener, Engag
     private TweetAdapter adapter;
     ArrayList<Tweet> tweets;
     private TwitterClient client;
-    CoordinatorLayout.Behavior behavior;
 
     @Nullable
     @Override
@@ -85,44 +81,6 @@ public class TimelineFragment extends Fragment implements ComposeListener, Engag
         populateTimeline();
 
         return layout;
-    }
-
-    @Override
-    public void onAttach( Context context )
-    {
-        super.onAttach( context );
-
-        if( behavior != null )
-        {
-            return;
-        }
-
-        FrameLayout layout = (FrameLayout) getActivity().findViewById( R.id.content );
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) layout
-                .getLayoutParams();
-
-        behavior = params.getBehavior();
-        params.setBehavior( behavior );
-    }
-
-    @Override
-    public void onDetach()
-    {
-        super.onDetach();
-        if( behavior == null )
-        {
-            return;
-        }
-
-        FrameLayout layout = (FrameLayout) getActivity().findViewById( R.id.content );
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) layout
-                .getLayoutParams();
-
-        params.setBehavior( behavior );
-
-        layout.setLayoutParams( params );
-
-        behavior = null;
     }
 
     public void fetchTimelineAsync( int page )
@@ -324,14 +282,6 @@ public class TimelineFragment extends Fragment implements ComposeListener, Engag
     public void startReply( String username, long replyId )
     {
         ComposeTweetDialog dialog = ComposeTweetDialog.newInstance( username, replyId );
-        dialog.setListener( this );
-        dialog.setTargetFragment( this, COMPOSE_REQUEST_CODE );
-        dialog.show( getActivity().getSupportFragmentManager(), TAG );
-    }
-
-    public void showDialog()
-    {
-        ComposeTweetDialog dialog = ComposeTweetDialog.newInstance();
         dialog.setListener( this );
         dialog.setTargetFragment( this, COMPOSE_REQUEST_CODE );
         dialog.show( getActivity().getSupportFragmentManager(), TAG );
@@ -592,5 +542,10 @@ public class TimelineFragment extends Fragment implements ComposeListener, Engag
     {
         Log.d( TAG, "API failure: " + message );
         throwable.printStackTrace();
+    }
+
+    public static TimelineFragment newInstance()
+    {
+        return new TimelineFragment();
     }
 }
