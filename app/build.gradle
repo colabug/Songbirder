@@ -33,7 +33,6 @@ repositories {
 ext {
     junitVersion = "4.12"
     robolectricVersion = "3.3.2"
-    dbflowVersion = "4.0.3"
     oauthHandlerVersion = "1.2.4"
     androidAsyncVersion = "1.4.9"
     appcompatVersion = "25.3.1"
@@ -45,11 +44,6 @@ ext {
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
-
-    // DBFlow for simple persistence with an ORM
-    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:$dbflowVersion"
-    compile "com.github.Raizlabs.DBFlow:dbflow-core:$dbflowVersion"
-    compile "com.github.Raizlabs.DBFlow:dbflow:$dbflowVersion"
 
     // Authorization
     compile "com.codepath.libraries:android-oauth-handler:$oauthHandlerVersion"
