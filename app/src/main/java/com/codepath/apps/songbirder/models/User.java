@@ -1,5 +1,7 @@
 package com.codepath.apps.songbirder.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.VisibleForTesting;
 
 import org.json.JSONException;
@@ -7,6 +9,7 @@ import org.json.JSONObject;
 import org.parceler.Parcel;
 
 @Parcel
+@Entity
 public class User
 {
     private static final String KEY_NAME = "name";
@@ -21,22 +24,24 @@ public class User
     private static final String KEY_FOLLOWING_COUNT = "friends_count";
     private static final String KEY_VERIFIED = "verified";
 
-    long uid;
-    String name;
-    String screenName;
-    private boolean verified;
+    @PrimaryKey
+    public long uid;
 
-    String profileImageUrl;
-    String headerImageUrl;
+    public String name;
+    public String screenName;
+    public boolean verified;
 
-    String location;
-    String bio;
-    String url;
+    public String profileImageUrl;
+    public String headerImageUrl;
 
-    int followerCount;
-    int followingCount;
+    public String location;
+    public String bio;
+    public String url;
 
-    protected User()
+    public int followerCount;
+    public int followingCount;
+
+    public User()
     {
     }
 

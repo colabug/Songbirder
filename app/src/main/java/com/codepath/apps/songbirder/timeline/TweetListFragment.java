@@ -1,5 +1,7 @@
 package com.codepath.apps.songbirder.timeline;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,9 +21,11 @@ import com.codepath.apps.songbirder.R;
 import com.codepath.apps.songbirder.SongbirderApplication;
 import com.codepath.apps.songbirder.api.TwitterClient;
 import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
+import com.codepath.apps.songbirder.db.AppDatabase;
 import com.codepath.apps.songbirder.listeners.ComposeListener;
 import com.codepath.apps.songbirder.listeners.TweetEngagementListener;
 import com.codepath.apps.songbirder.models.Tweet;
+import com.codepath.apps.songbirder.models.Tweet2;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -29,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +50,10 @@ public abstract class TweetListFragment extends BaseFragment
     @BindView(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
     @BindView(R.id.pbProgressBar) ProgressBar pbProgressBar;
     @BindView(R.id.llErrorView) LinearLayout llErrorView;
+
+    private AppDatabase database;
+
+    private TweetViewModel viewModel;
 
     private TweetAdapter adapter;
     ArrayList<Tweet> tweets;
@@ -82,7 +91,19 @@ public abstract class TweetListFragment extends BaseFragment
 
         populateTimeline();
 
+        viewModel = ViewModelProviders.of(this).get(TweetViewModel.class);
+        subscribeToTweets();
+
         return layout;
+    }
+
+    private void subscribeToTweets() {
+        viewModel.tweets.observe(this, new Observer<List<Tweet2>>() {
+            @Override
+            public void onChanged(@NonNull final List<Tweet2> tweets) {
+                Log.d(TAG, "Got DB tweets");
+            }
+        });
     }
 
     public void fetchTimelineAsync( int page )

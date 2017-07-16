@@ -40,6 +40,8 @@ ext {
     glideVersion = "4.0.0-RC1"
     butterknifeVersion = "8.6.0"
     parcelerVersion = "1.1.6"
+    archLifecycleVersion = "1.0.0-alpha1"
+    archRoomVersion = "1.0.0-alpha1"
 }
 
 dependencies {
@@ -73,4 +75,10 @@ dependencies {
     // Parceling
     compile "org.parceler:parceler-api:$parcelerVersion"
     annotationProcessor "org.parceler:parceler:$parcelerVersion"
+
+    // Architecture components
+    compile 'android.arch.lifecycle:extensions:' + archLifecycleVersion;
+    compile 'android.arch.persistence.room:runtime:' + archRoomVersion;
+    annotationProcessor 'android.arch.lifecycle:compiler:' + archLifecycleVersion;
+    annotationProcessor 'android.arch.persistence.room:compiler:' + archRoomVersion;
 }

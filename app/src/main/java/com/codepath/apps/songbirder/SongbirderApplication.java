@@ -7,6 +7,7 @@ import com.codepath.apps.songbirder.api.TwitterClient;
 
 public class SongbirderApplication extends Application
 {
+    // TODO: Fix this
     private static Context context;
 
     @Override

@@ -1,12 +1,12 @@
 package com.codepath.apps.songbirder;
 
-import android.support.v4.app.Fragment;
+import android.arch.lifecycle.LifecycleFragment;
 
 import com.codepath.apps.songbirder.compose.ComposeTweetDialog;
 import com.codepath.apps.songbirder.listeners.ComposeListener;
 import com.codepath.apps.songbirder.timeline.TimelineFragment;
 
-public class BaseFragment extends Fragment implements ComposeListener
+public class BaseFragment extends LifecycleFragment implements ComposeListener
 {
     public static final String TAG = TimelineFragment.class.getSimpleName();
 
